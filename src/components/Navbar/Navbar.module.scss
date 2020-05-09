@@ -1,0 +1,88 @@
+@import "src/custom";
+
+.navbar {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  left: 0;
+  top: 0;
+  width: $navWidth + $contentRadius;
+  height: 100vh;
+  padding: $navWidth / 3 $navWidth / 4;
+  padding-top: 25vh;
+  background-color: $backgMenu;
+  box-sizing: border-box;
+  z-index: 5;
+
+  .links {
+    .link_list {
+      display: flex;
+      flex-direction: column;
+      padding: 0;
+
+      li {
+        margin: 1.5vh 0;
+
+        a {
+          svg {
+            width: $navWidth / 2.5;
+            height: auto;
+          }
+        }
+      }
+
+      .home {
+        svg {stroke: $lightGray}
+      }
+
+      .about {
+        svg {stroke: $lightGray}
+      }
+
+      .skills {
+        svg {fill: $lightGray}
+      }
+
+      .works {
+        svg {stroke: $lightGray}
+      }
+
+      .contact {
+        svg {stroke: $lightGray}
+      }
+    }
+  }
+
+  .logo_chat {
+    transform: translateX(-$navWidth / 4);
+    width: $navWidth;
+    text-align: center;
+    justify-content: center;
+
+    svg {
+      width: $navWidth / 1.65;
+      height: auto;
+      fill: $lightGray;
+      cursor: pointer;
+    }
+  }
+
+  .language_selection {
+    color: $darkGray;
+    font-size: $navWidth/3.38;
+    transition: .3s;
+
+    p {cursor: pointer}
+
+    .language_hidden {
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    .language_active {
+      color: $blue;
+      margin-top: $navWidth/10;
+    }
+  }
+}
