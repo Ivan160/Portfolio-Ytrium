@@ -11,30 +11,44 @@ body {
   background: $backgMenu;
 }
 
+#root {
+  position: relative;
+}
+
+.resize {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  height: 25%;
+  width: 2.4px;
+  background-color: #8E8E8E;
+  cursor: ew-resize;
+  z-index: 90;
+}
+
+.presentation {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  background-color: rgba(255, 255, 255, .1);
+  z-index: 90;
+}
+
 .content {
   position: relative;
   width: 100%;
   min-height: 100vh;
   max-height: 100vh;
   height: 100vh;
-  margin-left: $navWidth;
   background: #0A0D1F;
   border-radius: $contentRadius 0 0 $contentRadius;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   z-index: 10;
+  transition: .3s;
 
-  //&:before {
-  //  content: '';
-  //  position: absolute;
-  //  left: -1.2px;
-  //  top: 50%;
-  //  transform: translateY(-50%);
-  //  height: 25%;
-  //  width: 2.4px;
-  //  background-color: #8E8E8E;
-  //  cursor: col-resize;
-  //}
+  p {color: aqua}
 }
 
 .content-full {
