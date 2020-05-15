@@ -16,22 +16,29 @@ body {
 }
 
 .resize {
+  $wid: 3.4px;
   position: absolute;
-  left: 0;
+  left: -$wid/4;
   top: 50%;
   height: 25%;
-  width: 2.4px;
-  background-color: #8E8E8E;
+  width: $wid;
+  background-color: $lightGray;
+  border-radius: $wid/2;
   cursor: ew-resize;
+  opacity: .15;
   z-index: 90;
 }
 
 .presentation {
   position: absolute;
   left: 0;
-  top: 0;
-  height: 100vh;
+  top: 50%;
+  height: 98vh;
   background-color: rgba(255, 255, 255, .1);
+  border: 1px solid rgba(255, 255, 255, .2);
+  border-radius: 5px;
+  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.3);
+  transform: translateY(-50%);
   z-index: 90;
 }
 
@@ -46,7 +53,7 @@ body {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   z-index: 10;
-  transition: .3s;
+  transition: .4s;
 
   p {color: aqua}
 }

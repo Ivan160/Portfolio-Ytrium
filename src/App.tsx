@@ -1,6 +1,6 @@
 import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
-//import anime from 'animejs';
+import anime from 'animejs';
 import './App.scss';
 
 import Navbar from './components/Navbar/Navbar';
@@ -9,7 +9,12 @@ import Logo from "./components/Logo/Logo";
 
 const App: FC = () => {
     const navWidth: number = 62;
+    const menuWidth: number = 280;
     const resize = useRef<HTMLSpanElement>(null);
+    const content = useRef<HTMLDivElement>(null);
+    const presentation = useRef<HTMLDivElement>(null);
+
+    const [ isHold, setHold ] = useState<boolean>(false);
 
     const [ spanPosition, setSpanPosition ] = useState<number>(navWidth);
     const [ presentPosition, setPresentPosition ] = useState<number>(0);
@@ -20,26 +25,54 @@ const App: FC = () => {
     const [ isNavVisible, setNavVisible ] = useState<boolean>(true);
     const toggleNavVisible = (): void => isNavVisible ? setNavVisible(false) : setNavVisible(true);
 
+    useEffect(() => {
+        anime({
+            targets: presentation.current,
+            width: {
+                value: `${presentPosition}px`,
+                delay: isHold ? 0 : 1000,
+                duration: 600
+            },
+            opacity: isHold ? 1 : [
+                {
+                    value: 1,
+                    duration: 180,
+                },
+                {
+                    value: 0,
+                    duration: 180
+                }
+            ],
+            easing: 'easeOutQuart',
+        });
+    }, [ isHold, presentPosition ]);
+
     const mouseMove = useCallback((event: MouseEvent) => {
         const mouseMoveX: number = event.pageX;
-        if (mouseMoveX >= 0 && mouseMoveX <= 300) {
-            setSpanPosition(mouseMoveX);
-            if (mouseMoveX > navWidth + 18) setPresentPosition(300);
-            else if (mouseMoveX < navWidth - 18) setPresentPosition(0);
+        if (mouseMoveX >= 0 && mouseMoveX <= menuWidth) {
+            // @ts-ignore
+            resize.current.style.transform = `translate(${mouseMoveX}px, -50%)`
+            if (mouseMoveX > navWidth + 50) setPresentPosition(menuWidth);
+            else if (mouseMoveX < navWidth - 20) setPresentPosition(0);
             else setPresentPosition(navWidth);
         }
     }, []);
 
     const mouseDown = useCallback((event: MouseEvent) => {
-        if (event.target !== resize.current) return;
         event.preventDefault();
+        if (event.target !== resize.current) return;
+        document.body.style.cursor = 'ew-resize';
+        setSpanPosition(spanPosition - 1);
+        setHold(true);
         setPresentPosition(spanPosition);
         document.addEventListener('mousemove', mouseMove);
     }, [ spanPosition, mouseMove ]);
 
     const mouseUp = useCallback((event: MouseEvent) => {
-        if (event.target !== resize.current) return;
+        if (!isHold) return;
         document.removeEventListener('mousemove', mouseMove);
+        document.body.style.cursor = 'default';
+        setHold(false);
         setSpanPosition(presentPosition);
         if (presentPosition > navWidth) {
             setMargin(navWidth);
@@ -52,7 +85,7 @@ const App: FC = () => {
             setTranslate(0);
         }
         setPresentPosition(0);
-    }, [ presentPosition, mouseMove ]);
+    }, [ presentPosition, isHold, mouseMove ]);
 
     useEffect(() => {
         document.body.addEventListener('mousedown', mouseDown);
@@ -64,23 +97,29 @@ const App: FC = () => {
         return () => document.body.removeEventListener('mouseup', mouseUp);
     }, [ mouseUp ]);
 
+    const doubleClick = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
+        e.preventDefault();
+        setSpanPosition(navWidth);
+        setMargin(navWidth);
+        setTranslate(0);
+    }, []);
+
     return (
         <>
             <Logo isNavVisible={isNavVisible} toggleNavVisible={toggleNavVisible}/>
 
-            <div className="presentation" style={{ width: `${presentPosition}px` }}/>
+            <div className="presentation" ref={presentation}/>
 
-            <Navbar isNavVisible={isNavVisible} toggleNavVisible={toggleNavVisible}/>
+            <Navbar isOpenMenu={translate}/>
             <span className={'resize'} ref={resize}
-                  onDoubleClick={() => {
-                      setSpanPosition(navWidth);
-                      setMargin(navWidth);
-                      setTranslate(0);
-                  }}
+                  onDoubleClick={doubleClick}
                   style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
-            <div className={`content`} style={{ marginLeft: `${margin}px`, transform: `translateX(${translate}px)` }}>
-                <p>spanPosition {spanPosition}</p>
-                <p>presentPosition {presentPosition}</p>
+            <div className={`content`} ref={content}
+                 style={{
+                     marginLeft: `${margin}px`,
+                     transform: `translateX(${translate}px)`,
+                     borderRadius: `${margin === 0 ? 0 : 40}px`
+                 }}>
                 <Switch>
                     <Route path="/" component={Home}/>
                     <Route path="*" render={() => (<Redirect to="/"/>)}/>
