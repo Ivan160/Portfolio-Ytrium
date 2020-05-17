@@ -1,0 +1,62 @@
+@import "src/custom";
+
+.logo {
+  position: fixed;
+  left: 0;
+  top: 4%;
+  width: $navWidth;
+  text-align: center;
+  justify-content: center;
+  z-index: 90;
+
+  @keyframes fillLogo {
+    0% {fill: $yellow}
+    10% {fill: $pink}
+    20% {fill: $purple}
+    30% {fill: $blue}
+    40% {fill: $green}
+    50% {fill: $yellow}
+    60% {fill: $pink}
+    70% {fill: $purple}
+    80% {fill: $blue}
+    90% {fill: $green}
+    100% {fill: $yellow}
+  }
+
+  svg {
+    width: $navWidth / 1.6;
+    height: auto;
+    fill: #ffffff;
+    cursor: pointer;
+
+    path {
+      animation: fillLogo 150s linear infinite;
+    }
+  }
+
+  .logo_text {
+    font-size: $navWidth / 4.3;
+    position: absolute;
+    left: $navWidth / 1.5;
+    bottom: .3em;
+    color: $lightGray;
+    text-align: left;
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s;
+  }
+}
+
+.logo_white {
+  svg {
+    path{
+      fill: rgba(255, 255, 255, .99);
+      animation: none;
+      transition: .3s;
+    }
+
+    &:hover {
+      path {fill: rgba(255, 255, 255, 1)}
+    }
+  }
+}

@@ -35,6 +35,8 @@
             width: $navWidth / 2.5;
             height: auto;
             margin-right: 25px;
+            transition-property: stroke, filter, fill;
+            transition-duration: .3s;
           }
 
           .link_text {
@@ -43,9 +45,10 @@
             color: $lightGray;
             font-style: normal;
             font-weight: 300;
-            font-size: $navWidth / 4.75;
-            letter-spacing: 0.04em;
+            font-size: $navWidth / 4.7;
+            letter-spacing: 0.05em;
             transform: translateX(-20px);
+            transition: color .2s;
           }
         }
       }
@@ -56,8 +59,15 @@
         }
 
         &:hover {
+          @keyframes homeAnime {
+            0% {transform: scale(1)}
+            50% {transform: scale(1.03)}
+            100% {transform: scale(1)}
+          }
           svg {
             stroke: $yellow;
+            filter: drop-shadow(0px 0px 1.75px $yellow);
+            animation: homeAnime .75s ease-in-out
           }
 
           .link_text {
@@ -74,29 +84,33 @@
         &:hover {
           svg {
             stroke: $pink;
+            filter: drop-shadow(0px 0px 1.75px $pink);
           }
+
           .link_text {
             color: $pink;
           }
         }
       }
 
-      .skills {
+      .works {
         svg {
           fill: $lightGray;
         }
 
         &:hover {
           svg {
-            stroke: $purple;
+            fill: $purple;
+            filter: drop-shadow(0px 0px 1.75px $purple);
           }
+
           .link_text {
             color: $purple;
           }
         }
       }
 
-      .works {
+      .skills {
         svg {
           stroke: $lightGray;
         }
@@ -104,7 +118,9 @@
         &:hover {
           svg {
             stroke: $blue;
+            filter: drop-shadow(0px 0px 1.75px $blue);
           }
+
           .link_text {
             color: $blue;
           }
@@ -118,10 +134,12 @@
 
         &:hover {
           svg {
-            stroke: $grin;
+            stroke: $green;
+            filter: drop-shadow(0px 0px 1.75px $green);
           }
+
           .link_text {
-            color: $grin;
+            color: $green;
           }
         }
       }
@@ -195,7 +213,7 @@
           letter-spacing: 0.02em;
           width: 0;
           margin: 0;
-          transition: .3s;
+          transition: .5s;
         }
       }
     }

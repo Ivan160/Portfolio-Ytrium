@@ -9,7 +9,7 @@ import Logo from "./components/Logo/Logo";
 
 const App: FC = () => {
     const navWidth: number = 62;
-    const menuWidth: number = 280;
+    const menuWidth: number = 250;
     const resize = useRef<HTMLSpanElement>(null);
     const content = useRef<HTMLDivElement>(null);
     const presentation = useRef<HTMLDivElement>(null);
@@ -21,9 +21,6 @@ const App: FC = () => {
 
     const [ margin, setMargin ] = useState<number>(navWidth);
     const [ translate, setTranslate ] = useState<number>(0);
-
-    const [ isNavVisible, setNavVisible ] = useState<boolean>(true);
-    const toggleNavVisible = (): void => isNavVisible ? setNavVisible(false) : setNavVisible(true);
 
     useEffect(() => {
         anime({
@@ -68,7 +65,7 @@ const App: FC = () => {
         document.addEventListener('mousemove', mouseMove);
     }, [ spanPosition, mouseMove ]);
 
-    const mouseUp = useCallback((event: MouseEvent) => {
+    const mouseUp = useCallback(() => {
         if (!isHold) return;
         document.removeEventListener('mousemove', mouseMove);
         document.body.style.cursor = 'default';
@@ -106,7 +103,7 @@ const App: FC = () => {
 
     return (
         <>
-            <Logo isNavVisible={isNavVisible} toggleNavVisible={toggleNavVisible}/>
+            <Logo isOpenMenu={translate} isOpenNav={margin}/>
 
             <div className="presentation" ref={presentation}/>
 
