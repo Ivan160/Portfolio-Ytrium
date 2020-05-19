@@ -1,0 +1,51 @@
+@import "src/custom";
+
+.home_page {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 100vh;
+
+  .left {
+    display: flex;
+    align-items: center;
+    height: 100%;
+    padding: 2em 4em;
+    box-sizing: border-box;
+
+    .greeting_text {
+      color: $lightGray;
+      font-size: 3.2em;
+
+      span {
+        display: inline-block;
+        font-family: $fontBold;
+        line-height: 1.15em;
+        letter-spacing: 0.07em;
+      }
+    }
+
+    .path_to_chat {
+
+    }
+  }
+
+  .right {
+    position: relative;
+    max-height: 100vh;
+    width: 100%;
+  }
+
+  .svg_background {
+    position: absolute;
+    top: 15%;
+    bottom: 0;
+    width: auto;
+    height: 100vh;
+    transition: right .4s;
+
+    path {
+      opacity: 0.4;
+    }
+  }
+}

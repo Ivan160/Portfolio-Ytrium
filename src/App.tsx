@@ -94,6 +94,8 @@ const App: FC = () => {
         return () => document.body.removeEventListener('mouseup', mouseUp);
     }, [ mouseUp ]);
 
+    useEffect(() => {document.body.style.cursor = 'default'}, []);
+
     const doubleClick = useCallback((e: React.MouseEvent<HTMLSpanElement>) => {
         e.preventDefault();
         setSpanPosition(navWidth);
@@ -114,11 +116,12 @@ const App: FC = () => {
             <div className={`content`} ref={content}
                  style={{
                      marginLeft: `${margin}px`,
+                     paddingRight: `${margin}px`,
                      transform: `translateX(${translate}px)`,
                      borderRadius: `${margin === 0 ? 0 : 40}px`
                  }}>
                 <Switch>
-                    <Route path="/" component={Home}/>
+                    <Route path="/" render={() => (<Home isOpenNav={margin}/>)}/>
                     <Route path="*" render={() => (<Redirect to="/"/>)}/>
                 </Switch>
             </div>

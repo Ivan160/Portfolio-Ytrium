@@ -51,11 +51,8 @@ body {
   background: #0A0D1F;
   border-radius: $contentRadius 0 0 $contentRadius;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
-  box-sizing: border-box;
   z-index: 10;
   transition: .4s;
-
-  p {color: aqua}
 }
 
 .content-full {
