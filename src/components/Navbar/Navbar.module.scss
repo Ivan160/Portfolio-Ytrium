@@ -20,6 +20,7 @@
     align-items: flex-end;
 
     .link_list {
+      $sizeNeon: $navWidth / 8;
       display: flex;
       flex-direction: column;
       padding: 0;
@@ -66,7 +67,7 @@
           }
           svg {
             stroke: $yellow;
-            filter: drop-shadow(0px 0px 1.75px $yellow);
+            filter: drop-shadow(0px 0px $sizeNeon $yellow);
             animation: homeAnime .75s ease-in-out
           }
 
@@ -84,7 +85,7 @@
         &:hover {
           svg {
             stroke: $pink;
-            filter: drop-shadow(0px 0px 1.75px $pink);
+            filter: drop-shadow(0px 0px $sizeNeon $pink);
           }
 
           .link_text {
@@ -101,7 +102,9 @@
         &:hover {
           svg {
             fill: $purple;
-            filter: drop-shadow(0px 0px 1.75px $purple);
+            stroke: $purple;
+            stroke-width: .25;
+            filter: drop-shadow(0px 0px $sizeNeon $purple);
           }
 
           .link_text {
@@ -118,7 +121,7 @@
         &:hover {
           svg {
             stroke: $blue;
-            filter: drop-shadow(0px 0px 1.75px $blue);
+            filter: drop-shadow(0px 0px $sizeNeon $blue);
           }
 
           .link_text {
@@ -135,7 +138,7 @@
         &:hover {
           svg {
             stroke: $green;
-            filter: drop-shadow(0px 0px 1.75px $green);
+            filter: drop-shadow(0px 0px $sizeNeon $green);
           }
 
           .link_text {

@@ -1,0 +1,48 @@
+@import "src/custom";
+
+.chat {
+  display: flex;
+  align-items: center;
+  color: $lightGray;
+  opacity: 0;
+
+  .chat_logo {
+    display: flex;
+    align-items: center;
+
+    svg {
+      width: 2.5em;
+      height: auto;
+      fill: $lightGray;
+      cursor: pointer;
+
+      path {
+        transform-origin: 42.5% 50%;
+      }
+    }
+
+    .logo_text {
+      font-family: $fontMed;
+      font-size: .9em;
+      letter-spacing: 0.04em;
+      overflow: hidden;
+      transform: translateX(-7.5%);
+      transition: .3s;
+    }
+  }
+
+  .link_chat {
+    margin-left: 10%;
+    position: relative;
+    font-size: .69em;
+    letter-spacing: 0.02em;
+
+    &:after {
+      content: '\2192';
+      position: absolute;
+      right: 0%;
+      top: 50%;
+      transform: translate(140%, -50%);
+    }
+  }
+}

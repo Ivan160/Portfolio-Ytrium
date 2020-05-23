@@ -5,28 +5,36 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
 
   .left {
+    position: relative;
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 2em 4em;
+    padding: 5em 2em 5em 5em;
     box-sizing: border-box;
+    z-index: 9;
 
-    .greeting_text {
-      color: $lightGray;
-      font-size: 3.2em;
+    .text_zone {
+      .greeting_text {
+        color: $lightGray;
+        font-size: 3.2em;
 
-      span {
-        display: inline-block;
-        font-family: $fontBold;
-        line-height: 1.15em;
-        letter-spacing: 0.07em;
+        span {
+          display: inline-block;
+          font-family: $fontBold;
+          line-height: 1.15em;
+          letter-spacing: 0.07em;
+        }
       }
     }
 
     .path_to_chat {
-
+      position: absolute;
+      bottom: 4em;
+      left: 5em;
     }
   }
 
@@ -34,15 +42,38 @@
     position: relative;
     max-height: 100vh;
     width: 100%;
+    z-index: 7;
   }
 
-  .svg_background {
+  .svg_background_left {
+    position: absolute;
+    top: 0;
+    left: -2.5%;
+    height: 100%;
+    z-index: 1;
+
+    g {
+      opacity: 0;
+    }
+
+
+    path {
+      opacity: 0.4;
+    }
+  }
+
+  .svg_background_right {
     position: absolute;
     top: 15%;
     bottom: 0;
-    width: auto;
-    height: 100vh;
-    transition: right .4s;
+    right: 0;
+    height: 85%;
+    z-index: 1;
+
+    g {
+      opacity: 0;
+    }
+
 
     path {
       opacity: 0.4;

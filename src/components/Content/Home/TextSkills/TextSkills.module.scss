@@ -1,0 +1,17 @@
+@import "src/custom";
+
+.skill_text {
+  margin-top: .4em;
+  font-weight: 100;
+  font-size: 28px;
+  color: #FAFAFA;
+
+  .text {
+    font-size: .75em;
+    color: $darkGray;
+
+    span {
+
+    }
+  }
+}
