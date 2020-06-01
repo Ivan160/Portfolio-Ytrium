@@ -13,20 +13,25 @@ body {
 
 #root {
   position: relative;
+  overflow: hidden;
 }
 
 .resize {
-  $wid: 3.4px;
+  $size: 3.4px;
   position: absolute;
-  left: -$wid/4;
+  left: -$size/4;
   top: 50%;
   height: 25%;
-  width: $wid;
+  width: $size;
   background-color: $lightGray;
-  border-radius: $wid/2;
+  border-radius: $size/2;
   cursor: ew-resize;
   opacity: .15;
   z-index: 90;
+
+  @media screen and (max-width: 780px) {
+    display: none;
+  }
 }
 
 .presentation {
@@ -53,7 +58,8 @@ body {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   z-index: 10;
-  transition: .4s;
+  transition-property: margin-left, transform, border-radius;
+  transition-duration: .8s;
 }
 
 .content-full {

@@ -1,15 +1,13 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useContext, useEffect, useRef } from "react";
+import { NavContext } from "../../../contexts/NavContext";
 import anime from "animejs";
 import style from "./Home.module.scss";
 import LogoBg from "./LogoBg/LogoBg";
-import TextSkills from "./TextSkills/TextSkills";
+//import TextSkills from "./TextSkills/TextSkills";
 import Chat from "./Chat/Chat";
 
-type Props = {
-   isOpenNav: number;
-}
-
-const Home: FC<Props> = ({ isOpenNav }) => {
+const Home: FC = () => {
+   const { isOpenNav } = useContext(NavContext);
    const text = useRef(null)
 
    useEffect(() => {
@@ -39,41 +37,39 @@ const Home: FC<Props> = ({ isOpenNav }) => {
          delay: anime.stagger(100)
       });
 
-      anime({
-         targets: '#svg_background_right path',
-         opacity: [
-            {
-               value: .85,
-               delay: anime.stagger(100, { start: 2250 })
-            },
-            {
-               value: .4,
-               delay: anime.stagger(50, { start: 100 })
-            }
-         ],
-         duration: 2500,
-         loop: true,
-         direction: 'reverse'
-      });
+      // anime({
+      //    targets: '#svg_background_right path',
+      //    opacity: [
+      //       {
+      //          value: .85,
+      //          delay: anime.stagger(100, { start: 2250 })
+      //       },
+      //       {
+      //          value: .4,
+      //          delay: anime.stagger(50, { start: 100 })
+      //       }
+      //    ],
+      //    duration: 2500,
+      //    loop: true,
+      //    direction: 'reverse'
+      // });
 
-      anime({
-         targets: '#svg_background_left path',
-         opacity: [
-            {
-               value: .8,
-               delay: anime.stagger(100, { start: 2250 })
-            },
-            {
-               value: .4,
-               delay: anime.stagger(50, { start: 100 })
-            }
-         ],
-         duration: 2500,
-         loop: true,
-         direction: 'reverse'
-      });
-
-
+      // anime({
+      //    targets: '#svg_background_left path',
+      //    opacity: [
+      //       {
+      //          value: .8,
+      //          delay: anime.stagger(100, { start: 2250 })
+      //       },
+      //       {
+      //          value: .4,
+      //          delay: anime.stagger(50, { start: 100 })
+      //       }
+      //    ],
+      //    duration: 2500,
+      //    loop: true,
+      //    direction: 'reverse'
+      // });
    }, [])
 
    return (
@@ -86,7 +82,7 @@ const Home: FC<Props> = ({ isOpenNav }) => {
                   <p>I’am Ivan</p>
                   <p>Web developer</p>
                </div>
-               <TextSkills/>
+               {/*<TextSkills/>*/}
             </div>
 
             <div className={style.path_to_chat}>

@@ -1,3 +1,4 @@
 import React from "react";
 
-export const NavContext = React.createContext({});
+// @ts-ignore
+export const NavContext = React.createContext();
