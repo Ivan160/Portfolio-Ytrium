@@ -71,7 +71,7 @@ const TextSkills: FC<Props> = (props) => {
    }, [ update ])
 
    useEffect(() => {
-      const timeout = setTimeout(() => setText(phrases[counter]), 5000);
+      const timeout = setTimeout(() => setText(phrases[counter]), 3000);
       return () => {
          clearTimeout(timeout);
          cancelAnimationFrame(requestRef.current);

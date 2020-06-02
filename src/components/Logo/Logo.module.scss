@@ -8,6 +8,9 @@
   text-align: center;
   justify-content: center;
   z-index: 90;
+  @media screen and (max-width: 780px) {
+    width: 6em;
+  }
 
   @keyframes fillLogo {
     0% {fill: $yellow}
@@ -28,6 +31,9 @@
     height: auto;
     fill: #ffffff;
     cursor: pointer;
+    @media screen and (max-width: 780px) {
+      width: 3em;
+    }
 
     path {
       //animation: fillLogo 150s linear infinite;

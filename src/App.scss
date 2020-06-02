@@ -60,6 +60,9 @@ body {
   z-index: 10;
   transition-property: margin-left, transform, border-radius;
   transition-duration: .8s;
+  @media screen and (max-width: 780px) {
+    padding-bottom: 80px;
+  }
 }
 
 .content-full {

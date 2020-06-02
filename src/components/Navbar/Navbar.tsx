@@ -91,8 +91,7 @@ const Navbar: FC<Props> = ({refLink}) => {
 
    return (
       <nav id='navbar' ref={refLink} className={`${style.navbar} ${isMinScreen ? style.minScreen :
-         isOpenMenu ? style.open_menu : style.close_menu}`}
-           style={{transform: `translateY(${isMinScreen ? 'calc(100% - 80px)' : '0%'}`}}>
+         isOpenMenu ? style.open_menu : style.close_menu}`}>
 
          <div className={style.menu}>
             <ul className={style.link_list}>

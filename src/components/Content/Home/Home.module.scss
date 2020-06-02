@@ -7,6 +7,10 @@
   height: 100vh;
   max-height: 100vh;
   overflow: hidden;
+  @media screen and (max-width: 780px) {
+    display: block;
+    grid-template-columns: initial;
+  }
 
   .left {
     position: relative;
@@ -20,7 +24,10 @@
     .text_zone {
       .greeting_text {
         color: $lightGray;
-        font-size: 3.2em;
+        font-size: 3.3em;
+        @media screen and (max-width: 780px) {
+          font-size: 4.5em;
+        }
 
         span {
           display: inline-block;
@@ -35,14 +42,38 @@
       position: absolute;
       bottom: 4em;
       left: 5em;
+
+      @media screen and (max-width: 780px) {
+        bottom: 95px;
+      }
     }
   }
+
+
+  .right {
+    position: relative;
+    max-height: 100vh;
+    width: 100%;
+    z-index: 7;
+    @media screen and (max-width: 780px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
   .svg_background_left {
     position: absolute;
     top: 0;
     left: -2.5%;
     height: 100%;
     z-index: 1;
+    @media screen and (max-width: 780px) {
+      opacity: 0 !important;
+      visibility: hidden;
+    }
 
     g {
       opacity: 0;
@@ -53,14 +84,6 @@
       opacity: 0.4;
     }
   }
-
-  .right {
-    position: relative;
-    max-height: 100vh;
-    width: 100%;
-    z-index: 7;
-  }
-
   .svg_background_right {
     position: absolute;
     top: 15%;

@@ -16,31 +16,32 @@
 
   @media screen and (max-width: 780px) {
     width: 100vw;
-    height: 50vh;
+    height: 40vh;
     bottom: 0;
     top: auto;
     justify-content: flex-start;
-    padding: 3vh 20%;
+    padding: 1.5vh 20%;
     border-radius: 40px 40px 0 0;
     z-index: 20;
+    transform: translateY(calc(100% - 65px));
+    transition: transform .2s;
 
     &:before {
       content: '';
       position: absolute;
-      top: 7px;
+      top: .75vh;
       left: 50%;
       transform: translateX(-50%);
       width: 25%;
-      height: 4px;
+      height: 2px;
       border-radius: 1.5px;
       background-color: rgba(255, 255, 255, .8);
-      cursor: ns-resize;
       z-index: 90;
     }
   }
 
   @media screen and (max-width: 480px) {
-    padding: 3vh 10%;
+    padding: 1.5vh 10%;
   }
 
   .menu {
@@ -48,8 +49,9 @@
     display: flex;
     align-items: flex-end;
     @media screen and (max-width: 780px) {
+      flex-grow: initial;
       justify-content: center;
-      height: 8vh;
+      height: 65px;
     }
 
     .link_list {
@@ -89,7 +91,8 @@
             fill: transparent;
 
             @media screen and (max-width: 780px) {
-              margin: .8em 0;
+              margin: 14px 0;
+              width: 20px;
             }
           }
 
@@ -107,6 +110,7 @@
             @media screen and (max-width: 780px) {
               width: auto !important;
               opacity: 1 !important;
+              font-size: 12px;
               transform: translateX(0) !important;
             }
           }
@@ -216,7 +220,8 @@
     justify-content: space-between;
     margin-top: 15%;
     @media screen and (max-width: 780px) {
-      margin-top: 5vh;
+      flex-grow: initial;
+      margin-top: 6vh;
       justify-content: initial;
     }
 
@@ -269,7 +274,7 @@
       flex-direction: row;
       align-items: center;
       @media screen and (max-width: 780px) {
-        margin: 4vh 0;
+        margin: 5vh 0;
       }
 
       a {
@@ -281,7 +286,6 @@
         border-radius: 16px;
         @media screen and (max-width: 780px) {
           opacity: 1 !important;
-          padding: 5px 6px;
         }
 
         svg {
