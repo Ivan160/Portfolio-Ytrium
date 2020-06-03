@@ -1,0 +1,11 @@
+{
+  "translation": {
+    "home": {
+      "greeting": {
+        "one": "Hello",
+        "two": "I’am Ivan",
+        "three": "Web developer"
+      }
+    }
+  }
+}

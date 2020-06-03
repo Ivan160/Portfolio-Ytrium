@@ -29,11 +29,17 @@
           font-size: 4.5em;
         }
 
-        span {
-          display: inline-block;
+        p {
           font-family: $fontBold;
           line-height: 1.15em;
           letter-spacing: 0.07em;
+
+          span {
+            display: inline-block;
+            font-family: $fontBold;
+            line-height: 1.15em;
+            letter-spacing: 0.07em;
+          }
         }
       }
     }

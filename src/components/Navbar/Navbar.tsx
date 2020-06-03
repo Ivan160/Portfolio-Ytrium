@@ -1,4 +1,6 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
+//import { useTranslation } from 'react-i18next';
+import i18next from 'i18next';
 import { Link } from 'react-router-dom';
 import { NavContext } from "../../contexts/NavContext";
 import anime from 'animejs';
@@ -12,6 +14,12 @@ type Props = {
 const Navbar: FC<Props> = ({refLink}) => {
    const { isMinScreen, isOpenMenu } = useContext(NavContext);
    const [ language, setLanguage ] = useState<string>('en');
+
+   const changeLanguage = useCallback((lang: string) => {
+      i18next.changeLanguage(lang);
+      setLanguage(lang);
+   }, []);
+
 
    useEffect(() => {
       anime({
@@ -45,15 +53,6 @@ const Navbar: FC<Props> = ({refLink}) => {
          delay: (el, i) => i * 170
       })
    }, [ isOpenMenu, isMinScreen ]);
-
-   const animationHome: () => void = useCallback(() => {
-      // anime({
-      //     targets: '#home_path_one',
-      //     strokeDashoffset: [anime.setDashoffset, 200],
-      //     duration: 700,
-      //     easing: 'easeInOutSine',
-      // });
-   }, []);
 
    const animationAbout: () => void = useCallback(() => {
       anime({
@@ -96,7 +95,7 @@ const Navbar: FC<Props> = ({refLink}) => {
          <div className={style.menu}>
             <ul className={style.link_list}>
                <li className={style.home}>
-                  <Link to='' onMouseEnter={animationHome}>
+                  <Link to=''>
                      <svg viewBox='0 0 32 29' xmlns='http://www.w3.org/2000/svg'>
                         <path id='home_path_one'
                               d='M1.14267 13.7103H1.13458L5.29691 10.0318L8.10494 7.55002L8.56732 7.14156L16 0.5728L23.4328 7.14156L23.8952 7.55002L26.7032 10.0318L30.8655 13.7103H30.8646'/>
@@ -195,10 +194,10 @@ const Navbar: FC<Props> = ({refLink}) => {
             </div>
 
             <div className={style.language_selection}>
-                    <span onClick={() => setLanguage('en')}
+                    <span onClick={() => changeLanguage('en')}
                           className={language === 'en' ? style.language_active : style.language_hidden}>EN</span>
-               <span onClick={() => setLanguage('ru')}
-                     className={language === 'ru' ? style.active : style.language_hidden}>RU</span>
+               <span onClick={() => changeLanguage('ru')}
+                     className={language === 'ru' ? style.language_active : style.language_hidden}>RU</span>
             </div>
          </div>
 

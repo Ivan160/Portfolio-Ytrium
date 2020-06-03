@@ -1,13 +1,16 @@
 import React, { FC, useContext, useEffect, useRef } from "react";
+import { useTranslation } from 'react-i18next';
 import { NavContext } from "../../../contexts/NavContext";
 import anime from "animejs";
-import style from "./Home.module.scss";
 import LogoBg from "./LogoBg/LogoBg";
 import TextSkills from "./TextSkills/TextSkills";
 import Chat from "./Chat/Chat";
+import style from "./Home.module.scss";
 
 const Home: FC = () => {
    const { isOpenNav } = useContext(NavContext);
+   const { t } = useTranslation();
+
    const text = useRef(null)
 
    useEffect(() => {
@@ -78,9 +81,9 @@ const Home: FC = () => {
          <div className={style.left}>
             <div className={style.text_zone}>
                <div ref={text} className={style.greeting_text}>
-                  <p>Hello</p>
-                  <p>I’am Ivan</p>
-                  <p>Web developer</p>
+                  <p>{t('home.greeting.one')}</p>
+                  <p>{t('home.greeting.two')}</p>
+                  <p>{t('home.greeting.three')}</p>
                </div>
                <TextSkills/>
             </div>
