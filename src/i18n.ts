@@ -9,7 +9,6 @@ i18n.use(initReactI18next)
       resources: { en, ru },
       lng: 'en',
       fallbackLng: 'en',
-      //debug: process.env.NODE_ENV !== 'production',
       interpolation: { escapeValue: false },
    });
 export default i18n;

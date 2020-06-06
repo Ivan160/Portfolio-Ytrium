@@ -39,6 +39,7 @@ body {
   left: 0;
   top: 50%;
   height: 98vh;
+  width: 0;
   background-color: rgba(255, 255, 255, .1);
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 5px;
@@ -65,7 +66,4 @@ body {
   }
 }
 
-.content-full {
-  margin-left: 0;
-  border-radius: 0 0 0 0;
-}
+

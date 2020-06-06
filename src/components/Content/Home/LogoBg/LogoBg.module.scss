@@ -19,9 +19,12 @@
     svg {
       position: absolute;
       top: 50%;
-      right: 25%;
+      right: 30%;
       height: auto;
       width: 100%;
+      @media screen and (max-width: 780px) {
+        right: 25%;
+      }
     }
 
     .layer_one {

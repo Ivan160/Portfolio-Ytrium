@@ -6,6 +6,13 @@
         "two": "I’am Ivan",
         "three": "Web developer"
       }
+    },
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "works": "Works",
+      "skills": "Skills",
+      "contact": "Contact"
     }
   }
 }

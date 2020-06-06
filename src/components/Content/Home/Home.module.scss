@@ -17,7 +17,7 @@
     display: flex;
     align-items: center;
     height: 100%;
-    padding: 5em 2em 5em 5em;
+    padding: 5em 2em 5em 6em;
     box-sizing: border-box;
     z-index: 9;
 
@@ -47,7 +47,7 @@
     .path_to_chat {
       position: absolute;
       bottom: 4em;
-      left: 5em;
+      left: 6em;
 
       @media screen and (max-width: 780px) {
         bottom: 95px;
