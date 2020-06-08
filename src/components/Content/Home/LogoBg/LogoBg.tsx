@@ -21,7 +21,7 @@ const LogoBg: FC<Props> = (props) => {
       const timer = setTimeout(() => document.addEventListener('mousemove', mouseMove), 4000);
       return () => {
          clearTimeout(timer);
-         document.removeEventListener('mousedown', mouseMove);
+         document.removeEventListener('mousemove', mouseMove);
       }
    }, [ mouseMove ]);
 

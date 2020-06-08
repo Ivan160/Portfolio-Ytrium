@@ -24,7 +24,7 @@ body {
   height: 25%;
   width: $size;
   background-color: $lightGray;
-  border-radius: $size/2;
+  border-radius: 5px;
   cursor: ew-resize;
   opacity: .15;
   z-index: 90;
@@ -40,6 +40,7 @@ body {
   top: 50%;
   height: 98vh;
   width: 0;
+  opacity: 0;
   background-color: rgba(255, 255, 255, .1);
   border: 1px solid rgba(255, 255, 255, .2);
   border-radius: 5px;
@@ -59,11 +60,20 @@ body {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   z-index: 10;
-  transition-property: margin-left, transform, border-radius;
+  transition-property: margin-left, padding-right, width, transform, border-radius;
   transition-duration: .8s;
+  overflow-y: auto;
+  overflow-x: hidden;
+  &::-webkit-scrollbar {width: 9px}
+  &::-webkit-scrollbar-track {border-radius: 10px;}
+  &::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(142, 142, 142, .3);
+    border: 1px solid  rgba(142, 142, 142, .6);
+  }
+
   @media screen and (max-width: 780px) {
     padding-bottom: 80px;
+    box-shadow: none;
   }
 }
-
-

@@ -423,7 +423,7 @@ const Home: FC = () => {
             </defs>
          </svg>
 
-         <svg className={style.svg_background_right} id='svg_background_right' style={{ right: isOpenNav }}
+         <svg className={style.svg_background_right} id='svg_background_right'
               viewBox="0 0 421 688" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g>
                <path

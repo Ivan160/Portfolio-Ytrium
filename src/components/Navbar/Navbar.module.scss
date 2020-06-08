@@ -22,6 +22,7 @@
     justify-content: flex-start;
     padding: 1.5vh 20%;
     border-radius: 40px 40px 0 0;
+    box-shadow: 0 0 2.5px 0 rgba(0, 0, 0, 0.7);
     z-index: 20;
     transform: translateY(calc(100% - 65px));
     transition: transform .2s;
@@ -342,12 +343,22 @@
       transform: translateX(125%);
     }
   }
+
+  .link_chat {
+    opacity: 1;
+    visibility: hidden;
+  }
 }
 
 .close_menu {
   .logo_text {
     width: 0;
     transform: translateX(-15%) !important;
+  }
+
+  .link_chat {
+    opacity: 0;
+    visibility: hidden;
   }
 
   .networks {
@@ -385,5 +396,10 @@
     .language_hidden {
       transform: translateX(125%);
     }
+  }
+
+  .link_chat {
+    opacity: 1;
+    visibility: hidden;
   }
 }

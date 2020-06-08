@@ -80,16 +80,10 @@
       opacity: 0 !important;
       visibility: hidden;
     }
-
-    g {
-      opacity: 0;
-    }
-
-
-    path {
-      opacity: 0.4;
-    }
+    g {opacity: 0;}
+    path {opacity: 0.4;}
   }
+
   .svg_background_right {
     position: absolute;
     top: 15%;
@@ -97,16 +91,9 @@
     right: 0;
     height: 85%;
     z-index: 1;
-    transition-property: right;
-    transition-duration: .8s;
-
-    g {
-      opacity: 0;
-    }
-
-
-    path {
-      opacity: 0.4;
-    }
+    //transition-property: right;
+    //transition-duration: .8s;
+    g {opacity: 0;}
+    path {opacity: 0.4;}
   }
 }

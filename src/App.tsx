@@ -4,7 +4,7 @@ import anime from 'animejs';
 import './App.scss';
 
 import Navbar from './components/Navbar/Navbar';
-import { Home } from "./components/Content";
+import { Home, About, Works, Skills, Contact } from "./components/Content";
 import Logo from "./components/Logo/Logo";
 import { NavContext } from './contexts/NavContext';
 
@@ -166,11 +166,18 @@ const App: FC = () => {
          <div className={`content`} ref={content}
               style={{
                  marginLeft: `${margin}px`,
+                 paddingRight: `${margin}px`,
+                 //width: `calc(100% - ${margin}px)`,
+                 //transform: `translateX(calc(${margin}px + ${translate}px))`,
                  transform: `translateX(${translate}px)`,
                  borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
               }}>
             <Switch>
-               <Route path="/" render={() => (<Home/>)}/>
+               <Route exact path="/" render={() => (<Home/>)}/>
+               <Route exact path="/about" render={() => (<About/>)}/>
+               <Route exact path="/works" render={() => (<Works/>)}/>
+               <Route exact path="/skills" render={() => (<Skills/>)}/>
+               <Route exact path="/contact" render={() => (<Contact/>)}/>
                <Route path="*" render={() => (<Redirect to="/"/>)}/>
             </Switch>
          </div>
