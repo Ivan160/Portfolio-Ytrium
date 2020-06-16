@@ -4,90 +4,23 @@
   width: 100%;
   height: 100%;
 
-  .wrap {
-    position: relative;
-    height: 100%;
+  .projects {
     width: 100%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    height: 100%;
+  }
 
-    .box {
-      position: relative;
-      width: calc(1366px / 1.9);
-      height: calc(768px / 1.9);
-      box-sizing: border-box;
-      cursor: pointer;
-      z-index: 11;
+  .projects_visible {
+    opacity: 1;
+    visibility: visible;
+  }
 
-      &:hover {
-        img {
-          transform: scale(1.15) !important;
-        }
-      }
+  .projects_hidden {
+    transition-delay: .6s;
+    transition: height .5s;
+    height: 0;
+  }
 
-      .more {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        z-index: 13;
-      }
-
-      .image {
-        width: 100%;
-        height: 100%;
-        overflow: hidden;
-        border-radius: 3px;
-        box-shadow: 0 0 8px rgba(157, 157, 166, 0.5);
-        box-sizing: border-box;
-
-        img {
-          height: 100%;
-          width: 100%;
-          transition: transform 6s ease-in-out;
-          transform: scale(1.00001);
-        }
-      }
-
-      .my_work {
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        text-align: left;
-        color: #ffffff;
-        text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-        transform: translateY(125%);
-
-        p {
-          font-family: $fontMed;
-          color: #D9D9E5;
-          font-size: .65em;
-        }
-      }
-    }
-
-    .title {
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      text-align: left;
-      color: #ffffff;
-      text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.9);
-      transform: translate(-175%, -50%);
-      z-index: 12;
-
-      h1 {
-        font-size: 2.9em;
-        font-family: $fontBold;
-        margin-bottom: .075em;
-        //@media screen and (max-width: 780px) { font-size: 4.5em; }
-      }
-
-      p {
-        font-family: $fontReg;
-        font-size: .7em;
-      }
-    }
+  .project_details {
+    //display: none;
   }
 }

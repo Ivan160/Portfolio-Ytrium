@@ -1,0 +1,1 @@
+export { default as Intelecom } from "./Intelecom/Intelecom";

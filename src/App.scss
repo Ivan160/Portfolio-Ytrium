@@ -55,21 +55,35 @@ body {
   min-height: 100vh;
   max-height: 100vh;
   height: 100vh;
-  background: #0A0D1F;
+  background: $backgContent;
   border-radius: $contentRadius 0 0 $contentRadius;
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   z-index: 10;
-  transition-property: margin-left, padding-right, width, transform, border-radius;
-  transition-duration: .8s;
-  overflow-y: auto;
-  overflow-x: hidden;
-  &::-webkit-scrollbar {width: 9px}
-  &::-webkit-scrollbar-track {border-radius: 10px;}
-  &::-webkit-scrollbar-thumb {
-    border-radius: 10px;
-    -webkit-box-shadow: inset 0 0 6px rgba(142, 142, 142, .3);
-    border: 1px solid  rgba(142, 142, 142, .6);
+  transition: margin-left .8s,
+  padding-right .8s,
+  width .8s,
+  transform .8s,
+  border-radius .8s;
+  overflow: hidden;
+
+  section {
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+    overflow-x: hidden;
+    transition: background-color 1.5s;
+    box-sizing: border-box;
+
+    &::-webkit-scrollbar {width: 9px}
+
+    &::-webkit-scrollbar-track {border-radius: 10px;}
+
+    &::-webkit-scrollbar-thumb {
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(142, 142, 142, .3);
+      border: 1px solid rgba(142, 142, 142, .6);
+    }
   }
 
   @media screen and (max-width: 780px) {

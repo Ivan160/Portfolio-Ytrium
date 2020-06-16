@@ -11,7 +11,7 @@ const Home: FC = () => {
    const { isOpenNav } = useContext(NavContext);
    const { t } = useTranslation();
 
-   const text = useRef(null)
+   const text = useRef(null);
 
    useEffect(() => {
       // @ts-ignore
@@ -20,8 +20,9 @@ const Home: FC = () => {
       anime({
          targets: '.letter',
          rotateY: [ -90, 0 ],
-         duration: 1800,
-         delay: anime.stagger(66)
+         duration: 800,
+         delay: anime.stagger(70),
+         easing: 'linear'
       });
 
       anime({
@@ -73,7 +74,7 @@ const Home: FC = () => {
       //    loop: true,
       //    direction: 'reverse'
       // });
-   }, [])
+   }, []);
 
    return (
       <section className={style.home_page} style={{ borderRadius: `${isOpenNav === 0 ? 0 : `40px 0 0 40px`}` }}>

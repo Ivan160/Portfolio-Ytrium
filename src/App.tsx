@@ -21,12 +21,12 @@ const App: FC = () => {
    const navbar = useRef<any>(null);
 
    const [ isMinScreen, setMinScreen ] = useState<boolean>(false);
-   const [ margin, setMargin ] = useState<number>(0);
+   const [ margin, setMargin ] = useState<number>(navWidth);
    const [ translate, setTranslate ] = useState<number>(0);
 
    const [ isHold, setHold ] = useState<boolean>(false);
 
-   const [ spanPosition, setSpanPosition ] = useState<number>(0);
+   const [ spanPosition, setSpanPosition ] = useState<number>(navWidth);
    const [ presentPosition, setPresentPosition ] = useState<number>(0);
 
    useEffect(() => {
@@ -145,10 +145,10 @@ const App: FC = () => {
          setMinScreen(true);
       } else if (window.innerWidth > minScreen) {
          setMinScreen(false);
-         timeout = setTimeout(() => {
-            setMargin(navWidth);
-            setSpanPosition(navWidth);
-         }, 4000);
+         // timeout = setTimeout(() => {
+         //    setMargin(navWidth);
+         //    setSpanPosition(navWidth);
+         // }, 4000);
       }
       return () => clearTimeout(timeout);
    }, []);
@@ -161,7 +161,7 @@ const App: FC = () => {
          <Navbar refLink={navbar}/>
          {!isMinScreen && <div className="presentation" ref={presentation}/>}
          {!isMinScreen &&
-            <span className={'resize'} ref={resize} style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
+         <span className={'resize'} ref={resize} style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
          }
          <div className={`content`} ref={content}
               style={{

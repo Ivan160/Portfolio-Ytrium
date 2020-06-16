@@ -1,26 +1,54 @@
-import React, { FC } from "react";
+import React, { FC, useCallback, useEffect, useRef, useState } from "react";
 import style from "./Works.module.scss";
+import Work from './Work/Work';
 import intelecom from "../../../assets/images/works/intelecom.png";
+import { Intelecom } from "./Projects";
 
-type Props = {}
+const Works: FC = () => {
+   const section = useRef<any>(null);
+   const [ activeProject, setActiveProject ] = useState<string>('');
 
-const Works: FC<Props> = (props) => {
+   const toggleActive = useCallback((work: string) => activeProject ? setActiveProject('') : setActiveProject(work), [ activeProject ]);
+   const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && toggleActive(''), [ toggleActive ]);
+
+   useEffect(() => {
+      document.addEventListener('keydown', esc);
+      return () => document.removeEventListener('keydown', esc);
+   }, [ esc ]);
+
+
+   const scroll = useCallback((e: Event) => {
+      console.log(window.pageYOffset);
+   }, [  ]);
+
+   useEffect(() => {
+      section.current.addEventListener('scroll', scroll);
+      return () =>  section.current.removeEventListener('scroll', scroll);
+   }, [ scroll ]);
+
    return (
-      <section className={style.works}>
-         <div className={style.wrap}>
-            <div className={style.box}>
-               <div className={style.more}>More</div>
-               <div className={style.image}>
-                  <img src={intelecom} alt="intelecom"/>
-                  <div className={style.my_work}>
-                     <p>frontend/backend/design</p>
-                  </div>
-               </div>
-            </div>
-            <div className={style.title}>
-               <h1>Intelecom</h1>
-               <p>- internet service provider</p>
-            </div>
+      <section ref={section} className={style.works} style={{ backgroundColor: `${activeProject ? '#D9D9E5' : 'transparent'}` }}>
+         <div className={`${style.projects} ${activeProject ? style.projects_hidden : style.projects_visible}`}>
+            <Work toggleActive={toggleActive} activeProject={activeProject}
+                  props={[
+                     {
+                        title: 'Intelecom',
+                        description: 'internet service provider',
+                        image: intelecom,
+                        myWork: 'frontend/backend/design'
+                     },
+                     {
+                        title: 'Intelecom',
+                        description: 'internet service provider',
+                        image: intelecom,
+                        myWork: 'frontend/backend/design'
+                     }
+                  ]}
+            />
+         </div>
+
+         <div className={style.project_details}>
+            {activeProject === 'Intelecom' && <Intelecom/>}
          </div>
       </section>
    );

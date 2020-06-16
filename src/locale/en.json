@@ -1,5 +1,12 @@
 {
   "translation": {
+    "nav": {
+      "home": "Home",
+      "about": "About",
+      "works": "Works",
+      "skills": "Skills",
+      "contact": "Contact"
+    },
     "home": {
       "greeting": {
         "one": "Hello",
@@ -7,12 +14,9 @@
         "three": "Web developer"
       }
     },
-    "nav": {
-      "home": "Home",
-      "about": "About",
-      "works": "Works",
-      "skills": "Skills",
-      "contact": "Contact"
+    "about": {
+      "title": "About me",
+      "text": "Hello, I’m Roland, Creative Technologist & User Experience Engineer based in Berlin – I create digital products with knowledge and passion."
     }
   }
 }

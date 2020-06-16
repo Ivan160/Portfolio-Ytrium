@@ -31,7 +31,7 @@ const TextSkills: FC<Props> = (props) => {
                complete++;
                output += to;
             } else if (frame >= start) {
-               if (!char || Math.random() < 0.28) {
+               if (!char || Math.random() < 0.23) {
                   char = chars[Math.floor(Math.random() * chars.length)];
                   queue[i].char = char;
                }
@@ -71,7 +71,7 @@ const TextSkills: FC<Props> = (props) => {
    }, [ update ])
 
    useEffect(() => {
-      const timeout = setTimeout(() => setText(phrases[counter]), 4000);
+      const timeout = setTimeout(() => setText(phrases[counter]), 3500);
       return () => {
          clearTimeout(timeout);
       }
