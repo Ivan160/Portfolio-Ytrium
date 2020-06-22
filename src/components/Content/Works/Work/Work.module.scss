@@ -11,6 +11,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 2em;
     box-sizing: border-box;
 
     .wrap {
@@ -45,7 +46,7 @@
         z-index: 3;
       }
 
-      .title {
+      .title_block {
         position: absolute;
         left: 0;
         top: 50%;
@@ -55,13 +56,36 @@
         text-shadow: 1px 1px 2px rgba(0, 0, 0, .85);
         z-index: 2;
 
-        h1 {
-          font-size: 3em;
-          font-family: $fontBold;
+        .title {
+          overflow: hidden;
+
+          h1 {
+            font-size: 3em;
+            font-family: $fontBold;
+          }
         }
 
-        p {
-          font-family: $fontMed;
+        .description {
+          overflow: hidden;
+
+          p {
+            font-family: $fontMed;
+          }
+        }
+      }
+
+      .active_block {
+        .title {
+          h1 {
+            font-size: 3em;
+            font-family: $fontBold;
+          }
+        }
+
+        .description {
+          p {
+            font-family: $fontMed;
+          }
         }
       }
 
@@ -83,7 +107,7 @@
         position: absolute;
         bottom: 0;
         left: 0;
-        transform: translateY(115%);
+        transform: translateY(120%);
 
         p {
           color: $lightGray;
@@ -91,14 +115,14 @@
         }
       }
     }
-  }
 
-  .open {
-    opacity: 1;
-  }
+    .open {
+      opacity: 1;
+    }
 
-  .close {
-    opacity: 0;
-    transform: scale(1.3);
+    .close {
+      opacity: 0;
+      transform: scale(1.3);
+    }
   }
 }

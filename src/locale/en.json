@@ -17,6 +17,9 @@
     "about": {
       "title": "About me",
       "text": "Hello, I’m Roland, Creative Technologist & User Experience Engineer based in Berlin – I create digital products with knowledge and passion."
+    },
+    "works": {
+      "title": "My works"
     }
   }
 }

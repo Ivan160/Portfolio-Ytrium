@@ -2,9 +2,10 @@ import React, { FC } from "react";
 import style from "./Work.module.scss";
 
 type Props = {
-   toggleActive: (value: string) => void
+   setActiveProject: (value: string) => void
    activeProject: string
-   props: Array<{
+   slidePosition: number
+   data: Array<{
       title: string,
       description: string,
       image: string,
@@ -12,20 +13,23 @@ type Props = {
    }>
 }
 
-const Work: FC<Props> = ({ toggleActive, activeProject, props }) => {
+const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }) => {
    return (
       <div className={style.wrapper}>
-
          {
-            props.map(({ title, description, image, myWork }, id) => {
+            data.map(({ title, description, image, myWork }, id) => {
                return (
-                  <div key={id} className={style.work}>
-                     <div className={`${style.wrap} ${!activeProject ? style.open : style.close}`} onClick={() => toggleActive(title)}>
+                  <div key={id} className={style.work} style={{display: activeProject !== '' ? activeProject === title ? 'flex' : 'none' : 'flex'}}>
+                     <div className={`${style.wrap} ${!activeProject ? style.open : style.close}`} onClick={() => setActiveProject(title)}>
                         <div className={style.more}>More</div>
 
-                        <div className={style.title}>
-                           <h1>{title}</h1>
-                           <p>- {description}</p>
+                        <div className={`${style.title_block} ${slidePosition === id ? style.active_block : ''}`}>
+                           <div className={style.title}>
+                              <h1>{title}</h1>
+                           </div>
+                           <div className={style.description}>
+                              <p>- {description}</p>
+                           </div>
                         </div>
 
                         <div className={style.image}>
@@ -40,7 +44,6 @@ const Work: FC<Props> = ({ toggleActive, activeProject, props }) => {
                );
             })
          }
-
       </div>
    );
 };

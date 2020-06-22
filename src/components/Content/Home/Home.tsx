@@ -14,6 +14,12 @@ const Home: FC = () => {
    const text = useRef(null);
 
    useEffect(() => {
+      anime({
+         targets: text.current,
+         opacity: 1,
+         easing: 'linear',
+         duration: 1
+      });
       // @ts-ignore
       const letters: Array<any> = text.current.children;
       for (let i = 0; i < letters.length; i++) letters[i].innerHTML = letters[i].textContent.replace(/\S/g, "<span class='letter'>$&</span>");

@@ -74,12 +74,9 @@ const TextSkills: FC<Props> = (props) => {
       const timeout = setTimeout(() => setText(phrases[counter]), 3500);
       return () => {
          clearTimeout(timeout);
+         cancelAnimationFrame(requestRef.current);
       }
    }, [ counter, setText, phrases ]);
-
-   useEffect(() => {
-      return () => cancelAnimationFrame(requestRef.current);
-   }, []);
 
    return (
       <div className={style.skill_text}>

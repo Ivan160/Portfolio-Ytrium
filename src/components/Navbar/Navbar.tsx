@@ -1,5 +1,4 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from 'react';
-//import { useTranslation } from 'react-i18next';
 import i18next from 'i18next';
 import { Link } from 'react-router-dom';
 import { NavContext } from "../../contexts/NavContext";
@@ -90,6 +89,8 @@ const Navbar: FC<Props> = ({refLink}) => {
       });
    }, []);
 
+   // @ts-ignore
+   // @ts-ignore
    return (
       <nav id='navbar' ref={refLink} className={`${style.navbar} ${isMinScreen ? style.minScreen :
          isOpenMenu ? style.open_menu : style.close_menu}`}>

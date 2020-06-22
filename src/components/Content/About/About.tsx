@@ -12,6 +12,12 @@ const About: FC<Props> = (props) => {
    const text = useRef<any>(null);
 
    useEffect(() => {
+      anime({
+         targets: '#title',
+         opacity: 1,
+         easing: 'linear',
+         duration: 1
+      });
       title.current.innerHTML = title.current.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
          targets: '.letter',
@@ -42,20 +48,17 @@ const About: FC<Props> = (props) => {
 
    return (
       <section className={style.about}>
-         <div className={style.wrapper}>
-            <div className={style.greeting_text}>
-               <h1 ref={title}>{t('about.title')}</h1>
-               <div ref={text} className={style.text}>
-                  <p>{t('about.text')}</p>
-                  <p>{t('about.text')}</p>
-                  <p>{t('about.text')}</p>
-               </div>
-            </div>
-            <div className={style.image}>
-
+         <div className={style.greeting_text}>
+            <h1 id='title' ref={title}>{t('about.title')}</h1>
+            <div ref={text} className={style.text}>
+               <p>{t('about.text')}</p>
+               <p>{t('about.text')}</p>
+               <p>{t('about.text')}</p>
             </div>
          </div>
+         <div className={style.image}>
 
+         </div>
       </section>
    );
 };

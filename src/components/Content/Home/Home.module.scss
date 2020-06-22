@@ -21,6 +21,7 @@
 
     .text_zone {
       .greeting_text {
+        opacity: 0;
         color: $lightGray;
         font-size: 3.3em;
         @media screen and (max-width: 780px) {
