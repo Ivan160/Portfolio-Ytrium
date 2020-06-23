@@ -60,8 +60,6 @@ const Works: FC = () => {
       const start = performance.now();
 
       const easeInOutQuart = (x: number): number =>  x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
-      const easeInOutExpo = (x: number): number => x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ? Math.pow(2, 20 * x - 10) / 2 : (2 - Math.pow(2, -20 * x + 10)) / 2;
-
       const animate = (time: number) => {
          let timeFraction = (time - start) / duration;
          if (timeFraction > 1) timeFraction = 1;
@@ -78,7 +76,6 @@ const Works: FC = () => {
       const scrollTop = e.target.scrollTop;
       const clientHeight = e.target.clientHeight;
       //    const newSlide: number = Math.round(scrollTop / clientHeight);
-      
       const currentSlide: number = Math.round(scrollTop / clientHeight);
       const differSlide: number = Math.sign(scrollTop / clientHeight - currentSlide);
       const newSlide: number = Math.round(currentSlide + differSlide);
@@ -101,7 +98,7 @@ const Works: FC = () => {
 
    useEffect(() => {
       const timeoutOne: NodeJS.Timeout = setTimeout(() => scrolling(0, section.current.clientHeight), 2200);
-      const timeoutTwo: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4000);
+      const timeoutTwo: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4200);
       return () => {
          clearTimeout(timeoutOne);
          clearTimeout(timeoutTwo);

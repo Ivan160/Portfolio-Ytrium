@@ -44,7 +44,7 @@ const About: FC<Props> = (props) => {
       }, 2500);
 
       return () => clearTimeout(timer);
-   }, [])
+   }, []);
 
    return (
       <section className={style.about}>

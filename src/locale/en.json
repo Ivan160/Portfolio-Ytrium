@@ -20,6 +20,15 @@
     },
     "works": {
       "title": "My works"
+    },
+    "skills": {
+      "title": "Skills & Experience",
+      "textSkills": "During all my work and studies time, I have developed certain skills and gained experience. My main area of expertise is frontend development with ReactJS. I also have experience in backend development and database design.",
+      "listSkillsTitle": "Skills",
+      "listLanguageToolsTitle": "Language/Tools",
+      "listLanguageToolsDescript": "Some computer languages and tools that I know.",
+      "listSoftwareTitle": "Softwares",
+      "listSoftwareDescript": "Softwares"
     }
   }
 }

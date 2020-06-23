@@ -11,11 +11,11 @@ const Home: FC = () => {
    const { isOpenNav } = useContext(NavContext);
    const { t } = useTranslation();
 
-   const text = useRef(null);
+   const title = useRef(null);
 
    useEffect(() => {
       anime({
-         targets: text.current,
+         targets: title.current,
          opacity: 1,
          easing: 'linear',
          duration: 1
@@ -87,7 +87,7 @@ const Home: FC = () => {
 
          <div className={style.left}>
             <div className={style.text_zone}>
-               <div ref={text} className={style.greeting_text}>
+               <div ref={title} className={style.greeting_text}>
                   <p>{t('home.greeting.one')}</p>
                   <p>{t('home.greeting.two')}</p>
                   <p>{t('home.greeting.three')}</p>

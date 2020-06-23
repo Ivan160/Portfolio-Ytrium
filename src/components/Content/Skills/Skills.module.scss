@@ -1,5 +1,123 @@
 @import "src/custom";
 
 .skills {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding: 1em 4em;
+  box-sizing: border-box;
+  @media screen and (max-width: 780px) {
+    display: block;
+    grid-template-columns: initial;
+  }
 
+  .title {
+    color: $lightGray;
+
+    h1 {
+      font-family: $fontMed;
+      font-size: 2.25em;
+      letter-spacing: .04em;
+      //opacity: 0;
+      color: $blue;
+      margin-bottom: .4em;
+
+      span {
+        display: inline-block;
+        font-family: $fontMed;
+        transform: rotateY(90deg);
+      }
+    }
+
+    p {
+      color: $lightGray;
+      font-size: .8em;
+      line-height: 1.3em;
+    }
+  }
+
+  .left_block {
+    padding-right: 1em;
+    box-sizing: border-box;
+    @media screen and (max-width: 780px) {
+      padding: 0;
+    }
+  }
+
+  .right_block {
+    padding-left: 1em;
+    box-sizing: border-box;
+    @media screen and (max-width: 780px) {
+      padding: 0;
+    }
+  }
+
+  .list {
+    display: flex;
+    align-items: center;
+    justify-content: left;
+    margin: 1.25em 0;
+
+    .descript {
+      margin-right: 1.25em;
+      max-width: 50%;
+      h3 {
+
+      }
+
+      p {
+        margin-top: .5em;
+      }
+    }
+
+    ul {
+      position: relative;
+
+      li {
+        position: relative;
+        float: left;
+        font-size: .875em;
+        padding: .34em 1em .34em .7em;
+        margin-bottom: .5em;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        clear: both;
+        color: $lightGray;
+
+        &:after {
+          content: "";
+          background-color: rgba(255, 255, 255, 0.3);
+          position: absolute;
+          left: 0;
+          top: 0;
+          width: 0;
+          height: 100%;
+          transition-timing-function: cubic-bezier(0.88, 0.03, 0.37, 0.97);
+          transition-duration: 0.6s;
+        }
+
+        &[data-load='0.1']:after {width: 10%}
+
+        &[data-load='0.2']:after {width: 20%}
+
+        &[data-load='0.3']:after {width: 30%}
+
+        &[data-load='0.4']:after {width: 40%}
+
+        &[data-load='0.5']:after {width: 50%}
+
+        &[data-load='0.6']:after {width: 60%}
+
+        &[data-load='0.7']:after {width: 70%}
+
+        &[data-load='0.8']:after {width: 80%}
+
+        &[data-load='0.9']:after {width: 90%}
+
+        &[data-load='1']:after {width: 100%}
+      }
+    }
+  }
 }

@@ -19,7 +19,7 @@ const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }
          {
             data.map(({ title, description, image, myWork }, id) => {
                return (
-                  <div key={id} className={style.work} style={{display: activeProject !== '' ? activeProject === title ? 'flex' : 'none' : 'flex'}}>
+                  <div key={`${title}_${id}`} className={style.work} style={{display: activeProject !== '' ? activeProject === title ? 'flex' : 'none' : 'flex'}}>
                      <div className={`${style.wrap} ${!activeProject ? style.open : style.close}`} onClick={() => setActiveProject(title)}>
                         <div className={style.more}>More</div>
 
