@@ -98,10 +98,12 @@ const Works: FC = () => {
 
    useEffect(() => {
       const timeoutOne: NodeJS.Timeout = setTimeout(() => scrolling(0, section.current.clientHeight), 2200);
-      const timeoutTwo: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4200);
+      const timeoutTwo: NodeJS.Timeout = setTimeout(() => setSlidePosition(0), 3500);
+      const timeoutThree: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4200);
       return () => {
          clearTimeout(timeoutOne);
          clearTimeout(timeoutTwo);
+         clearTimeout(timeoutThree);
       }
    }, [ scrolling ]);
 

@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState, Suspense } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import anime from 'animejs';
 import './App.scss';
@@ -7,6 +7,7 @@ import Navbar from './components/Navbar/Navbar';
 import { Home, About, Works, Skills, Contact } from "./components/Content";
 import Logo from "./components/Logo/Logo";
 import { NavContext } from './contexts/NavContext';
+import Preloader from "./components/Common/Preloader/Preloader";
 
 const App: FC = () => {
    const navWidth: number = 62;
@@ -163,24 +164,27 @@ const App: FC = () => {
          {!isMinScreen &&
          <span className={'resize'} ref={resize} style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
          }
-         <div className={`content`} ref={content}
-              style={{
-                 marginLeft: `${margin}px`,
-                 paddingRight: `${margin}px`,
-                 //width: `calc(100% - ${margin}px)`,
-                 //transform: `translateX(calc(${margin}px + ${translate}px))`,
-                 transform: `translateX(${translate}px)`,
-                 borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
-              }}>
-            <Switch>
-               <Route exact path="/" render={() => (<Home/>)}/>
-               <Route exact path="/about" render={() => (<About/>)}/>
-               <Route exact path="/works" render={() => (<Works/>)}/>
-               <Route exact path="/skills" render={() => (<Skills/>)}/>
-               <Route exact path="/contact" render={() => (<Contact/>)}/>
-               <Route path="*" render={() => (<Redirect to="/"/>)}/>
-            </Switch>
-         </div>
+
+         <Suspense fallback={<Preloader/>}>
+            <div className={`content`} ref={content}
+                 style={{
+                    marginLeft: `${margin}px`,
+                    paddingRight: `${margin}px`,
+                    transform: `translateX(${translate}px)`,
+                    // width: `calc(100% - ${margin}px)`,
+                    // transform: `translateX(calc(${margin}px + ${translate}px))`,
+                    borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
+                 }}>
+               <Switch>
+                  <Route exact path="/" component={Home}/>
+                  <Route exact path="/about" component={About}/>
+                  <Route exact path="/works" component={Works}/>
+                  <Route exact path="/skills" component={Skills}/>
+                  <Route exact path="/contact" component={Contact}/>
+                  <Route path="*" render={() => (<Redirect to="/"/>)}/>
+               </Switch>
+            </div>
+         </Suspense>
 
       </NavContext.Provider>
    );

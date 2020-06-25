@@ -9,7 +9,7 @@ const WorksTitle: FC = () => {
 
    useEffect(() => {
       anime({
-         targets: '#title',
+         targets: title.current,
          opacity: 1,
          easing: 'linear',
          duration: 1
@@ -67,7 +67,7 @@ const WorksTitle: FC = () => {
 
    return (
       <div className={style.works_title}>
-         <h1 id='title' ref={title}>{t('works.title')}</h1>
+         <h1 ref={title}>{t('works.title')}</h1>
          <div className={style.image_block}>
             <div className={style.puzzles_bg} id='puzzles_bg'>
                <div className={style.svg_block}>

@@ -42,6 +42,11 @@
         opacity: 0;
         visibility: hidden;
         font-size: 1.1em;
+        color: rgba(255, 255, 255, 1);
+        text-shadow: 0 0 .07em #000;
+        letter-spacing: .1em;
+        font-family: $fontMed;
+        //color: $backgContent;
         transition: opacity 1s, visibility 1s;
         z-index: 3;
       }
@@ -62,6 +67,8 @@
           h1 {
             font-size: 3em;
             font-family: $fontBold;
+            transform: translateY(200%);
+            transition: transform 1300ms .3s;
           }
         }
 
@@ -70,6 +77,8 @@
 
           p {
             font-family: $fontMed;
+            transform: translateY(200%);
+            transition: transform 1400ms .25s;
           }
         }
       }
@@ -79,12 +88,14 @@
           h1 {
             font-size: 3em;
             font-family: $fontBold;
+            transform: translateY(0%);
           }
         }
 
         .description {
           p {
             font-family: $fontMed;
+            transform: translateY(0%);
           }
         }
       }

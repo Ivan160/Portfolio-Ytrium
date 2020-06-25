@@ -19,16 +19,18 @@
       "text": "Hello, I’m Roland, Creative Technologist & User Experience Engineer based in Berlin – I create digital products with knowledge and passion."
     },
     "works": {
-      "title": "My works"
+      "title": "My works",
+      "more": "More"
     },
     "skills": {
       "title": "Skills & Experience",
       "textSkills": "During all my work and studies time, I have developed certain skills and gained experience. My main area of expertise is frontend development with ReactJS. I also have experience in backend development and database design.",
       "listSkillsTitle": "Skills",
+      "listSkillsDescript": "Some of the skills I developed during my studies and work",
       "listLanguageToolsTitle": "Language/Tools",
       "listLanguageToolsDescript": "Some computer languages and tools that I know.",
       "listSoftwareTitle": "Softwares",
-      "listSoftwareDescript": "Softwares"
+      "listSoftwareDescript": "Some software I use"
     }
   }
 }

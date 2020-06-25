@@ -119,33 +119,27 @@
       }
 
       .home {
-        svg {
-          stroke: $lightGray;
+        svg {stroke: $lightGray}
+
+        .active_link {
+          svg {stroke: $yellow}
+
+          .link_text {color: $yellow}
         }
 
         &:hover {
-          @keyframes homeAnime {
-            0% {transform: scale(1)}
-            50% {transform: scale(1.03)}
-            100% {transform: scale(1)}
-          }
-
           svg {
             stroke: $yellow;
             filter: drop-shadow(0px 0px $sizeNeon $yellow);
             animation: homeAnime .75s ease-in-out
           }
 
-          .link_text {
-            color: $yellow;
-          }
+          .link_text {color: $yellow}
         }
       }
 
       .about {
-        svg {
-          stroke: $lightGray;
-        }
+        svg {stroke: $lightGray}
 
         &:hover {
           svg {
@@ -153,16 +147,18 @@
             filter: drop-shadow(0px 0px $sizeNeon $pink);
           }
 
-          .link_text {
-            color: $pink;
-          }
+          .link_text {color: $pink}
+        }
+
+        .active_link {
+          svg {stroke: $pink}
+
+          .link_text {color: $pink}
         }
       }
 
       .works {
-        svg {
-          fill: $lightGray;
-        }
+        svg {fill: $lightGray}
 
         &:hover {
           svg {
@@ -172,16 +168,22 @@
             filter: drop-shadow(0px 0px $sizeNeon $purple);
           }
 
-          .link_text {
-            color: $purple;
+          .link_text {color: $purple}
+        }
+
+        .active_link {
+          svg {
+            fill: $purple;
+            stroke: $purple;
+            stroke-width: .25;
           }
+
+          .link_text {color: $purple}
         }
       }
 
       .skills {
-        svg {
-          stroke: $lightGray;
-        }
+        svg {stroke: $lightGray}
 
         &:hover {
           svg {
@@ -189,16 +191,18 @@
             filter: drop-shadow(0px 0px $sizeNeon $blue);
           }
 
-          .link_text {
-            color: $blue;
-          }
+          .link_text {color: $blue}
+        }
+
+        .active_link {
+          svg {stroke: $blue}
+
+          .link_text {color: $blue}
         }
       }
 
       .contact {
-        svg {
-          stroke: $lightGray;
-        }
+        svg {stroke: $lightGray}
 
         &:hover {
           svg {
@@ -206,9 +210,13 @@
             filter: drop-shadow(0px 0px $sizeNeon $green);
           }
 
-          .link_text {
-            color: $green;
-          }
+          .link_text {color: $green}
+        }
+
+        .active_link {
+          svg {stroke: $green}
+
+          .link_text {color: $green}
         }
       }
     }

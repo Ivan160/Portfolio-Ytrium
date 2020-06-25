@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import style from "./Work.module.scss";
+import { useTranslation } from "react-i18next";
 
 type Props = {
    setActiveProject: (value: string) => void
@@ -14,6 +15,8 @@ type Props = {
 }
 
 const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }) => {
+   const { t } = useTranslation();
+
    return (
       <div className={style.wrapper}>
          {
@@ -21,7 +24,7 @@ const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }
                return (
                   <div key={`${title}_${id}`} className={style.work} style={{display: activeProject !== '' ? activeProject === title ? 'flex' : 'none' : 'flex'}}>
                      <div className={`${style.wrap} ${!activeProject ? style.open : style.close}`} onClick={() => setActiveProject(title)}>
-                        <div className={style.more}>More</div>
+                        <div className={style.more}>{t('works.more')}</div>
 
                         <div className={`${style.title_block} ${slidePosition === id ? style.active_block : ''}`}>
                            <div className={style.title}>

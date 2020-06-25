@@ -12,7 +12,7 @@ const SkillsList: FC<Props> = ({ data }) => {
       <ul>
          {
             data.map(({ text, load }, id) => (
-               <li key={`${text}_${id}`} className='load' data-load={load}>— {text}</li>
+               <li key={`${text}_${id}`} className='load' data-load={load}><span/>— {text}</li>
             ))
          }
       </ul>

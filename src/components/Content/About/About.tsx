@@ -13,7 +13,7 @@ const About: FC<Props> = (props) => {
 
    useEffect(() => {
       anime({
-         targets: '#title',
+         targets: title.current,
          opacity: 1,
          easing: 'linear',
          duration: 1
@@ -26,9 +26,10 @@ const About: FC<Props> = (props) => {
          delay: anime.stagger(75),
          easing: 'linear'
       });
+      console.log(text);
       anime({
          targets: text.current,
-         height: [ 0, text.current.clientHeight + text.current.clientHeight / 3 ],
+         height: [ 0, text.current.clientHeight ],
          duration: 1500,
          delay: 900,
          easing: 'easeInOutExpo'
@@ -39,17 +40,17 @@ const About: FC<Props> = (props) => {
             targets: text.current,
             height: '100%',
             duration: 0,
-            easing: 'linear'
+            easing: 'linear',
+            delay: 2500
          });
       }, 2500);
-
       return () => clearTimeout(timer);
    }, []);
 
    return (
       <section className={style.about}>
          <div className={style.greeting_text}>
-            <h1 id='title' ref={title}>{t('about.title')}</h1>
+            <h1 ref={title}>{t('about.title')}</h1>
             <div ref={text} className={style.text}>
                <p>{t('about.text')}</p>
                <p>{t('about.text')}</p>

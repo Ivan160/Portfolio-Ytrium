@@ -21,7 +21,7 @@ const Home: FC = () => {
          duration: 1
       });
       // @ts-ignore
-      const letters: Array<any> = text.current.children;
+      const letters: Array<any> = title.current.children;
       for (let i = 0; i < letters.length; i++) letters[i].innerHTML = letters[i].textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
          targets: '.letter',

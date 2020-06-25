@@ -60,12 +60,12 @@ body {
   box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
   box-sizing: border-box;
   z-index: 10;
+  overflow: hidden;
   transition: margin-left .8s,
   padding-right .8s,
   width .8s,
   transform .8s,
   border-radius .8s;
-  overflow: hidden;
 
   section {
     width: 100%;
@@ -89,5 +89,26 @@ body {
   @media screen and (max-width: 780px) {
     padding-bottom: 80px;
     box-shadow: none;
+  }
+
+  .switching {
+    position: absolute;
+    width: 100%;
+    height: 100vh;
+    background-color: #FF4B4B;
+
+    #grid {
+      display: flex;
+      flex-wrap: wrap;
+      width: 100%;
+      height: 100%;
+    }
+
+    #grid div {
+      width: 3vw;
+      height: 3vw;
+      //border: 1px solid #FFF;
+      background-color: #FFF;
+    }
   }
 }
