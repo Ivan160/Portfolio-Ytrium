@@ -31,6 +31,13 @@
       "listLanguageToolsDescript": "Some computer languages and tools that I know.",
       "listSoftwareTitle": "Softwares",
       "listSoftwareDescript": "Some software I use"
+    },
+    "contact": {
+      "title": "Contact me",
+      "textContact": "If you have a question or want to cooperate please contact me. Feel free to send an e-mail on ivanandrosc@gmail.com. Alternatively, you can also send a mail here!",
+      "submit": "Submit",
+      "name": "Name",
+      "message": "Message"
     }
   }
 }

@@ -287,6 +287,7 @@
       }
 
       a {
+        position: relative;
         display: flex;
         height: 100%;
         margin-right: 12px;
@@ -315,6 +316,16 @@
           width: 0;
           margin: 0;
           transition: .5s;
+        }
+
+        span{
+          position: absolute;
+          top: 0;
+          left: 50%;
+          transform: translate(-50%, -100%);
+          color: $backgSilver;
+          font-size: .75em;
+          opacity: 0;
         }
       }
     }

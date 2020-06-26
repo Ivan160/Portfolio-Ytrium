@@ -72,7 +72,7 @@ const App: FC = () => {
    }, [ isMinScreen ]);
 
    const mouseDown = useCallback((event: any) => {
-      event.preventDefault();
+      //event.preventDefault();
       if (event.target === resize.current && !isMinScreen) {
          document.body.style.cursor = 'ew-resize';
          setSpanPosition(spanPosition - 1);
@@ -83,7 +83,6 @@ const App: FC = () => {
          setHold(true);
          document.addEventListener('mousemove', mouseMove);
       }
-
    }, [ spanPosition, mouseMove, isMinScreen ]);
 
    const mouseUp = useCallback(() => {
@@ -119,6 +118,8 @@ const App: FC = () => {
       document.body.addEventListener('mouseup', mouseUp);
       return () => document.body.removeEventListener('mouseup', mouseUp);
    }, [ mouseUp ]);
+
+   window.onselectstart = () => false;
 
    const resizeWindow = useCallback(() => {
       if (window.innerWidth <= minScreen) {
