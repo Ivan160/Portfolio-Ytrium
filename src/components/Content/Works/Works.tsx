@@ -86,7 +86,7 @@ const Works: FC = () => {
          scrolling(scrollTop, remainsScroll);
          setSlidePosition(newSlide);
       }
-   }, 50, { 'leading': true, 'trailing': false }), [ scrolling ]);
+   }, 50, {leading: true, trailing: false}), [ scrolling ]);
 
    useEffect(() => {
       !activeProject ? section.current.addEventListener('scroll', onScroll) : section.current.removeEventListener('scroll', onScroll);

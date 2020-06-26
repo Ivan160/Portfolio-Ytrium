@@ -1,18 +1,21 @@
-import React, { FC, useCallback, useEffect, useRef } from "react";
+import React, { FC, useCallback, useContext, useEffect, useRef } from "react";
 import style from "./Skills.module.scss";
 import SkillsList from "./SkillsList";
 import { useTranslation } from "react-i18next";
 import anime from "animejs";
+import { NavContext } from "../../../contexts/NavContext";
 
 type Props = {}
 
 const Skills: FC<Props> = (props) => {
+   const { isMinScreen } = useContext(NavContext);
    const { t } = useTranslation();
    const section = useRef<any>(null);
    const box = useRef<any>(null);
    const title = useRef<any>(null);
    const text = useRef<any>(null);
    const fakeBlock = useRef<any>(null);
+   const leftBlock = useRef<any>(null);
 
    useEffect(() => {
       anime({
@@ -21,7 +24,6 @@ const Skills: FC<Props> = (props) => {
          easing: 'linear',
          duration: 1
       });
-
       title.current.innerHTML = title.current.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
          targets: '.letter',
@@ -30,7 +32,6 @@ const Skills: FC<Props> = (props) => {
          delay: anime.stagger(70),
          easing: 'linear'
       });
-
       anime({
          targets: text.current,
          height: [ 0, text.current.clientHeight ],
@@ -39,12 +40,14 @@ const Skills: FC<Props> = (props) => {
          easing: 'easeInOutExpo'
       });
 
-      anime({
-         targets: fakeBlock.current,
-         width: [ '100%', '0%' ],
-         duration: 2000,
-         easing: 'easeInOutQuart'
-      });
+      if (window.innerWidth > 780) {
+         anime({
+            targets: fakeBlock.current,
+            width: [ '100%', '0%' ],
+            duration: 2000,
+            easing: 'easeInOutQuart'
+         });
+      }
 
       anime({
          targets: fakeBlock.current,
@@ -62,9 +65,29 @@ const Skills: FC<Props> = (props) => {
             easing: 'linear',
             delay: 2500
          });
+
+         anime({
+            targets: '.load span',
+            height: [ '100%', '14%' ],
+            duration: 500,
+            delay: anime.stagger(50),
+            easing: 'easeInOutQuad'
+         });
       }, 2500);
       return () => clearTimeout(timer);
    }, []);
+
+   useEffect(() => {
+      if (isMinScreen) {
+         anime({
+            targets: leftBlock.current,
+            height: [ '100vh', '50vh' ],
+            duration: 2000,
+            delay: 1350,
+            easing: 'easeInOutQuart'
+         });
+      } else leftBlock.current.style.height = '100%';
+   }, [ isMinScreen ]);
 
    const onScroll = useCallback((e: any) => {
       if (!e.target && !box.current) return;
@@ -78,7 +101,7 @@ const Skills: FC<Props> = (props) => {
 
    return (
       <section ref={section} className={style.skills}>
-         <div className={style.left_block}>
+         <div ref={leftBlock} className={style.left_block}>
             <div ref={box} className={style.box}>
                <div className={style.title}>
                   <h1 ref={title}>{t('skills.title')}</h1>

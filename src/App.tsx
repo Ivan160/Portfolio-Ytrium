@@ -13,7 +13,7 @@ const App: FC = () => {
    const navWidth: number = 62;
    const contentRadius: number = 40;
    const menuWidth: number = 250;
-   const minScreen: number = 781;
+   const minScreen: number = 780;
    const smallNav: number = 65;
 
    const resize = useRef<HTMLSpanElement>(null);
@@ -121,7 +121,7 @@ const App: FC = () => {
    }, [ mouseUp ]);
 
    const resizeWindow = useCallback(() => {
-      if (window.innerWidth < minScreen) {
+      if (window.innerWidth <= minScreen) {
          setMinScreen(true);
          setSpanPosition(0);
          setMargin(0);
@@ -141,17 +141,8 @@ const App: FC = () => {
 
    useEffect(() => {
       document.body.style.cursor = 'default';
-      let timeout: NodeJS.Timeout;
-      if (window.innerWidth < minScreen) {
-         setMinScreen(true);
-      } else if (window.innerWidth > minScreen) {
-         setMinScreen(false);
-         // timeout = setTimeout(() => {
-         //    setMargin(navWidth);
-         //    setSpanPosition(navWidth);
-         // }, 4000);
-      }
-      return () => clearTimeout(timeout);
+      if (window.innerWidth <= minScreen) setMinScreen(true);
+      else if (window.innerWidth > minScreen) setMinScreen(false);
    }, []);
 
    return (
