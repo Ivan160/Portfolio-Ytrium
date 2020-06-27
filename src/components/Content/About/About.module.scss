@@ -22,6 +22,7 @@
       opacity: 0;
       color: $pink;
       margin-bottom: .5em;
+      text-shadow: 0 0 $shadT $pink;
 
       span {
         display: inline-block;
@@ -31,8 +32,8 @@
     }
 
     .text {
-      //height: 0;
       overflow: hidden;
+      opacity: 0;
 
       p {
         color: $lightGray;

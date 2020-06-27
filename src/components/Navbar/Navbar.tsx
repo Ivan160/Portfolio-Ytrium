@@ -3,7 +3,7 @@ import i18next from 'i18next';
 import { Link, NavLink } from 'react-router-dom';
 import { NavContext } from "../../contexts/NavContext";
 import anime from 'animejs';
-import Network from "./Network/Network";
+import Network from "./Network";
 import style from './Navbar.module.scss';
 import { useTranslation } from "react-i18next";
 

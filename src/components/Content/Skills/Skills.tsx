@@ -34,10 +34,11 @@ const Skills: FC<Props> = (props) => {
       });
       anime({
          targets: text.current,
-         height: [ 0, text.current.clientHeight ],
-         duration: 1500,
-         delay: 900,
-         easing: 'easeInOutExpo'
+         height: [
+            { value: [ 0, text.current.clientHeight ], duration: 1500, delay: 900, easing: 'easeInOutExpo' },
+            { value: '100%', duration: 0, delay: 2500, easing: 'linear' },
+         ],
+         opacity: { value: '1', duration: 0, easing: 'linear' }
       });
 
       if (window.innerWidth > 780) {
@@ -58,14 +59,6 @@ const Skills: FC<Props> = (props) => {
       });
 
       const timer = setTimeout(() => {
-         anime({
-            targets: text.current,
-            height: '100%',
-            duration: 0,
-            easing: 'linear',
-            delay: 2500
-         });
-
          anime({
             targets: '.load span',
             height: [ '100%', '14%' ],

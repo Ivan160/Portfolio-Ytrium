@@ -26,25 +26,14 @@ const About: FC<Props> = (props) => {
          delay: anime.stagger(75),
          easing: 'linear'
       });
-      console.log(text);
       anime({
          targets: text.current,
-         height: [ 0, text.current.clientHeight ],
-         duration: 1500,
-         delay: 900,
-         easing: 'easeInOutExpo'
+         height: [
+            { value: [ 0, text.current.clientHeight ], duration: 1500, delay: 900, easing: 'easeInOutExpo' },
+            { value: '100%', duration: 0, delay: 2500, easing: 'linear' },
+         ],
+         opacity: { value: '1', duration: 0, easing: 'linear' }
       });
-
-      const timer = setTimeout(() => {
-         anime({
-            targets: text.current,
-            height: '100%',
-            duration: 0,
-            easing: 'linear',
-            delay: 2500
-         });
-      }, 2500);
-      return () => clearTimeout(timer);
    }, []);
 
    return (

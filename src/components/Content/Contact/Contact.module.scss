@@ -1,146 +1,58 @@
 @import "src/custom";
 
 .contact {
-  padding: 2em;
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr;
+  @media screen and (max-width: 780px) {
+    display: block;
+    grid-template-columns: initial;
+  }
 
-  .title {
-    color: $lightGray;
+  .left_block {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1em 3em;
 
-    h1 {
-      font-family: $fontMed;
-      font-size: 2.25em;
-      letter-spacing: .04em;
-      color: $green;
-      margin-bottom: .65em;
-      opacity: 0;
+    .title {
+      color: $lightGray;
 
-      span {
-        display: inline-block;
+      h1 {
         font-family: $fontMed;
-        transform: rotateY(90deg);
+        font-size: 2.25em;
+        letter-spacing: .04em;
+        color: $green;
+        margin-bottom: .65em;
+        opacity: 0;
+        text-shadow: 0 0 $shadT $green;
+
+        span {
+          display: inline-block;
+          font-family: $fontMed;
+          transform: rotateY(90deg);
+        }
       }
-    }
 
-    .text {
-      overflow: hidden;
+      .text {
+        overflow: hidden;
+        opacity: 0;
 
-      p {
-        color: $lightGray;
-        font-size: .8em;
-        letter-spacing: .02em;
-        line-height: 1.65em;
+        p {
+          color: $lightGray;
+          font-size: .8em;
+          letter-spacing: .02em;
+          line-height: 1.65em;
+        }
       }
     }
   }
 
-  .form {
-    font-size: .8em;
-    width: 400px;
-    padding: 40px;
-    box-sizing: border-box;
-    border-radius: 10px;
+  .right_block {
+    position: relative;
 
-    form {
-      display: flex;
-      flex-direction: column;
-
-      .input_box {
-        position: relative;
-        margin-bottom: 30px;
-
-        &:before {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          height: 2px;
-          width: 0;
-          background-color: $green;
-          z-index: 1;
-        }
-
-        input, textarea {
-          width: 100%;
-          padding-top: 1em;
-          padding-bottom: .33em;
-          letter-spacing: .01em;
-          color: $lightGray;
-          background-color: transparent;
-          border: none;
-          border-bottom: 1px solid $backgSilver;
-          outline: none;
-        }
-
-        input {font-size: 1.15em}
-        textarea {font-size: .9em}
-
-        input:-webkit-autofill,
-        input:-webkit-autofill:hover,
-        input:-webkit-autofill:focus
-        input:-webkit-autofill,
-        textarea:-webkit-autofill,
-        textarea:-webkit-autofill:hover
-        textarea:-webkit-autofill:focus,
-        select:-webkit-autofill,
-        select:-webkit-autofill:hover,
-        select:-webkit-autofill:focus {
-          border-bottom: 1px solid $backgSilver;
-          -webkit-text-fill-color: $lightGray;
-          -webkit-box-shadow: 0 0 0 0 transparent inset;
-          transition: background-color 5000s ease-in-out 0s;
-          background-color: transparent !important;
-        }
-
-        textarea {height: 4rem}
-
-        label {
-          position: absolute;
-          left: 0;
-          transform: translateY(-50%);
-          font-size: .9em;
-          color: #fff;
-          pointer-events: none;
-          transition: .5s;
-          text-transform: uppercase;
-          letter-spacing: .1em;
-        }
-
-        input ~ label {top: 60%}
-
-        textarea ~ label {top: 81%}
-
-        input:focus ~ label,
-        input:not([value=""]) ~ label,
-        textarea:focus ~ label,
-        textarea:not(:empty) ~ label {
-          top: 0;
-          left: 0;
-          transform: translateY(-50%);
-          color: $backgSilver;
-          font-size: .75em;
-        }
-      }
-
-      button {
-        position: relative;
-        width: fit-content;
-        color: $backgSilver;
-        background-color: transparent;
-        border: none;
-        outline: none;
-        font-size: .95em;
-        text-decoration: none;
-        text-transform: uppercase;
-        overflow: hidden;
-        margin-top: .25em;
-        margin-left: auto;
-        letter-spacing: .2em;
-        transition: .3s color;
-
-        &:hover {
-          color: $green;
-        }
-      }
-    }
   }
 }
