@@ -1,17 +1,11 @@
 @import "src/custom";
 
 .about {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  display: grid;
   grid-template-columns: 1fr 1fr;
   align-items: center;
   padding: 1em 4em;
-  box-sizing: border-box;
   @media screen and (max-width: 780px) {
-    display: block;
-    grid-template-columns: initial;
+    @include containerMin;
   }
 
   .greeting_text {
@@ -22,7 +16,7 @@
       opacity: 0;
       color: $pink;
       margin-bottom: .5em;
-      text-shadow: 0 0 $shadT $pink;
+      text-shadow: 0 0 $shadT rgba(248, 7, 89, .7);;
 
       span {
         display: inline-block;

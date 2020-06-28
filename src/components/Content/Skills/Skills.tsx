@@ -5,9 +5,7 @@ import { useTranslation } from "react-i18next";
 import anime from "animejs";
 import { NavContext } from "../../../contexts/NavContext";
 
-type Props = {}
-
-const Skills: FC<Props> = (props) => {
+const Skills = () => {
    const { isMinScreen } = useContext(NavContext);
    const { t } = useTranslation();
    const section = useRef<any>(null);

@@ -1,34 +1,32 @@
 @import "src/custom";
 
 .contact {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  box-sizing: border-box;
   display: grid;
   grid-template-columns: 1.3fr 1fr;
   @media screen and (max-width: 780px) {
-    display: block;
-    grid-template-columns: initial;
+    @include containerMin;
   }
 
   .left_block {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 1em 3em;
+    padding: 1em 2em 1em 4em;
+    @media screen and (max-width: 780px) {
+      padding: 0;
+    }
 
     .title {
       color: $lightGray;
 
       h1 {
         font-family: $fontMed;
-        font-size: 2.25em;
+        font-size: 2.5em;
         letter-spacing: .04em;
         color: $green;
         margin-bottom: .65em;
         opacity: 0;
-        text-shadow: 0 0 $shadT $green;
+        text-shadow: 0 0 $shadT rgba(54, 186, 124, .7);
 
         span {
           display: inline-block;
@@ -53,6 +51,96 @@
 
   .right_block {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    max-width: 100vh;
+    overflow: hidden;
+    @media screen and (max-width: 780px) {
+      margin-top: 3rem;
+    }
 
+    .before_block {
+      position: absolute;
+      top: 50%;
+      right: 50%;
+      transform: translate(55%, -150%);
+      height: 100%;
+      width: 45vw;
+      border-radius: 0;
+      background-color: #D9D9E5;
+      box-shadow: inset 10px 0 10px rgba(0, 0, 0, 0.2);
+      @media screen and (max-width: 780px) {
+        display: none;
+      }
+    }
+
+    .email {
+      position: relative;
+      opacity: 0;
+
+      p {
+        font-size: 1.25em;
+        font-family: $fontSemB;
+        letter-spacing: 0.075em;
+        text-decoration-line: underline;
+        color: $backgMenu;
+        cursor: pointer;
+      }
+
+      .copy {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateY(-50%);
+        color: rgba(0, 0, 0, .8);
+        font-size: .75rem;
+        opacity: 0;
+      }
+    }
+
+    .line {
+      margin: 2rem 0;
+      background-color: $backgMenu;
+      width: 0;
+      height: .2rem;
+      border-radius: .2rem;
+      z-index: 5;
+    }
+
+    .network {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+
+      a {
+        margin: 0 .75rem;
+        svg {
+          height: 2rem;
+          width: auto;
+          fill: none;
+          transition: filter .4s;
+
+          path {
+            fill: $backgMenu;
+          }
+        }
+
+        &:hover {
+          svg {
+            filter: drop-shadow( 0 .25em .25em rgba(0, 0, 0, 0.25) );
+          }
+        }
+      }
+
+      //.hh {
+      //  width: 47px !important;
+      //  height: 36px !important;
+      //}
+    }
   }
 }

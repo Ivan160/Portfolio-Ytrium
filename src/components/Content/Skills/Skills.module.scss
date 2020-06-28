@@ -1,17 +1,12 @@
 @import "src/custom";
 
 .skills {
-  position: relative;
-  width: 100%;
-  min-height: 100vh;
-  box-sizing: border-box;
-  //background-color: $backgSilver;
   background: linear-gradient(to left, $backgSilver 50.5%, $backgContent 0%);
   display: grid;
   grid-template-columns: 1fr 1fr;
   @media screen and (max-width: 780px) {
-    display: block;
-    grid-template-columns: initial;
+    @include containerMin;
+    padding: 0;
     background-color: $backgSilver;
   }
 
@@ -51,7 +46,7 @@
         color: $blue;
         margin-bottom: .65em;
         opacity: 0;
-        text-shadow: 0 0 $shadT $blue;
+        text-shadow: 0 0 $shadT rgba(23, 94, 116, .7);
 
         span {
           display: inline-block;

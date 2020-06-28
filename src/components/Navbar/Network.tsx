@@ -23,7 +23,7 @@ const Network: FC<Props> = ({ link, copy, text, children, widthText, color, back
             opacity: [
                {value: .85, easing: 'linear', duration: 400},
                {value: 0, easing: 'linear', delay: 250, duration: 400}
-            ],
+            ]
          });
       }
    };
