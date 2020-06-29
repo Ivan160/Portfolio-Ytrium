@@ -32,7 +32,7 @@ const Form = () => {
                const errors: errors = {};
                if (values.user_name.length < 3) errors.user_name = t('contact.validName');
                if (values.message.length < 10) errors.message = t('contact.validMessage');
-               if (!/^[A-Za-z0-9](([_\.\-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([\.\-]?[a-zA-Z0-9]+)*)\.([A-Za-z])+$/.test(values.user_email)) errors.user_email = t('contact.validEmail');
+               if (!/^[A-Za-z0-9](([_.-]?[a-zA-Z0-9]+)*)@([A-Za-z0-9]+)(([.-]?[a-zA-Z0-9]+)*)\.([A-Za-z])+$/.test(values.user_email)) errors.user_email = t('contact.validEmail');
                return errors;
             }}
             onSubmit={(values, { setSubmitting, resetForm }) => {

@@ -70,7 +70,7 @@
       height: 100%;
       width: 45vw;
       border-radius: 0;
-      background-color: #D9D9E5;
+      background-color: $backgSilver;
       box-shadow: inset 10px 0 10px rgba(0, 0, 0, 0.2);
       @media screen and (max-width: 780px) {
         display: none;
@@ -88,6 +88,7 @@
         text-decoration-line: underline;
         color: $backgMenu;
         cursor: pointer;
+        @media screen and (max-width: 780px) {color: $backgSilver}
       }
 
       .copy {
@@ -98,16 +99,18 @@
         color: rgba(0, 0, 0, .8);
         font-size: .75rem;
         opacity: 0;
+        @media screen and (max-width: 780px) {color: $backgSilver}
       }
     }
 
     .line {
-      margin: 2rem 0;
+      margin: 2.5rem 0;
       background-color: $backgMenu;
       width: 0;
       height: .2rem;
       border-radius: .2rem;
       z-index: 5;
+      @media screen and (max-width: 780px) {background-color: $backgSilver}
     }
 
     .network {
@@ -127,12 +130,13 @@
 
           path {
             fill: $backgMenu;
+            @media screen and (max-width: 780px) {fill: $backgSilver}
           }
         }
 
         &:hover {
           svg {
-            filter: drop-shadow( 0 .25em .25em rgba(0, 0, 0, 0.25) );
+            filter: drop-shadow( 0 .2em .1em rgba(0, 0, 0, 0.5) );
           }
         }
       }

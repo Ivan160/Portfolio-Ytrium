@@ -15,8 +15,14 @@
       }
     },
     "about": {
-      "title": "About me",
-      "text": "Hello, I’m Roland, Creative Technologist & User Experience Engineer based in Berlin – I create digital products with knowledge and passion."
+      "title": {
+        "nameIs": "My name is",
+        "name": "Ivan Androschuk"
+      },
+      "text": {
+        "title": "I am a web developer creating web applications on React. My main specialization is frontend development, but I can also work on backend or design databases.",
+        "text": "Since 2017, I have been working as a middle management in the direct sales department. Around the same time, I started working as a freelancer developing sites from simple landing pages to complex web applications. I like to learn something new, discover new areas experience and put everything into practice."
+      }
     },
     "works": {
       "title": "My works",

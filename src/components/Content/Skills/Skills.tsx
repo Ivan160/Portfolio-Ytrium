@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useContext, useEffect, useRef } from "react";
+import React, { useCallback, useContext, useEffect, useRef } from "react";
 import style from "./Skills.module.scss";
 import SkillsList from "./SkillsList";
 import { useTranslation } from "react-i18next";

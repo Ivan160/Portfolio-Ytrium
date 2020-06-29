@@ -46,7 +46,7 @@ const Works: FC = () => {
 
    const [ activeProject, setActiveProject ] = useState<string>('');
    const [ slidePosition, setSlidePosition ] = useState<number>(0);
-   const [ worksTitle, setWorksTitle ] = useState<boolean>(true);
+   const [ worksTitle, setWorksTitle ] = useState<boolean>(false);
 
    const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
 
@@ -96,16 +96,16 @@ const Works: FC = () => {
       };
    }, [ onScroll, scrolling, activeProject ]);
 
-   useEffect(() => {
-      const timeoutOne: NodeJS.Timeout = setTimeout(() => scrolling(0, section.current.clientHeight), 2200);
-      const timeoutTwo: NodeJS.Timeout = setTimeout(() => setSlidePosition(0), 3500);
-      const timeoutThree: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4200);
-      return () => {
-         clearTimeout(timeoutOne);
-         clearTimeout(timeoutTwo);
-         clearTimeout(timeoutThree);
-      }
-   }, [ scrolling ]);
+   // useEffect(() => {
+   //    const timeoutOne: NodeJS.Timeout = setTimeout(() => scrolling(0, section.current.clientHeight), 2200);
+   //    const timeoutTwo: NodeJS.Timeout = setTimeout(() => setSlidePosition(0), 3500);
+   //    const timeoutThree: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4200);
+   //    return () => {
+   //       clearTimeout(timeoutOne);
+   //       clearTimeout(timeoutTwo);
+   //       //clearTimeout(timeoutThree);
+   //    }
+   // }, [ scrolling ]);
 
    useMemo(() => section.current && !activeProject ? scrolling(slidePosition * section.current.clientHeight, 0) : scrolling(0, 0), [ activeProject, scrolling ]);
 

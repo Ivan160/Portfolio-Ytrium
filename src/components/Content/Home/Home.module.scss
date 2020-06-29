@@ -24,9 +24,6 @@
         opacity: 0;
         color: $lightGray;
         font-size: 3.3em;
-        @media screen and (max-width: 780px) {
-          font-size: 4.5em;
-        }
 
         p {
           font-family: $fontSemB;

@@ -7,7 +7,7 @@
   @media screen and (max-width: 780px) {
     @include containerMin;
     padding: 0;
-    background-color: $backgSilver;
+    background-color: $backgContent !important;
   }
 
   .left_block {
@@ -33,6 +33,7 @@
       @media screen and (max-width: 780px) {
         position: initial;
         height: auto;
+        padding: 1em $indentSides;
       }
     }
 
@@ -72,9 +73,10 @@
   .right_block {
     width: 100%;
     box-sizing: border-box;
+    padding-bottom: 3rem;
 
     @media screen and (max-width: 780px) {
-      padding: 0;
+      padding-bottom: $indentBot;
       background-color: $backgSilver;
     }
 

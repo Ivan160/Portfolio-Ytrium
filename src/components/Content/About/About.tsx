@@ -1,15 +1,17 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import style from "./About.module.scss";
 import anime from "animejs";
 import { useTranslation } from "react-i18next";
+import myPhoto from "../../../assets/images/about/myPhoto.jpg";
 
-type Props = {}
-
-const About: FC<Props> = (props) => {
+const About = () => {
    const { t } = useTranslation();
-
+   const photo = useRef<any>(null);
    const title = useRef<any>(null);
-   const text = useRef<any>(null);
+   const nameIs = useRef<any>(null);
+   const line = useRef<any>(null);
+   const textOne = useRef(null);
+   const textTwo = useRef(null);
 
    useEffect(() => {
       anime({
@@ -22,32 +24,61 @@ const About: FC<Props> = (props) => {
       anime({
          targets: '.letter',
          rotateY: [ -90, 0 ],
-         duration: 750,
-         delay: anime.stagger(75),
+         duration: 400,
+         delay: anime.stagger(70),
          easing: 'linear'
       });
+
       anime({
-         targets: text.current,
-         height: [
-            { value: [ 0, text.current.clientHeight ], duration: 1500, delay: 900, easing: 'easeInOutExpo' },
-            { value: '100%', duration: 0, delay: 2500, easing: 'linear' },
-         ],
-         opacity: { value: '1', duration: 0, easing: 'linear' }
+         targets: nameIs.current,
+         opacity: 1,
+         delay: 100,
+         duration: 400,
+         easing: 'linear'
+      });
+
+      anime({
+         targets: line.current,
+         width: [0, '33%'],
+         delay: 500,
+         duration: 500,
+         easing: 'linear'
+      });
+
+      anime({
+         targets: [textOne.current, textTwo.current],
+         opacity: {value: 1, duration: 300},
+         translateY: ['10%', 0],
+         delay: 1000,
+         duration: 400,
+         easing: 'linear'
+      });
+
+      anime({
+         targets: photo.current,
+         opacity: 1,
+         delay: 1000,
+         duration: 1000,
+         easing: 'linear'
       });
    }, []);
 
    return (
       <section className={style.about}>
          <div className={style.greeting_text}>
-            <h1 ref={title}>{t('about.title')}</h1>
-            <div ref={text} className={style.text}>
-               <p>{t('about.text')}</p>
-               <p>{t('about.text')}</p>
-               <p>{t('about.text')}</p>
+            <div className={style.title}>
+               <p ref={nameIs}>{t('about.title.nameIs')}</p>
+               <h1 ref={title}>{t('about.title.name')}</h1>
+               <span ref={line} className={style.line}/>
+            </div>
+            <div className={style.text}>
+               <h4 ref={textOne}>{t('about.text.title')}</h4>
+               <p ref={textTwo}>&mdash;   {t('about.text.text')}</p>
             </div>
          </div>
-         <div className={style.image}>
 
+         <div className={style.image}>
+            <img ref={photo} src={myPhoto} alt=""/>
          </div>
       </section>
    );
