@@ -22,14 +22,16 @@
       box-shadow: 0 0 15px 0 rgba(0, 0, 0, 0.7);
 
       &:hover {
-        .more {
-          visibility: visible;
-          opacity: 1;
-        }
+        @media screen and (min-width: 780px) {
+          .more {
+            visibility: visible;
+            opacity: 1;
+          }
 
-        .image {
-          img {
-            transform: scale(1.15);
+          .image {
+            img {
+              transform: scale(1.15);
+            }
           }
         }
       }

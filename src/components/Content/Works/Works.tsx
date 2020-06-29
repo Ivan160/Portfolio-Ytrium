@@ -1,10 +1,10 @@
 import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
-import debounce from "lodash.debounce";
 import style from "./Works.module.scss";
 import Work from './Work/Work';
 import intelecom from "../../../assets/images/works/intelecom.png";
 import { Intelecom } from "./Projects";
 import WorksTitle from "./WorksTitle/WorksTitle";
+import anime from "animejs";
 
 type data = Array<{
    title: string,
@@ -15,7 +15,7 @@ type data = Array<{
 
 const Works: FC = () => {
    const section = useRef<any>(null);
-   const requestRef = useRef<any>();
+   const works = useRef<any>(null);
 
    const data: data = [
       {
@@ -45,7 +45,8 @@ const Works: FC = () => {
    ];
 
    const [ activeProject, setActiveProject ] = useState<string>('');
-   const [ slidePosition, setSlidePosition ] = useState<number>(0);
+   const [ isScroll, setScroll ] = useState<boolean>(false);
+   const [ position, setPosition ] = useState<number>(0);
    const [ worksTitle, setWorksTitle ] = useState<boolean>(false);
 
    const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
@@ -55,69 +56,88 @@ const Works: FC = () => {
       return () => document.removeEventListener('keydown', esc);
    }, [ esc ]);
 
-   const scrolling = useCallback((scrollTop: number, position: number) => {
-      const duration: number = 1250;
-      const start = performance.now();
+   useMemo(() => {
+      if (!works.current) return;
+      const positionY = position * 100;
 
-      const easeInOutQuart = (x: number): number =>  x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
-      const animate = (time: number) => {
-         let timeFraction = (time - start) / duration;
-         if (timeFraction > 1) timeFraction = 1;
-         const progress = easeInOutQuart(timeFraction);
-         if (section.current) section.current.scrollTop = scrollTop + position * progress;
-         if (timeFraction < 1) requestRef.current = requestAnimationFrame(animate);
-         else cancelAnimationFrame(requestRef.current);
+      anime({
+         targets: works.current,
+         translateY: `-${positionY}%`,
+         duration: 1250,
+         easing: 'easeInOutQuart'
+      });
+   }, [ position ])
+
+
+   const mouseWheelAndKey = useCallback((event: any) => {
+      setScroll(true);
+      if ((event.deltaY > 0 || event.keyCode === 40) && position + 1 < data.length) setPosition(position + 1);
+      else if ((event.deltaY < 0 || event.keyCode === 38) && position - 1 >= 0) setPosition(position - 1);
+   }, [ position ]);
+
+
+   let mTouchStart = 0;
+   const touchStart = (event: any) => {
+      console.log(1);
+      mTouchStart = parseInt(event.changedTouches[0].clientY);
+   }
+
+   const touchEnd = useCallback((event: any) => {
+      setScroll(true);
+      console.log(2);
+      const mTouchEnd = parseInt(event.changedTouches[0].clientY)
+      if (mTouchEnd - mTouchStart > 100 || mTouchStart - mTouchEnd > 100) {
+         if ((mTouchEnd > mTouchStart) && position - 1 >= 0) setPosition(position - 1);
+         else if ((mTouchEnd < mTouchStart) && position + 1 < data.length) setPosition(position + 1);
       }
-      requestAnimationFrame(animate);
-   }, []);
-
-   const onScroll = useCallback(debounce((e: any) => {
-      if (!e.target) return;
-      const scrollTop = e.target.scrollTop;
-      const clientHeight = e.target.clientHeight;
-      //    const newSlide: number = Math.round(scrollTop / clientHeight);
-      const currentSlide: number = Math.round(scrollTop / clientHeight);
-      const differSlide: number = Math.sign(scrollTop / clientHeight - currentSlide);
-      const newSlide: number = Math.round(currentSlide + differSlide);
-      const newSlideScroll: number = newSlide * clientHeight;
-      const remainsScroll: number = newSlideScroll - scrollTop;
-
-      if (remainsScroll !== 0) {
-         scrolling(scrollTop, remainsScroll);
-         setSlidePosition(newSlide);
-      }
-   }, 50, {leading: true, trailing: false}), [ scrolling ]);
+   }, [mTouchStart]);
 
    useEffect(() => {
-      !activeProject ? section.current.addEventListener('scroll', onScroll) : section.current.removeEventListener('scroll', onScroll);
+      if (activeProject || isScroll) {
+         document.removeEventListener('wheel', mouseWheelAndKey);
+         document.removeEventListener('keyup', mouseWheelAndKey);
+         document.removeEventListener('touchstart', touchStart);
+         document.removeEventListener('touchend', touchEnd);
+      } else {
+         document.addEventListener('wheel', mouseWheelAndKey);
+         document.addEventListener('keyup', mouseWheelAndKey);
+         document.addEventListener('touchstart', touchStart);
+         document.addEventListener('touchend', touchEnd);
+      }
       return () => {
-         cancelAnimationFrame(requestRef.current);
-         section.current.removeEventListener('scroll', onScroll);
+         document.removeEventListener('wheel', mouseWheelAndKey);
+         document.removeEventListener('keyup', mouseWheelAndKey);
       };
-   }, [ onScroll, scrolling, activeProject ]);
+   }, [ activeProject, isScroll, mouseWheelAndKey ]);
 
-   // useEffect(() => {
-   //    const timeoutOne: NodeJS.Timeout = setTimeout(() => scrolling(0, section.current.clientHeight), 2200);
-   //    const timeoutTwo: NodeJS.Timeout = setTimeout(() => setSlidePosition(0), 3500);
-   //    const timeoutThree: NodeJS.Timeout = setTimeout(() => setWorksTitle(false), 4200);
-   //    return () => {
-   //       clearTimeout(timeoutOne);
-   //       clearTimeout(timeoutTwo);
-   //       //clearTimeout(timeoutThree);
-   //    }
-   // }, [ scrolling ]);
+   useEffect(() => {
+      const timeout = setTimeout(() => setScroll(false), 1000);
+      return () => clearTimeout(timeout)
+   }, [ isScroll ]);
 
-   useMemo(() => section.current && !activeProject ? scrolling(slidePosition * section.current.clientHeight, 0) : scrolling(0, 0), [ activeProject, scrolling ]);
+   useMemo(() => section.current && (section.current.scrollTop = 0), [ activeProject ]);
 
    return (
       <section ref={section} className={style.works}
-               style={{ backgroundColor: `${activeProject ? '#D9D9E5' : 'transparent'}` }}>
+               style={{
+                  backgroundColor: activeProject ? '#D9D9E5' : 'transparent',
+                  overflowY: !activeProject ? 'hidden' : 'scroll'
+               }}>
 
          {worksTitle && <WorksTitle/>}
 
-         <div className={`${style.work} ${activeProject ? style.work_hidden : style.work_visible}`}>
+         <ul className={style.dots_list}>
+            {
+               data.map(({ title }, id) => (
+                  <li key={`{${title}_${id}`} style={{ width: id === position ? '100%' : '75%' }}
+                      onClick={() => setPosition(id)}/>
+               ))
+            }
+         </ul>
+
+         <div ref={works} className={`${style.work} ${activeProject ? style.work_hidden : style.work_visible}`}>
             <Work setActiveProject={setActiveProject} activeProject={activeProject}
-                  slidePosition={slidePosition} data={data}/>
+                  slidePosition={position} data={data}/>
          </div>
 
          <div className={style.project_details}>
