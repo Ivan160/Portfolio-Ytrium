@@ -3,45 +3,163 @@
 .works {
   width: 100%;
   height: 100%;
-  overflow-y: hidden;
+  position: relative;
+
+  $widthBtn: 20px;
+  $heightBtn: 2px;
+  $minWidthBtn: 14px;
+  $minHeightBtn: 1px;
+
 
   .dots_list {
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 5%;
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: center;
-    width: 5%;
+    width: $widthBtn*1.5;
     padding: 0;
     z-index: 1;
+    transition: opacity .3s, visibility .3s;
+    @media screen and (max-width: 780px) {
+      width: $minWidthBtn*1.5
+    }
 
     li {
       height: 2px;
-      width: 70%;
-      margin: 10% 0;
-      background-color: $backgSilver;
+      margin: $heightBtn*3 0;
       cursor: pointer;
-      transition: width .3s ease-in;
+      transition: width .3s ease-in, background .3s;
+      @media screen and (max-width: 780px) {
+        margin: $minHeightBtn*3 0;
+      }
+    }
+
+    .dot {
+      background-color: #808080;
+      width: 75%;
+    }
+
+    .active_dot {
+      background-color: $backgSilver;
+      width: 100%;
+    }
+  }
+
+  .btn_close {
+    position: fixed;
+    top: 50%;
+    right: 5%;
+    width: $widthBtn*2;
+    height: $widthBtn*2;
+    border-radius: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: right .8s, opacity .3s, visibility .3s, background-color .5s .3s;
+    z-index: 90;
+    @media screen and (max-width: 780px) {
+      width: $minWidthBtn*2;
+      height: $minHeightBtn*2;
+    }
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $widthBtn;
+      height: $heightBtn;
+      transition: transform .3s, background-color .2s, width .25s;
+      @media screen and (max-width: 780px) {
+        width: $minWidthBtn;
+        height: $minHeightBtn;
+      }
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: $widthBtn;
+      height: $heightBtn;
+      transition: transform .3s, background-color .2s, width .25s;
+      @media screen and (max-width: 780px) {
+        width: $minWidthBtn;
+        height: $minHeightBtn;
+      }
+    }
+
+    &:hover {
+
+      &:before, &:after {
+        width: $widthBtn*0.75;
+        @media screen and (max-width: 780px) {
+          width: $minWidthBtn*0.75;
+        }
+      }
     }
   }
 
   .work {
     width: 100%;
     height: 100%;
-    //transition: transform 1500ms ease;
+  }
+}
+
+.active_project {
+  background-color: $backgSilver;
+  overflow-y: scroll !important;
+
+  .dots_list {
+    opacity: 0;
+    visibility: hidden;
   }
 
-  .work_visible {
+  .btn_close {
+    opacity: 1;
+    visibility: visible;
+    background-color: $backgContent;
+    &:before {
+      background-color: $lightGray;
+      transform: translate(-50%, -50%) rotate(45deg);
+    }
+    &:after {
+      background-color: $lightGray;
+      transform: translate(-50%, -50%) rotate(-45deg);
+    }
+  }
+
+  .work {
+    height: 0;
+    transition: height .5s .5s;
+  }
+}
+
+.active_work {
+  background-color: transparent;
+  overflow-y: hidden !important;
+
+  .dots_list {
     opacity: 1;
     visibility: visible;
   }
 
-  .work_hidden {
-    transition: height .5s .3s;
-    height: 0;
-    overflow: hidden;
+  .btn_close {
+    opacity: 0;
+    visibility: hidden;
+    background-color: transparent;
+    &:before {
+      transform: translate(-50%, -50%) rotate(0deg);
+      background-color: #808080;
+    }
+    &:after {
+      background-color: #808080;
+      transform: translate(-50%, -50%) rotate(0);
+
+    }
   }
 }

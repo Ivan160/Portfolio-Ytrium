@@ -1,10 +1,13 @@
-import React, { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import React, { FC, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
 import style from "./Works.module.scss";
 import Work from './Work/Work';
-import intelecom from "../../../assets/images/works/intelecom.png";
 import { Intelecom } from "./Projects";
 import WorksTitle from "./WorksTitle/WorksTitle";
 import anime from "animejs";
+import intelecom from "../../../assets/images/works/intelecom.png";
+import Project from "./Projects/Project";
+import { useTranslation } from "react-i18next";
+import { NavContext } from "../../../contexts/NavContext";
 
 type data = Array<{
    title: string,
@@ -14,10 +17,12 @@ type data = Array<{
 }>
 
 const Works: FC = () => {
+   const { isOpenNav } = useContext(NavContext);
+   const { t } = useTranslation();
    const section = useRef<any>(null);
    const works = useRef<any>(null);
 
-   const data: data = [
+   const workData: data = [
       {
          title: 'Intelecom',
          description: 'internet service provider',
@@ -32,12 +37,6 @@ const Works: FC = () => {
       },
       {
          title: 'Intelecom2',
-         description: 'internet service provider',
-         image: intelecom,
-         myWork: 'frontend/backend/design'
-      },
-      {
-         title: 'Intelecom3',
          description: 'internet service provider',
          image: intelecom,
          myWork: 'frontend/backend/design'
@@ -58,6 +57,7 @@ const Works: FC = () => {
 
    useMemo(() => {
       if (!works.current) return;
+      setScroll(true);
       const positionY = position * 100;
 
       anime({
@@ -68,45 +68,40 @@ const Works: FC = () => {
       });
    }, [ position ])
 
-
    const mouseWheelAndKey = useCallback((event: any) => {
-      setScroll(true);
-      if ((event.deltaY > 0 || event.keyCode === 40) && position + 1 < data.length) setPosition(position + 1);
+      if ((event.deltaY > 0 || event.keyCode === 40) && position + 1 < workData.length) setPosition(position + 1);
       else if ((event.deltaY < 0 || event.keyCode === 38) && position - 1 >= 0) setPosition(position - 1);
    }, [ position ]);
 
-
    let mTouchStart = 0;
-   const touchStart = (event: any) => {
-      console.log(1);
-      mTouchStart = parseInt(event.changedTouches[0].clientY);
-   }
+   const touchStart = (event: any) => mTouchStart = event.changedTouches[0].clientY;
 
-   const touchEnd = useCallback((event: any) => {
-      setScroll(true);
-      console.log(2);
-      const mTouchEnd = parseInt(event.changedTouches[0].clientY)
-      if (mTouchEnd - mTouchStart > 100 || mTouchStart - mTouchEnd > 100) {
-         if ((mTouchEnd > mTouchStart) && position - 1 >= 0) setPosition(position - 1);
-         else if ((mTouchEnd < mTouchStart) && position + 1 < data.length) setPosition(position + 1);
+   const touchEnd = (event: any) => {
+      const mTouchEnd = event.changedTouches[0].clientY;
+      const distY = mTouchEnd - mTouchStart;
+      if (Math.abs(distY) >= 50) {
+         if ((distY > 0) && position - 1 >= 0) setPosition(position - 1);
+         else if ((distY < 0) && position + 1 < workData.length) setPosition(position + 1);
       }
-   }, [mTouchStart]);
+   };
 
    useEffect(() => {
       if (activeProject || isScroll) {
-         document.removeEventListener('wheel', mouseWheelAndKey);
-         document.removeEventListener('keyup', mouseWheelAndKey);
-         document.removeEventListener('touchstart', touchStart);
-         document.removeEventListener('touchend', touchEnd);
+         document.removeEventListener('wheel', mouseWheelAndKey, false);
+         document.removeEventListener('keyup', mouseWheelAndKey, false);
+         document.removeEventListener('touchstart', touchStart, false);
+         document.removeEventListener('touchend', touchEnd, false);
       } else {
-         document.addEventListener('wheel', mouseWheelAndKey);
-         document.addEventListener('keyup', mouseWheelAndKey);
-         document.addEventListener('touchstart', touchStart);
-         document.addEventListener('touchend', touchEnd);
+         document.addEventListener('wheel', mouseWheelAndKey, false);
+         document.addEventListener('keyup', mouseWheelAndKey, false);
+         document.addEventListener('touchstart', touchStart, false);
+         document.addEventListener('touchend', touchEnd, false);
       }
       return () => {
-         document.removeEventListener('wheel', mouseWheelAndKey);
-         document.removeEventListener('keyup', mouseWheelAndKey);
+         document.removeEventListener('wheel', mouseWheelAndKey, false);
+         document.removeEventListener('keyup', mouseWheelAndKey, false);
+         document.removeEventListener('touchstart', touchStart, false);
+         document.removeEventListener('touchend', touchEnd, false);
       };
    }, [ activeProject, isScroll, mouseWheelAndKey ]);
 
@@ -115,33 +110,46 @@ const Works: FC = () => {
       return () => clearTimeout(timeout)
    }, [ isScroll ]);
 
-   useMemo(() => section.current && (section.current.scrollTop = 0), [ activeProject ]);
+   useEffect(() => {
+      let timeout: NodeJS.Timeout;
+      section.current && (section.current.scrollTop = 0)
+      if (activeProject && works.current) timeout = setTimeout(() => works.current.style.overflow = 'hidden', 500);
+      else works.current.style.overflow = 'initial';
+      return () => clearTimeout(timeout)
+   }, [ activeProject ]);
 
    return (
-      <section ref={section} className={style.works}
-               style={{
-                  backgroundColor: activeProject ? '#D9D9E5' : 'transparent',
-                  overflowY: !activeProject ? 'hidden' : 'scroll'
-               }}>
+      <section ref={section} className={`${style.works} ${activeProject ? style.active_project : style.active_work}`}>
 
          {worksTitle && <WorksTitle/>}
 
          <ul className={style.dots_list}>
-            {
-               data.map(({ title }, id) => (
-                  <li key={`{${title}_${id}`} style={{ width: id === position ? '100%' : '75%' }}
-                      onClick={() => setPosition(id)}/>
-               ))
-            }
+            {workData.map(({ title }, id) => (
+               <li key={`{${title}_${id}`} className={id === position ? style.active_dot : style.dot}
+                   onClick={() => setPosition(id)}/>
+            ))}
          </ul>
+         <span onClick={() => setActiveProject('')} className={style.btn_close}
+               style={{right: `calc(5% + ${isOpenNav ? '62px' : '0'})`}}/>
 
-         <div ref={works} className={`${style.work} ${activeProject ? style.work_hidden : style.work_visible}`}>
+         <div ref={works} className={style.work}>
             <Work setActiveProject={setActiveProject} activeProject={activeProject}
-                  slidePosition={position} data={data}/>
+                  slidePosition={position} data={workData}/>
          </div>
 
          <div className={style.project_details}>
-            {activeProject === 'Intelecom' && <Intelecom/>}
+            {activeProject === 'Intelecom' && <Project text={{
+               title: t('works.intelecom.title'),
+               company: t('works.intelecom.company'),
+               subtitle: t('works.intelecom.subtitle'),
+               task: t('works.intelecom.task')
+            }} mainImg={intelecom} album={[
+               {titleAlbum: 'Dashboard', images: [ intelecom, intelecom, intelecom ]}
+            ]}>
+               <p>Frontend: <strong>React</strong> + <strong>Redux</strong></p>
+               <p>Backend: <strong>Express.js</strong></p>
+               <p>Database: <strong>MongoDB</strong> + <strong>mongoose</strong></p>
+            </Project>}
             {activeProject === 'Intelecom1' && <Intelecom/>}
             {activeProject === 'Intelecom2' && <Intelecom/>}
          </div>

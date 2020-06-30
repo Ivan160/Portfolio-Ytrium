@@ -26,7 +26,13 @@
     },
     "works": {
       "title": "My works",
-      "more": "More"
+      "more": "More",
+      "intelecom": {
+        "company": "Internet service provider",
+        "title": "Intelecom",
+        "subtitle": "Company website",
+        "task": "The task was development of the company website that is pleasant for the user with a convenient dashboard for working with information."
+      }
     },
     "skills": {
       "title": "Skills & Experience",
