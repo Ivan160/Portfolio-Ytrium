@@ -5,19 +5,25 @@ import anime from "animejs";
 import style from "./Works.module.scss";
 import Work from './Work/Work';
 import Project from "./Projects/Project";
+
 import intelecom from "../../../assets/images/works/intelecom.png";
+import * as int from '../../../assets/images/works/intelecom';
+import * as fit from '../../../assets/images/works/fitness';
+import * as bio from '../../../assets/images/works/bio';
+import * as dGlo from '../../../assets/images/works/dGlo';
+import * as rel from '../../../assets/images/works/relax';
+import * as bus from '../../../assets/images/works/busservice';
 
 const Works: FC = () => {
    const { t } = useTranslation();
    const { isOpenNav } = useContext(NavContext);
    const section = useRef<any>(null);
    const works = useRef<any>(null);
-   const fakeBlock = useRef<any>(null);
 
    const [ heightImage, setHeightImage ] = useState<number>(450);
    const [ activeProject, setActiveProject ] = useState<string>('');
    const [ isScroll, setScroll ] = useState<boolean>(false);
-   const [ position, setPosition ] = useState<number>(-1);
+   const [ position, setPosition ] = useState<number>(0);
 
    const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
    useEffect(() => {
@@ -103,13 +109,13 @@ const Works: FC = () => {
 
    useEffect(() => {
       anime({
-         targets: fakeBlock.current,
-         height: [ '100vh', '0vh' ],
+         targets: section.current,
+         paddingTop: [ '100vh', '0vh' ],
          duration: 1300,
          easing: 'easeInOutQuart'
       });
-      const timeout = setTimeout(() => setPosition(0), 350);
-      return () => clearTimeout(timeout)
+      // const timeout = setTimeout(() => setPosition(0), 350);
+      // return () => clearTimeout(timeout)
    }, []);
 
    type data = Array<{
@@ -124,6 +130,36 @@ const Works: FC = () => {
          description: 'internet service provider',
          image: intelecom,
          myWork: 'frontend/backend/design'
+      },
+      {
+         title: 'Fitness',
+         description: 'Fitness',
+         image: fit.fit1,
+         myWork: 'frontend/backend/design'
+      },
+      {
+         title: 'Bio',
+         description: 'Bio',
+         image: bio.bio1,
+         myWork: 'frontend/backend/design'
+      },
+      {
+         title: '3DGlo',
+         description: '3DGlo',
+         image: dGlo.dGlo1,
+         myWork: 'frontend/backend/design'
+      },
+      {
+         title: 'Relax Live',
+         description: 'Relax Live',
+         image: rel.rel1,
+         myWork: 'frontend/backend/design'
+      },
+      {
+         title: 'Tire fitting',
+         description: 'Tire fitting',
+         image: bus.bus1,
+         myWork: 'frontend/backend/design'
       }
    ];
 
@@ -137,7 +173,6 @@ const Works: FC = () => {
          </ul>
          <span onClick={() => setActiveProject('')} className={style.btn_close}
                style={{ right: `calc(5% + ${isOpenNav ? 62 : 0}px)` }}/>
-         <div ref={fakeBlock} className={style.fake_block}/>
          <div ref={works} className={style.work}>
             <Work setActiveProject={setActiveProject} activeProject={activeProject}
                   slidePosition={position} data={workData}/>
@@ -150,12 +185,52 @@ const Works: FC = () => {
                subtitle: t('works.intelecom.subtitle'),
                task: t('works.intelecom.task')
             }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: [ intelecom, intelecom, intelecom ] }
+               { titleAlbum: 'Dashboard', images: int }
             ]}>
                <p>Frontend: <strong>React</strong> + <strong>Redux</strong></p>
                <p>Backend: <strong>Express.js</strong></p>
                <p>Database: <strong>MongoDB</strong> + <strong>mongoose</strong></p>
             </Project>}
+            {activeProject === 'Fitness' && <Project heightImage={heightImage} text={{
+               title: t('works.intelecom.title'),
+               company: t('works.intelecom.company'),
+               subtitle: t('works.intelecom.subtitle'),
+               task: t('works.intelecom.task')
+            }} mainImg={intelecom} album={[
+               { titleAlbum: 'Dashboard', images: fit }
+            ]}/>}
+            {activeProject === 'Bio' && <Project heightImage={heightImage} text={{
+               title: t('works.intelecom.title'),
+               company: t('works.intelecom.company'),
+               subtitle: t('works.intelecom.subtitle'),
+               task: t('works.intelecom.task')
+            }} mainImg={intelecom} album={[
+               { titleAlbum: 'Dashboard', images: bio }
+            ]}/>}
+            {activeProject === '3DGlo' && <Project heightImage={heightImage} text={{
+               title: t('works.intelecom.title'),
+               company: t('works.intelecom.company'),
+               subtitle: t('works.intelecom.subtitle'),
+               task: t('works.intelecom.task')
+            }} mainImg={intelecom} album={[
+               { titleAlbum: 'Dashboard', images: dGlo }
+            ]}/>}
+            {activeProject === 'Relax Live' && <Project heightImage={heightImage} text={{
+               title: t('works.intelecom.title'),
+               company: t('works.intelecom.company'),
+               subtitle: t('works.intelecom.subtitle'),
+               task: t('works.intelecom.task')
+            }} mainImg={intelecom} album={[
+               { titleAlbum: 'Dashboard', images: rel }
+            ]}/>}
+            {activeProject === 'Tire fitting' && <Project heightImage={heightImage} text={{
+               title: t('works.intelecom.title'),
+               company: t('works.intelecom.company'),
+               subtitle: t('works.intelecom.subtitle'),
+               task: t('works.intelecom.task')
+            }} mainImg={intelecom} album={[
+               { titleAlbum: 'Dashboard', images: bus }
+            ]}/>}
          </div>
       </section>
    );

@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import style from "./Project.module.scss";
+import * as int from "../../../../assets/images/works/intelecom";
 
 type Props = {
    children?: React.ReactNode,
@@ -13,7 +14,7 @@ type Props = {
    mainImg: string,
    album: [ {
       titleAlbum: string,
-      images: Array<string>
+      images: {[key: string]: string}
    } ]
 }
 
@@ -50,7 +51,7 @@ const Project: FC<Props> = ({ children, heightImage, text, mainImg, album }) => 
                      <h2>{titleAlbum}</h2>
                      <div id={`album${albumId}`}
                           className={`${style.images} ${extenderAlbum !== albumId ? style.images_limit : ''}`}>
-                        {images.map((img, id) => (
+                        {Object.values(images).map((img, id) => (
                            <div key={`${img}_${id}`} className={style.block_image}
                                 style={{
                                    top: extenderAlbum === albumId ? `${(heightImage + 20) * id}px` : `${10 * id}px`,
