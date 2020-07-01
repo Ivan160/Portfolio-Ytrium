@@ -1,55 +1,25 @@
 import React, { FC, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import style from "./Works.module.scss";
-import Work from './Work/Work';
-import { Intelecom } from "./Projects";
-import WorksTitle from "./WorksTitle/WorksTitle";
-import anime from "animejs";
-import intelecom from "../../../assets/images/works/intelecom.png";
-import Project from "./Projects/Project";
 import { useTranslation } from "react-i18next";
 import { NavContext } from "../../../contexts/NavContext";
-
-type data = Array<{
-   title: string,
-   description: string,
-   image: string,
-   myWork: string
-}>
+import anime from "animejs";
+import style from "./Works.module.scss";
+import Work from './Work/Work';
+import Project from "./Projects/Project";
+import intelecom from "../../../assets/images/works/intelecom.png";
 
 const Works: FC = () => {
-   const { isOpenNav } = useContext(NavContext);
    const { t } = useTranslation();
+   const { isOpenNav } = useContext(NavContext);
    const section = useRef<any>(null);
    const works = useRef<any>(null);
+   const fakeBlock = useRef<any>(null);
 
-   const workData: data = [
-      {
-         title: 'Intelecom',
-         description: 'internet service provider',
-         image: intelecom,
-         myWork: 'frontend/backend/design'
-      },
-      {
-         title: 'Intelecom1',
-         description: 'internet service provider',
-         image: intelecom,
-         myWork: 'frontend/backend/design'
-      },
-      {
-         title: 'Intelecom2',
-         description: 'internet service provider',
-         image: intelecom,
-         myWork: 'frontend/backend/design'
-      }
-   ];
-
+   const [ heightImage, setHeightImage ] = useState<number>(450);
    const [ activeProject, setActiveProject ] = useState<string>('');
    const [ isScroll, setScroll ] = useState<boolean>(false);
-   const [ position, setPosition ] = useState<number>(0);
-   const [ worksTitle, setWorksTitle ] = useState<boolean>(false);
+   const [ position, setPosition ] = useState<number>(-1);
 
    const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
-
    useEffect(() => {
       document.addEventListener('keydown', esc);
       return () => document.removeEventListener('keydown', esc);
@@ -73,17 +43,16 @@ const Works: FC = () => {
       else if ((event.deltaY < 0 || event.keyCode === 38) && position - 1 >= 0) setPosition(position - 1);
    }, [ position ]);
 
-   let mTouchStart = 0;
-   const touchStart = (event: any) => mTouchStart = event.changedTouches[0].clientY;
-
-   const touchEnd = (event: any) => {
+   const [ mTouchStart, setMTouchStart ] = useState(0);
+   const touchStart = useCallback((event: any) => setMTouchStart(event.changedTouches[0].clientY), []);
+   const touchEnd = useCallback((event: any) => {
       const mTouchEnd = event.changedTouches[0].clientY;
       const distY = mTouchEnd - mTouchStart;
       if (Math.abs(distY) >= 50) {
          if ((distY > 0) && position - 1 >= 0) setPosition(position - 1);
          else if ((distY < 0) && position + 1 < workData.length) setPosition(position + 1);
       }
-   };
+   }, [ mTouchStart, position ]);
 
    useEffect(() => {
       if (activeProject || isScroll) {
@@ -103,7 +72,7 @@ const Works: FC = () => {
          document.removeEventListener('touchstart', touchStart, false);
          document.removeEventListener('touchend', touchEnd, false);
       };
-   }, [ activeProject, isScroll, mouseWheelAndKey ]);
+   }, [ activeProject, isScroll, mouseWheelAndKey, touchStart, touchEnd ]);
 
    useEffect(() => {
       const timeout = setTimeout(() => setScroll(false), 1000);
@@ -118,11 +87,48 @@ const Works: FC = () => {
       return () => clearTimeout(timeout)
    }, [ activeProject ]);
 
+   const onResize = useCallback(() => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth <= 480) setHeightImage(135);
+      else if (screenWidth <= 780) setHeightImage(225);
+      else if (screenWidth <= 992) setHeightImage(360);
+      else setHeightImage(450);
+   }, []);
+
+   useEffect(() => {
+      onResize();
+      window.addEventListener('resize', onResize);
+      return () => window.removeEventListener('resize', onResize);
+   }, [ onResize ]);
+
+   useEffect(() => {
+      anime({
+         targets: fakeBlock.current,
+         height: [ '100vh', '0vh' ],
+         duration: 1300,
+         easing: 'easeInOutQuart'
+      });
+      const timeout = setTimeout(() => setPosition(0), 350);
+      return () => clearTimeout(timeout)
+   }, []);
+
+   type data = Array<{
+      title: string,
+      description: string,
+      image: string,
+      myWork: string
+   }>
+   const workData: data = [
+      {
+         title: 'Intelecom',
+         description: 'internet service provider',
+         image: intelecom,
+         myWork: 'frontend/backend/design'
+      }
+   ];
+
    return (
       <section ref={section} className={`${style.works} ${activeProject ? style.active_project : style.active_work}`}>
-
-         {worksTitle && <WorksTitle/>}
-
          <ul className={style.dots_list}>
             {workData.map(({ title }, id) => (
                <li key={`{${title}_${id}`} className={id === position ? style.active_dot : style.dot}
@@ -130,28 +136,26 @@ const Works: FC = () => {
             ))}
          </ul>
          <span onClick={() => setActiveProject('')} className={style.btn_close}
-               style={{right: `calc(5% + ${isOpenNav ? '62px' : '0'})`}}/>
-
+               style={{ right: `calc(5% + ${isOpenNav ? 62 : 0}px)` }}/>
+         <div ref={fakeBlock} className={style.fake_block}/>
          <div ref={works} className={style.work}>
             <Work setActiveProject={setActiveProject} activeProject={activeProject}
                   slidePosition={position} data={workData}/>
          </div>
 
          <div className={style.project_details}>
-            {activeProject === 'Intelecom' && <Project text={{
+            {activeProject === 'Intelecom' && <Project heightImage={heightImage} text={{
                title: t('works.intelecom.title'),
                company: t('works.intelecom.company'),
                subtitle: t('works.intelecom.subtitle'),
                task: t('works.intelecom.task')
             }} mainImg={intelecom} album={[
-               {titleAlbum: 'Dashboard', images: [ intelecom, intelecom, intelecom ]}
+               { titleAlbum: 'Dashboard', images: [ intelecom, intelecom, intelecom ] }
             ]}>
                <p>Frontend: <strong>React</strong> + <strong>Redux</strong></p>
                <p>Backend: <strong>Express.js</strong></p>
                <p>Database: <strong>MongoDB</strong> + <strong>mongoose</strong></p>
             </Project>}
-            {activeProject === 'Intelecom1' && <Intelecom/>}
-            {activeProject === 'Intelecom2' && <Intelecom/>}
          </div>
       </section>
    );

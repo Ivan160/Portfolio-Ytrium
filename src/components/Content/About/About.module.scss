@@ -4,6 +4,7 @@
   padding: 10vh 6.5vw;
   @media screen and (max-width: 780px) {
     @include containerMin;
+    padding-bottom: 0;
   }
 
   .greeting_text {
@@ -101,11 +102,12 @@
     overflow: hidden;
     z-index: 1;
     @media screen and (max-width: 780px) {
+      position: static;
       max-height: initial;
-      top: initial;
-      right: 50%;
-      bottom: $indentBot;
-      transform: translate(50%, 0);
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      transform: translate(0%, -15%);
     }
 
     img {
@@ -113,8 +115,9 @@
       width: auto;
       opacity: 0;
       @media screen and (max-width: 780px) {
-        width: 80vw;
         height: auto;
+        max-width: 80vw;
+        max-height: 80vh;
         margin: 0 auto;
       }
     }

@@ -14,7 +14,7 @@ const App: FC = () => {
    const contentRadius: number = 40;
    const menuWidth: number = 250;
    const minScreen: number = 780;
-   const smallNav: number = 65;
+   //const smallNav: number = 65;
 
    const resize = useRef<HTMLSpanElement>(null);
    const content = useRef<HTMLDivElement>(null);
@@ -53,36 +53,37 @@ const App: FC = () => {
    }, [ isHold, presentPosition ]);
 
    const mouseMove = useCallback((event: MouseEvent) => {
-      const windowHeight: number = window.innerHeight;
-      const heightNav: number = windowHeight / 2.5;
+      //const windowHeight: number = window.innerHeight;
+      //const heightNav: number = windowHeight / 2.5;
       const mouseMoveX: number = event.pageX;
-      const mouseMoveY: number = event.pageY;
+      //const mouseMoveY: number = event.pageY;
       if (mouseMoveX >= 0 && mouseMoveX <= menuWidth && !isMinScreen) {
          // @ts-ignore
          resize.current.style.transform = `translate(${mouseMoveX}px, -50%)`
          if (mouseMoveX > navWidth + 50) setPresentPosition(menuWidth);
          else if (mouseMoveX < navWidth - 20) setPresentPosition(0);
          else setPresentPosition(navWidth);
-      } else if (mouseMoveY >= windowHeight - heightNav && mouseMoveY <= windowHeight - smallNav && isMinScreen) {
-         const h: number = +(event.pageY - (windowHeight - heightNav));
-         navbar.current.style.transform = `translateY(${h}px)`;
-         if (mouseMoveY <= windowHeight - (smallNav + 50)) setPresentPosition(0);
-         else setPresentPosition(heightNav - smallNav);
       }
+      // else if (mouseMoveY >= windowHeight - heightNav && mouseMoveY <= windowHeight - smallNav && isMinScreen) {
+      //    const h: number = +(event.pageY - (windowHeight - heightNav));
+      //    navbar.current.style.transform = `translateY(${h}px)`;
+      //    if (mouseMoveY <= windowHeight - (smallNav + 50)) setPresentPosition(0);
+      //    else setPresentPosition(heightNav - smallNav);
+      // }
    }, [ isMinScreen ]);
 
    const mouseDown = useCallback((event: any) => {
-      //event.preventDefault();
       if (event.target === resize.current && !isMinScreen) {
          document.body.style.cursor = 'ew-resize';
          setSpanPosition(spanPosition - 1);
          setHold(true);
          setPresentPosition(spanPosition);
          document.addEventListener('mousemove', mouseMove);
-      } else if (isMinScreen && event.target.id === 'navbar') {
-         setHold(true);
-         document.addEventListener('mousemove', mouseMove);
       }
+      // else if (isMinScreen && event.target.id === 'navbar') {
+      //    setHold(true);
+      //    document.addEventListener('mousemove', mouseMove);
+      // }
    }, [ spanPosition, mouseMove, isMinScreen ]);
 
    const mouseUp = useCallback(() => {
@@ -103,9 +104,10 @@ const App: FC = () => {
                setTranslate(0);
             }
             setPresentPosition(0);
-         } else if (isMinScreen) {
-            navbar.current.style.transform = `translateY(${presentPosition}px)`;
          }
+         // else if (isMinScreen) {
+         //    navbar.current.style.transform = `translateY(${presentPosition}px)`;
+         // }
       }
    }, [ presentPosition, isHold, mouseMove ]);
 
@@ -136,6 +138,7 @@ const App: FC = () => {
    }, []);
 
    useEffect(() => {
+      resizeWindow();
       window.addEventListener('resize', resizeWindow);
       return () => window.removeEventListener('resize', resizeWindow);
    }, [ resizeWindow ]);

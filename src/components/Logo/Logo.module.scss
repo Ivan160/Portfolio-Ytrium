@@ -10,7 +10,9 @@
   opacity: 0;
   z-index: 90;
   @media screen and (max-width: 780px) {
-    width: 6em;
+    width: auto;
+    left: 2%;
+    top: 2%;
   }
 
   @keyframes fillLogo {
@@ -33,7 +35,7 @@
     fill: #ffffff;
     cursor: pointer;
     @media screen and (max-width: 780px) {
-      width: 3em;
+      width: 2em;
     }
 
     path {
@@ -51,6 +53,9 @@
     visibility: hidden;
     opacity: 0;
     transition: .5s;
+    @media screen and (max-width: 780px) {
+      display: none;
+    }
   }
 }
 

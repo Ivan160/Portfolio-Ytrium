@@ -4,7 +4,7 @@ import { NavContext } from "../../../contexts/NavContext";
 import anime from "animejs";
 import LogoBg from "./LogoBg/LogoBg";
 import TextSkills from "./TextSkills/TextSkills";
-import Chat from "./Chat/Chat";
+//import Chat from "./Chat/Chat";
 import style from "./Home.module.scss";
 
 const Home: FC = () => {
@@ -95,9 +95,9 @@ const Home: FC = () => {
                <TextSkills/>
             </div>
 
-            <div className={style.path_to_chat}>
-               <Chat/>
-            </div>
+            {/*<div className={style.path_to_chat}>*/}
+            {/*   <Chat/>*/}
+            {/*</div>*/}
          </div>
 
          <div className={style.right}>

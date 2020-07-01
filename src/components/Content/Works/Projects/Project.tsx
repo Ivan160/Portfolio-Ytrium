@@ -1,8 +1,9 @@
-import React, { FC, useEffect, useState, useCallback } from "react";
+import React, { FC, useEffect, useState } from "react";
 import style from "./Project.module.scss";
 
 type Props = {
    children?: React.ReactNode,
+   heightImage: number,
    text: {
       company: string,
       title: string,
@@ -10,36 +11,20 @@ type Props = {
       task: string,
    },
    mainImg: string,
-   album: [{
+   album: [ {
       titleAlbum: string,
       images: Array<string>
-   }]
+   } ]
 }
 
-const Project: FC<Props> = ({ children, text, mainImg, album }) => {
-   const [ extender, setExtender ] = useState<number>(0);
-   const [ heightImage, setHeightImage ] = useState<number>(450);
-
+const Project: FC<Props> = ({ children, heightImage, text, mainImg, album }) => {
+   const [ extenderAlbum, setExtenderAlbum ] = useState<number>(0);
    useEffect(() => {
-      if (extender) {
-         const album: any = document.getElementById(`album${extender}`);
+      if (extenderAlbum) {
+         const album: any = document.getElementById(`album${extenderAlbum}`);
          album.style.height = `${(album.children.length - 1) * (heightImage + 20)}px`
       }
-   }, [ extender, heightImage ]);
-   
-   const onResize = useCallback(() => {
-      const screenWidth = window.innerWidth;
-      if (screenWidth <= 480) setHeightImage(135);
-      else if (screenWidth <= 780) setHeightImage(225);
-      else if (screenWidth <= 992) setHeightImage(360);
-      else setHeightImage(450);
-   }, []);
-
-   useEffect(() => {
-      onResize();
-      window.addEventListener('resize', onResize);
-      return () => window.removeEventListener('resize', onResize);
-   }, [ onResize ]);
+   }, [ extenderAlbum, heightImage ]);
 
    return (
       <div className={style.project}>
@@ -58,24 +43,24 @@ const Project: FC<Props> = ({ children, text, mainImg, album }) => {
             </div>
          </div>
          {
-            album.map(({titleAlbum, images}, id) => {
+            album.map(({ titleAlbum, images }, id) => {
                const albumId = id + 1;
                return (
-                  <div  key={`${albumId}`} className={style.album}>
+                  <div key={`${albumId}`} className={style.album}>
                      <h2>{titleAlbum}</h2>
                      <div id={`album${albumId}`}
-                          className={`${style.images} ${extender !== albumId ? style.images_limit : ''}`}>
+                          className={`${style.images} ${extenderAlbum !== albumId ? style.images_limit : ''}`}>
                         {images.map((img, id) => (
                            <div key={`${img}_${id}`} className={style.block_image}
                                 style={{
-                                   top: extender === albumId ? `${(heightImage + 20) * id}px` : `${10 * id}px`,
+                                   top: extenderAlbum === albumId ? `${(heightImage + 20) * id}px` : `${10 * id}px`,
                                    zIndex: 50 - id
                                 }}>
                               <img src={img} alt="/"/>
                            </div>
                         ))}
                         <span className={style.extender}
-                              onClick={() => extender === albumId ? setExtender(0) : setExtender(albumId)}/>
+                              onClick={() => extenderAlbum === albumId ? setExtenderAlbum(0) : setExtenderAlbum(albumId)}/>
                      </div>
                   </div>
                )

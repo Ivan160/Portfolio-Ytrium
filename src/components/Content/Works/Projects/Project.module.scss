@@ -2,10 +2,8 @@
 
 .project {
   position: relative;
-  min-height: 100vh;
   box-sizing: border-box;
   @media screen and (max-width: 780px) {
-    padding-bottom: $indentBot;
     width: 100%;
   }
 
@@ -18,7 +16,7 @@
     box-sizing: border-box;
     @media screen and (max-width: 780px) {
       min-height: initial;
-      font-size: .85rem;
+      //font-size: .85rem;
     }
 
     .text_zone {
@@ -45,6 +43,9 @@
         font-family: $fontBold;
         font-size: 3em;
         margin-bottom: .1em;
+        @media screen and (max-width: 780px) {
+          font-size: 2.5em;
+        }
       }
 
       .subtitle {

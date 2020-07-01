@@ -45,9 +45,13 @@
 :root {
   font-size: calc(0.4em + 1vw);
   @media screen and (max-width: 780px) {
-    font-size: calc(0.5em + 1.6vw);
+    font-size: calc(0.6em + 1vw);
   }
 }
+
+//@media screen and (max-width: 992px) {height: 360px + 50px !important}
+//@media screen and (max-width: 780px) {height: 225px + 50px !important}
+//@media screen and (max-width: 480px) {height: 135px + 50px !important}
 
 @media screen and (min-width: 1920px) {
   :root {

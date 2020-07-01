@@ -2,11 +2,11 @@
 
 .navbar {
   position: fixed;
+  top: 0;
+  left: 0;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  left: 0;
-  top: 0;
   width: $navWidth + $contentRadius + $menuWidth;
   height: 100vh;
   padding: $navWidth / 3 $navWidth / 4;
@@ -15,44 +15,45 @@
   z-index: 5;
 
   @media screen and (max-width: 780px) {
-    width: 100vw;
-    height: 40vh;
-    bottom: 0;
     top: auto;
-    justify-content: flex-start;
-    padding: 1.5vh 20%;
-    border-radius: 40px 40px 0 0;
+    bottom: 0;
+    flex-direction: row;
+    justify-content: center;
+    width: 100vw;
+    height: auto;
+    padding: 10px 5px;
+    border-radius: 20px 20px 0 0;
     box-shadow: 0 0 2.5px 0 rgba(0, 0, 0, 0.7);
     z-index: 20;
-    transform: translateY(calc(100% - 65px));
-    transition: transform .2s;
-
-    &:before {
-      content: '';
-      position: absolute;
-      top: .75vh;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 25%;
-      height: 2px;
-      border-radius: 1.5px;
-      background-color: rgba(255, 255, 255, .8);
-      z-index: 90;
-    }
-  }
-
-  @media screen and (max-width: 480px) {
-    padding: 1.5vh 10%;
+    //transform: translateY(calc(100% - 65px));
+    //transition: transform .2s;
+    //&:before {
+    //  content: '';
+    //  position: absolute;
+    //  top: .75vh;
+    //  left: 50%;
+    //  transform: translateX(-50%);
+    //  width: 25%;
+    //  height: 2px;
+    //  border-radius: 1.5px;
+    //  background-color: rgba(255, 255, 255, .8);
+    //  z-index: 90;
+    //}
   }
 
   .menu {
-    flex-grow: 2;
+    flex-grow: 4;
     display: flex;
     align-items: flex-end;
     @media screen and (max-width: 780px) {
       flex-grow: initial;
       justify-content: center;
-      height: 65px;
+      width: 80%;
+      padding: 0 10%;
+      box-sizing: border-box;
+    }
+    @media screen and (max-width: 480px) {
+      padding: 0 2%;
     }
 
     .link_list {
@@ -62,15 +63,15 @@
       padding: 0;
       @media screen and (max-width: 780px) {
         flex-direction: row;
-        align-items: flex-end;
-        justify-content: space-between;
+        align-items: center;
+        justify-content: space-around;
         width: 100%;
       }
 
       li {
         margin: 1.5vh 0;
         @media screen and (max-width: 780px) {
-          margin: 0 2vw;
+          margin: 0 1vw;
         }
 
         a {
@@ -90,9 +91,8 @@
             transition-property: stroke, filter, fill;
             transition-duration: .3s;
             fill: transparent;
-
             @media screen and (max-width: 780px) {
-              margin: 14px 0;
+              margin: 0;
               width: 20px;
             }
           }
@@ -107,12 +107,12 @@
             letter-spacing: 0.06em;
             transform: translateX(-20px);
             transition: color .2s;
-
             @media screen and (max-width: 780px) {
-              width: auto !important;
-              opacity: 1 !important;
-              font-size: 12px;
-              transform: translateX(0) !important;
+              //width: auto !important;
+              //opacity: 1 !important;
+              //font-size: 12px;
+              //transform: translateX(0) !important;
+              display: none;
             }
           }
         }
@@ -223,15 +223,15 @@
   }
 
   .add_block_menu {
-    flex-grow: 1;
+    flex-grow: 3;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    margin-top: 15%;
+    margin-top: 10%;
     @media screen and (max-width: 780px) {
       flex-grow: initial;
-      margin-top: 6vh;
-      justify-content: initial;
+      margin: 0;
+      justify-content: center;
     }
 
     .chat {
@@ -272,6 +272,7 @@
         text-decoration: underline;
         font-size: $navWidth / 4.7;
         letter-spacing: 0.02em;
+        transition: opacity .3s, visibility .3s;
         @media screen and (max-width: 780px) {
           margin-left: 7vw;
         }
@@ -282,8 +283,9 @@
       display: flex;
       flex-direction: row;
       align-items: center;
+      margin: auto 0;
       @media screen and (max-width: 780px) {
-        margin: 5vh 0;
+        display: none;
       }
 
       a {
@@ -321,7 +323,7 @@
           transition: .5s;
         }
 
-        span{
+        span {
           position: absolute;
           top: 0;
           left: 50%;
@@ -391,7 +393,6 @@
   }
 
   .language_selection {
-
     &:hover {
       .language_hidden {
         visibility: visible;
@@ -422,6 +423,6 @@
 
   .link_chat {
     opacity: 1;
-    visibility: hidden;
+    visibility: visible;
   }
 }

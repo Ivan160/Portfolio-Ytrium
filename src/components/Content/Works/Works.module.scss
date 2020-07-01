@@ -25,7 +25,8 @@
     z-index: 1;
     transition: opacity .3s, visibility .3s;
     @media screen and (max-width: 780px) {
-      width: $minWidthBtn*1.5
+      width: $minWidthBtn*1.5;
+      right: 2%;
     }
 
     li {
@@ -33,9 +34,6 @@
       margin: $heightBtn*3 0;
       cursor: pointer;
       transition: width .3s ease-in, background .3s;
-      @media screen and (max-width: 780px) {
-        margin: $minHeightBtn*3 0;
-      }
     }
 
     .dot {
@@ -62,7 +60,8 @@
     z-index: 90;
     @media screen and (max-width: 780px) {
       width: $minWidthBtn*2;
-      height: $minHeightBtn*2;
+      height: $minWidthBtn*2;
+      right: 2% !important;
     }
 
     &:before {
@@ -94,7 +93,6 @@
     }
 
     &:hover {
-
       &:before, &:after {
         width: $widthBtn*0.75;
         @media screen and (max-width: 780px) {
@@ -102,6 +100,12 @@
         }
       }
     }
+  }
+
+  .fake_block {
+    height: 100vh;
+    width: 100%;
+    background-color: $backgContent;
   }
 
   .work {
@@ -136,6 +140,12 @@
   .work {
     height: 0;
     transition: height .5s .5s;
+  }
+
+  .project_details {
+    @media screen and (max-width: 780px) {
+      padding-bottom: $indentBot;
+    }
   }
 }
 
