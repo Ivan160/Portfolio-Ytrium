@@ -7,6 +7,13 @@ import Work from './Work/Work';
 import Project from "./Projects/Project";
 
 import intelecom from "../../../assets/images/works/intelecom.png";
+import relaxBg from "../../../assets/images/works/relax/relax.png";
+import fitnessBg from "../../../assets/images/works/fitness/fitness.png";
+import dGloBg from "../../../assets/images/works/dGlo/dGlo.png";
+import busBg from "../../../assets/images/works/busservice/bus.png";
+import bioBgWork from "../../../assets/images/works/bio/bioWork.png";
+import bioBgProject from "../../../assets/images/works/bio/bioProject.png";
+
 import * as int from '../../../assets/images/works/intelecom';
 import * as fit from '../../../assets/images/works/fitness';
 import * as bio from '../../../assets/images/works/bio';
@@ -22,14 +29,9 @@ const Works: FC = () => {
 
    const [ heightImage, setHeightImage ] = useState<number>(450);
    const [ activeProject, setActiveProject ] = useState<string>('');
-   const [ isScroll, setScroll ] = useState<boolean>(false);
    const [ position, setPosition ] = useState<number>(0);
-
-   const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
-   useEffect(() => {
-      document.addEventListener('keydown', esc);
-      return () => document.removeEventListener('keydown', esc);
-   }, [ esc ]);
+   const [ isScroll, setScroll ] = useState<boolean>(false);
+   const [ mTouchStart, setMTouchStart ] = useState(0);
 
    useMemo(() => {
       if (!works.current) return;
@@ -48,8 +50,6 @@ const Works: FC = () => {
       if ((event.deltaY > 0 || event.keyCode === 40) && position + 1 < workData.length) setPosition(position + 1);
       else if ((event.deltaY < 0 || event.keyCode === 38) && position - 1 >= 0) setPosition(position - 1);
    }, [ position ]);
-
-   const [ mTouchStart, setMTouchStart ] = useState(0);
    const touchStart = useCallback((event: any) => setMTouchStart(event.changedTouches[0].clientY), []);
    const touchEnd = useCallback((event: any) => {
       const mTouchEnd = event.changedTouches[0].clientY;
@@ -60,12 +60,23 @@ const Works: FC = () => {
       }
    }, [ mTouchStart, position ]);
 
+   const onResize = useCallback(() => {
+      const screenWidth = window.innerWidth;
+      if (screenWidth <= 480) setHeightImage(135);
+      else if (screenWidth <= 780) setHeightImage(225);
+      else if (screenWidth <= 992) setHeightImage(360);
+      else setHeightImage(450);
+   }, []);
+   const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
+
    useEffect(() => {
+      let timeout: NodeJS.Timeout;
       if (activeProject || isScroll) {
          document.removeEventListener('wheel', mouseWheelAndKey, false);
          document.removeEventListener('keyup', mouseWheelAndKey, false);
          document.removeEventListener('touchstart', touchStart, false);
          document.removeEventListener('touchend', touchEnd, false);
+         if (isScroll) timeout = setTimeout(() => setScroll(false), 1000);
       } else {
          document.addEventListener('wheel', mouseWheelAndKey, false);
          document.addEventListener('keyup', mouseWheelAndKey, false);
@@ -73,6 +84,7 @@ const Works: FC = () => {
          document.addEventListener('touchend', touchEnd, false);
       }
       return () => {
+         clearTimeout(timeout);
          document.removeEventListener('wheel', mouseWheelAndKey, false);
          document.removeEventListener('keyup', mouseWheelAndKey, false);
          document.removeEventListener('touchstart', touchStart, false);
@@ -81,32 +93,13 @@ const Works: FC = () => {
    }, [ activeProject, isScroll, mouseWheelAndKey, touchStart, touchEnd ]);
 
    useEffect(() => {
-      const timeout = setTimeout(() => setScroll(false), 1000);
-      return () => clearTimeout(timeout)
-   }, [ isScroll ]);
-
-   useEffect(() => {
       let timeout: NodeJS.Timeout;
       section.current && (section.current.scrollTop = 0)
       if (activeProject && works.current) timeout = setTimeout(() => works.current.style.overflow = 'hidden', 500);
       else works.current.style.overflow = 'initial';
       return () => clearTimeout(timeout)
    }, [ activeProject ]);
-
-   const onResize = useCallback(() => {
-      const screenWidth = window.innerWidth;
-      if (screenWidth <= 480) setHeightImage(135);
-      else if (screenWidth <= 780) setHeightImage(225);
-      else if (screenWidth <= 992) setHeightImage(360);
-      else setHeightImage(450);
-   }, []);
-
-   useEffect(() => {
-      onResize();
-      window.addEventListener('resize', onResize);
-      return () => window.removeEventListener('resize', onResize);
-   }, [ onResize ]);
-
+   
    useEffect(() => {
       anime({
          targets: section.current,
@@ -114,9 +107,14 @@ const Works: FC = () => {
          duration: 1300,
          easing: 'easeInOutQuart'
       });
-      // const timeout = setTimeout(() => setPosition(0), 350);
-      // return () => clearTimeout(timeout)
-   }, []);
+      onResize();
+      window.addEventListener('resize', onResize);
+      document.addEventListener('keydown', esc);
+      return () => {
+         window.removeEventListener('resize', onResize);
+         document.removeEventListener('keydown', esc);
+      }
+   }, [ onResize, esc ]);
 
    type workData = {
       title: string;
@@ -134,31 +132,31 @@ const Works: FC = () => {
       {
          title: 'Fitness',
          description: 'Fitness',
-         image: fit.fit1,
+         image: fitnessBg,
          myWork: 'frontend/backend/design'
       },
       {
          title: 'Bio',
          description: 'Bio',
-         image: bio.bio1,
+         image: bioBgWork,
          myWork: 'frontend/backend/design'
       },
       {
          title: '3DGlo',
          description: '3DGlo',
-         image: dGlo.dGlo1,
+         image: dGloBg,
          myWork: 'frontend/backend/design'
       },
       {
          title: 'Relax Live',
          description: 'Relax Live',
-         image: rel.rel1,
+         image: relaxBg,
          myWork: 'frontend/backend/design'
       },
       {
          title: 'Tire fitting',
          description: 'Tire fitting',
-         image: bus.bus1,
+         image: busBg,
          myWork: 'frontend/backend/design'
       }
    ];
@@ -166,7 +164,8 @@ const Works: FC = () => {
    type projectData = {
       text: { title: string; company: string; subtitle: string; task: string },
       mainImg: string;
-      album: { titleAlbum: string; images: { [key: string]: string } }[];
+      translateX?: number;
+      album: { [key: string]: string[] };
    }[];
    const projectData: projectData = [
       {
@@ -177,7 +176,8 @@ const Works: FC = () => {
             task: t('works.intelecom.task')
          },
          mainImg: intelecom,
-         album: [ { titleAlbum: 'Dashboard', images: int } ]
+         translateX: 50,
+         album: int
       },
       {
          text: {
@@ -186,8 +186,9 @@ const Works: FC = () => {
             subtitle: t('works.intelecom.subtitle'),
             task: t('works.intelecom.task')
          },
-         mainImg: intelecom,
-         album: [ { titleAlbum: 'Dashboard', images: fit } ]
+         mainImg: fitnessBg,
+         translateX: 20,
+         album: fit
       },
       {
          text: {
@@ -196,8 +197,8 @@ const Works: FC = () => {
             subtitle: t('works.intelecom.subtitle'),
             task: t('works.intelecom.task')
          },
-         mainImg: intelecom,
-         album: [ { titleAlbum: 'Dashboard', images: bio } ]
+         mainImg: bioBgProject,
+         album: bio
       },
       {
          text: {
@@ -206,8 +207,9 @@ const Works: FC = () => {
             subtitle: t('works.intelecom.subtitle'),
             task: t('works.intelecom.task')
          },
-         mainImg: intelecom,
-         album: [ { titleAlbum: 'Dashboard', images: dGlo } ]
+         mainImg: dGloBg,
+         translateX: 49,
+         album: dGlo
       },
       {
          text: {
@@ -216,8 +218,9 @@ const Works: FC = () => {
             subtitle: t('works.intelecom.subtitle'),
             task: t('works.intelecom.task')
          },
-         mainImg: intelecom,
-         album: [ { titleAlbum: 'Dashboard', images: rel } ]
+         mainImg: relaxBg,
+         translateX: 45,
+         album: rel
       },
       {
          text: {
@@ -226,8 +229,8 @@ const Works: FC = () => {
             subtitle: t('works.intelecom.subtitle'),
             task: t('works.intelecom.task')
          },
-         mainImg: intelecom,
-         album: [ { titleAlbum: 'Dashboard', images: bus } ]
+         mainImg: busBg,
+         album: bus
       }
    ];
 

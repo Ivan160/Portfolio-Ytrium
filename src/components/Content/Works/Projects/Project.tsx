@@ -7,7 +7,8 @@ type Props = {
    data: {
       text: { title: string; company: string; subtitle: string; task: string },
       mainImg: string;
-      album: { titleAlbum: string; images: { [key: string]: string } }[];
+      translateX?: number;
+      album: { [key: string]: string[] };
    }[]
 };
 
@@ -28,7 +29,7 @@ const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
    return (
       <>
          {
-            data.map(({ text, mainImg, album }, projectId) => (
+            data.map(({ text, mainImg, translateX = 0, album }, projectId) => (
                <div key={`${text.title}_${projectId}`} className={style.project}
                     style={{ display: activeProject === text.title ? 'block' : 'none' }}>
                   <div className={style.greeting_zone}>
@@ -39,17 +40,18 @@ const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
                         <p className={style.task}>{text.task}</p>
                      </div>
                      <div className={style.main_image}>
-                        <img src={mainImg} alt='/'/>
+                        <img src={mainImg} alt='/' style={{transform: `translateX(${translateX}%)`}}/>
                      </div>
                   </div>
                   {
-                     album.map(({ titleAlbum, images }, id) => {
-                        const albumId = `${text.title}_${titleAlbum}_${id + 1}`;
+                     Object.keys(album).map((key, id) => {
+                        const images = album[key];
+                        const albumId = `${text.title}_${key}_${id + 1}`;
                         return (
                            <div key={albumId} className={style.album}>
-                              <h2>{titleAlbum}</h2>
+                              <h2>{key}</h2>
                               <div className={`${style.images} ${extenderAlbum !== albumId ? style.images_limit : ''}`}>
-                                 {Object.values(images).map((img, id) => (
+                                 {images.map((img, id) => (
                                     <div key={`${img}_${id}`} className={style.block_image}
                                          style={{
                                             top: extenderAlbum === albumId ? `${(heightImage + 20) * id}px` : `${10 * id}px`,
@@ -58,7 +60,7 @@ const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
                                        <img src={img} alt="/"/>
                                     </div>
                                  ))}
-                                 <span className={style.extender} onClick={(e) => onClick(e, albumId)}/>
+                                 {images.length > 1 && <span className={style.extender} onClick={(e) => onClick(e, albumId)}/>}
                               </div>
                            </div>
                         )
