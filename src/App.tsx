@@ -23,33 +23,9 @@ const App: FC = () => {
    const [ isMinScreen, setMinScreen ] = useState<boolean>(false);
    const [ margin, setMargin ] = useState<number>(navWidth);
    const [ translate, setTranslate ] = useState<number>(0);
-
    const [ isHold, setHold ] = useState<boolean>(false);
-
    const [ spanPosition, setSpanPosition ] = useState<number>(navWidth);
    const [ presentPosition, setPresentPosition ] = useState<number>(0);
-
-   useEffect(() => {
-      anime({
-         targets: presentation.current,
-         width: {
-            value: `${presentPosition}px`,
-            delay: isHold ? 0 : 1000,
-            duration: 600
-         },
-         opacity: isHold ? 1 : [
-            {
-               value: 1,
-               duration: 180
-            },
-            {
-               value: 0,
-               duration: 180
-            }
-         ],
-         easing: 'easeOutQuart'
-      });
-   }, [ isHold, presentPosition ]);
 
    const mouseMove = useCallback((event: MouseEvent) => {
       //const windowHeight: number = window.innerHeight;
@@ -110,18 +86,6 @@ const App: FC = () => {
       }
    }, [ presentPosition, isHold, mouseMove ]);
 
-   useEffect(() => {
-      document.body.addEventListener('mousedown', mouseDown);
-      return () => document.body.removeEventListener('mousedown', mouseDown);
-   }, [ mouseDown ]);
-
-   useEffect(() => {
-      document.body.addEventListener('mouseup', mouseUp);
-      return () => document.body.removeEventListener('mouseup', mouseUp);
-   }, [ mouseUp ]);
-
-   window.onselectstart = () => false;
-
    const resizeWindow = useCallback(() => {
       if (window.innerWidth <= minScreen) {
          setMinScreen(true);
@@ -139,8 +103,25 @@ const App: FC = () => {
    useEffect(() => {
       resizeWindow();
       window.addEventListener('resize', resizeWindow);
-      return () => window.removeEventListener('resize', resizeWindow);
-   }, [ resizeWindow ]);
+      document.body.addEventListener('mousedown', mouseDown);
+      document.body.addEventListener('mouseup', mouseUp);
+      return () => {
+         window.removeEventListener('resize', resizeWindow);
+         document.body.removeEventListener('mousedown', mouseDown);
+         document.body.removeEventListener('mouseup', mouseUp);
+      }
+   }, [ mouseDown, mouseUp, resizeWindow ]);
+
+   window.onselectstart = () => false;
+
+   useEffect(() => {
+      anime({
+         targets: presentation.current,
+         width: { value: `${presentPosition}px`, delay: isHold ? 0 : 1000, duration: 600 },
+         opacity: isHold ? 1 : [ { value: 1, duration: 180 }, { value: 0, duration: 180 } ],
+         easing: 'easeOutQuart'
+      });
+   }, [ isHold, presentPosition ]);
 
    useEffect(() => {
       document.body.style.cursor = 'default';
