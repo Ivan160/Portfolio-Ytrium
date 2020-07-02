@@ -5,7 +5,7 @@ type Props = {
    heightImage: number,
    activeProject: string,
    data: {
-      text: { title: string; company: string; subtitle: string; task: string },
+      text: { title: string; company: string; subtitle: string; addText: string },
       mainImg: string;
       translateX?: number;
       album: { [key: string]: string[] };
@@ -37,7 +37,7 @@ const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
                         <p className={style.company}>- {text.company}</p>
                         <h1 className={style.title}>{text.title}</h1>
                         <h3 className={style.subtitle}>{text.subtitle}</h3>
-                        <p className={style.task}>{text.task}</p>
+                        <div className={style.addText} dangerouslySetInnerHTML={{__html: text.addText}}/>
                      </div>
                      <div className={style.main_image}>
                         <img src={mainImg} alt='/' style={{transform: `translateX(${translateX}%)`}}/>

@@ -125,44 +125,44 @@ const Works: FC = () => {
    const workData: workData = [
       {
          title: 'Intelecom',
-         description: 'internet service provider',
+         description: t('works.intelecom.company'),
          image: intelecom,
-         myWork: 'frontend/backend/design'
-      },
-      {
-         title: 'Fitness',
-         description: 'Fitness',
-         image: fitnessBg,
-         myWork: 'frontend/backend/design'
-      },
-      {
-         title: 'Bio',
-         description: 'Bio',
-         image: bioBgWork,
-         myWork: 'frontend/backend/design'
-      },
-      {
-         title: '3DGlo',
-         description: '3DGlo',
-         image: dGloBg,
-         myWork: 'frontend/backend/design'
+         myWork: t('works.intelecom.subtitle'),
       },
       {
          title: 'Relax Live',
-         description: 'Relax Live',
+         description: t('works.relax.company'),
          image: relaxBg,
-         myWork: 'frontend/backend/design'
+         myWork: t('works.relax.subtitle'),
       },
       {
          title: 'Tire fitting',
-         description: 'Tire fitting',
+         description: t('works.bus.company'),
          image: busBg,
-         myWork: 'frontend/backend/design'
+         myWork: t('works.bus.subtitle')
+      },
+      {
+         title: 'Fitness',
+         description: t('works.fitness.company'),
+         image: fitnessBg,
+         myWork: t('works.fitness.subtitle')
+      },
+      {
+         title: 'Bio',
+         description: t('works.bio.company'),
+         image: bioBgWork,
+         myWork: t('works.bio.subtitle')
+      },
+      {
+         title: '3DGlo',
+         description: t('works.dGlo.company'),
+         image: dGloBg,
+         myWork: t('works.dGlo.subtitle')
       }
    ];
 
    type projectData = {
-      text: { title: string; company: string; subtitle: string; task: string },
+      text: { title: string; company: string; subtitle: string; addText: string },
       mainImg: string;
       translateX?: number;
       album: { [key: string]: string[] };
@@ -170,10 +170,10 @@ const Works: FC = () => {
    const projectData: projectData = [
       {
          text: {
-            title: t('works.intelecom.title'),
+            title: 'Intelecom',
             company: t('works.intelecom.company'),
             subtitle: t('works.intelecom.subtitle'),
-            task: t('works.intelecom.task')
+            addText: t('works.intelecom.addText')
          },
          mainImg: intelecom,
          translateX: 50,
@@ -181,42 +181,10 @@ const Works: FC = () => {
       },
       {
          text: {
-            title: 'Fitness',
-            company: t('works.intelecom.company'),
-            subtitle: t('works.intelecom.subtitle'),
-            task: t('works.intelecom.task')
-         },
-         mainImg: fitnessBg,
-         translateX: 20,
-         album: fit
-      },
-      {
-         text: {
-            title: 'Bio',
-            company: t('works.intelecom.company'),
-            subtitle: t('works.intelecom.subtitle'),
-            task: t('works.intelecom.task')
-         },
-         mainImg: bioBgProject,
-         album: bio
-      },
-      {
-         text: {
-            title: '3DGlo',
-            company: t('works.intelecom.company'),
-            subtitle: t('works.intelecom.subtitle'),
-            task: t('works.intelecom.task')
-         },
-         mainImg: dGloBg,
-         translateX: 49,
-         album: dGlo
-      },
-      {
-         text: {
             title: 'Relax Live',
-            company: t('works.intelecom.company'),
-            subtitle: t('works.intelecom.subtitle'),
-            task: t('works.intelecom.task')
+            company: t('works.relax.company'),
+            subtitle: t('works.relax.subtitle'),
+            addText: t('works.relax.addText')
          },
          mainImg: relaxBg,
          translateX: 45,
@@ -225,12 +193,44 @@ const Works: FC = () => {
       {
          text: {
             title: 'Tire fitting',
-            company: t('works.intelecom.company'),
-            subtitle: t('works.intelecom.subtitle'),
-            task: t('works.intelecom.task')
+            company: t('works.bus.company'),
+            subtitle: t('works.bus.subtitle'),
+            addText: t('works.bus.addText')
          },
          mainImg: busBg,
          album: bus
+      },
+      {
+         text: {
+            title: 'Fitness',
+            company: t('works.fitness.company'),
+            subtitle: t('works.fitness.subtitle'),
+            addText: t('works.fitness.addText')
+         },
+         mainImg: fitnessBg,
+         translateX: 20,
+         album: fit
+      },
+      {
+         text: {
+            title: 'Bio',
+            company: t('works.bio.company'),
+            subtitle: t('works.bio.subtitle'),
+            addText: t('works.bio.addText')
+         },
+         mainImg: bioBgProject,
+         album: bio
+      },
+      {
+         text: {
+            title: '3DGlo',
+            company: t('works.dGlo.company'),
+            subtitle: t('works.dGlo.subtitle'),
+            addText: t('works.dGlo.addText')
+         },
+         mainImg: dGloBg,
+         translateX: 49,
+         album: dGlo
       }
    ];
 
