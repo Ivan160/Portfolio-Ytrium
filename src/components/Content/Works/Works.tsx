@@ -118,13 +118,13 @@ const Works: FC = () => {
       // return () => clearTimeout(timeout)
    }, []);
 
-   type data = Array<{
-      title: string,
-      description: string,
-      image: string,
+   type workData = {
+      title: string;
+      description: string;
+      image: string;
       myWork: string
-   }>
-   const workData: data = [
+   }[]
+   const workData: workData = [
       {
          title: 'Intelecom',
          description: 'internet service provider',
@@ -163,6 +163,74 @@ const Works: FC = () => {
       }
    ];
 
+   type projectData = {
+      text: { title: string; company: string; subtitle: string; task: string },
+      mainImg: string;
+      album: { titleAlbum: string; images: { [key: string]: string } }[];
+   }[];
+   const projectData: projectData = [
+      {
+         text: {
+            title: t('works.intelecom.title'),
+            company: t('works.intelecom.company'),
+            subtitle: t('works.intelecom.subtitle'),
+            task: t('works.intelecom.task')
+         },
+         mainImg: intelecom,
+         album: [ { titleAlbum: 'Dashboard', images: int } ]
+      },
+      {
+         text: {
+            title: 'Fitness',
+            company: t('works.intelecom.company'),
+            subtitle: t('works.intelecom.subtitle'),
+            task: t('works.intelecom.task')
+         },
+         mainImg: intelecom,
+         album: [ { titleAlbum: 'Dashboard', images: fit } ]
+      },
+      {
+         text: {
+            title: 'Bio',
+            company: t('works.intelecom.company'),
+            subtitle: t('works.intelecom.subtitle'),
+            task: t('works.intelecom.task')
+         },
+         mainImg: intelecom,
+         album: [ { titleAlbum: 'Dashboard', images: bio } ]
+      },
+      {
+         text: {
+            title: '3DGlo',
+            company: t('works.intelecom.company'),
+            subtitle: t('works.intelecom.subtitle'),
+            task: t('works.intelecom.task')
+         },
+         mainImg: intelecom,
+         album: [ { titleAlbum: 'Dashboard', images: dGlo } ]
+      },
+      {
+         text: {
+            title: 'Relax Live',
+            company: t('works.intelecom.company'),
+            subtitle: t('works.intelecom.subtitle'),
+            task: t('works.intelecom.task')
+         },
+         mainImg: intelecom,
+         album: [ { titleAlbum: 'Dashboard', images: rel } ]
+      },
+      {
+         text: {
+            title: 'Tire fitting',
+            company: t('works.intelecom.company'),
+            subtitle: t('works.intelecom.subtitle'),
+            task: t('works.intelecom.task')
+         },
+         mainImg: intelecom,
+         album: [ { titleAlbum: 'Dashboard', images: bus } ]
+      }
+   ];
+
    return (
       <section ref={section} className={`${style.works} ${activeProject ? style.active_project : style.active_work}`}>
          <ul className={style.dots_list}>
@@ -173,64 +241,14 @@ const Works: FC = () => {
          </ul>
          <span onClick={() => setActiveProject('')} className={style.btn_close}
                style={{ right: `calc(5% + ${isOpenNav ? 62 : 0}px)` }}/>
+
          <div ref={works} className={style.work}>
             <Work setActiveProject={setActiveProject} activeProject={activeProject}
                   slidePosition={position} data={workData}/>
          </div>
 
          <div className={style.project_details}>
-            {activeProject === 'Intelecom' && <Project heightImage={heightImage} text={{
-               title: t('works.intelecom.title'),
-               company: t('works.intelecom.company'),
-               subtitle: t('works.intelecom.subtitle'),
-               task: t('works.intelecom.task')
-            }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: int }
-            ]}>
-               <p>Frontend: <strong>React</strong> + <strong>Redux</strong></p>
-               <p>Backend: <strong>Express.js</strong></p>
-               <p>Database: <strong>MongoDB</strong> + <strong>mongoose</strong></p>
-            </Project>}
-            {activeProject === 'Fitness' && <Project heightImage={heightImage} text={{
-               title: t('works.intelecom.title'),
-               company: t('works.intelecom.company'),
-               subtitle: t('works.intelecom.subtitle'),
-               task: t('works.intelecom.task')
-            }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: fit }
-            ]}/>}
-            {activeProject === 'Bio' && <Project heightImage={heightImage} text={{
-               title: t('works.intelecom.title'),
-               company: t('works.intelecom.company'),
-               subtitle: t('works.intelecom.subtitle'),
-               task: t('works.intelecom.task')
-            }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: bio }
-            ]}/>}
-            {activeProject === '3DGlo' && <Project heightImage={heightImage} text={{
-               title: t('works.intelecom.title'),
-               company: t('works.intelecom.company'),
-               subtitle: t('works.intelecom.subtitle'),
-               task: t('works.intelecom.task')
-            }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: dGlo }
-            ]}/>}
-            {activeProject === 'Relax Live' && <Project heightImage={heightImage} text={{
-               title: t('works.intelecom.title'),
-               company: t('works.intelecom.company'),
-               subtitle: t('works.intelecom.subtitle'),
-               task: t('works.intelecom.task')
-            }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: rel }
-            ]}/>}
-            {activeProject === 'Tire fitting' && <Project heightImage={heightImage} text={{
-               title: t('works.intelecom.title'),
-               company: t('works.intelecom.company'),
-               subtitle: t('works.intelecom.subtitle'),
-               task: t('works.intelecom.task')
-            }} mainImg={intelecom} album={[
-               { titleAlbum: 'Dashboard', images: bus }
-            ]}/>}
+            <Project activeProject={activeProject} heightImage={heightImage} data={projectData}/>
          </div>
       </section>
    );
