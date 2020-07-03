@@ -1,9 +1,9 @@
 import React, { useCallback, useContext, useEffect, useRef } from "react";
+import { useTranslation } from "react-i18next";
+import { NavContext } from "../../../contexts/NavContext";
+import anime from "animejs";
 import style from "./Skills.module.scss";
 import SkillsList from "./SkillsList";
-import { useTranslation } from "react-i18next";
-import anime from "animejs";
-import { NavContext } from "../../../contexts/NavContext";
 
 const Skills = () => {
    const { isMinScreen } = useContext(NavContext);
@@ -16,6 +16,8 @@ const Skills = () => {
    const leftBlock = useRef<any>(null);
 
    useEffect(() => {
+      document.title = 'Ytrium | Skills';
+
       anime({
          targets: title.current,
          opacity: 1,

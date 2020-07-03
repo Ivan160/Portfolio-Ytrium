@@ -53,6 +53,18 @@ const Navbar: FC<Props> = ({ refLink }) => {
       })
    }, [ isOpenMenu, isMinScreen ]);
 
+   const animationHome: () => void = () => {
+      anime({
+         targets: '#home_path_one',
+         translateY: [
+            { value: '-3px' },
+            { value: 0 }
+         ],
+         duration: 650,
+         easing: 'easeInOutQuad',
+      });
+   };
+
    const animationAbout: () => void = () => {
       anime({
          targets: '#about_path_one',
@@ -94,8 +106,8 @@ const Navbar: FC<Props> = ({ refLink }) => {
          <div className={style.menu}>
             <ul className={style.link_list}>
                <li className={style.home}>
-                  <NavLink exact to='/' activeClassName={style.active_link}>
-                     <svg viewBox='0 0 32 29' xmlns='http://www.w3.org/2000/svg'>
+                  <NavLink exact to='/' activeClassName={style.active_link} onMouseEnter={animationHome}>
+                     <svg viewBox='0 -3 32 32' xmlns='http://www.w3.org/2000/svg'>
                         <path id='home_path_one'
                               d='M1.14267 13.7103H1.13458L5.29691 10.0318L8.10494 7.55002L8.56732 7.14156L16 0.5728L23.4328 7.14156L23.8952 7.55002L26.7032 10.0318L30.8655 13.7103H30.8646'/>
                         <path

@@ -36,7 +36,7 @@ const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }
                         </div>
 
                         <div className={style.image}>
-                           <img src={image} alt="/"/>
+                           <img src={image} alt="/" onLoad={() => console.log(id)}/>
                         </div>
 
                         <div className={style.myWork}>

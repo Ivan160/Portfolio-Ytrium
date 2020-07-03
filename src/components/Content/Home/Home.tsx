@@ -3,24 +3,26 @@ import { useTranslation } from 'react-i18next';
 import { NavContext } from "../../../contexts/NavContext";
 import anime from "animejs";
 import LogoBg from "./LogoBg/LogoBg";
-import TextSkills from "./TextSkills/TextSkills";
+//import TextSkills from "./TextSkills/TextSkills";
 //import Chat from "./Chat/Chat";
 import style from "./Home.module.scss";
+import LinkPage from "../../Common/LinkPage";
 
 const Home: FC = () => {
    const { isOpenNav } = useContext(NavContext);
    const { t } = useTranslation();
 
-   const title = useRef(null);
+   const title = useRef<any>(null);
 
    useEffect(() => {
+      document.title = 'Ytrium | Home';
+
       anime({
          targets: title.current,
          opacity: 1,
          easing: 'linear',
          duration: 1
       });
-      // @ts-ignore
       const letters: Array<any> = title.current.children;
       for (let i = 0; i < letters.length; i++) letters[i].innerHTML = letters[i].textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
@@ -47,44 +49,20 @@ const Home: FC = () => {
          delay: anime.stagger(100)
       });
 
-      // anime({
-      //    targets: '#svg_background_right path',
-      //    opacity: [
-      //       {
-      //          value: .85,
-      //          delay: anime.stagger(100, { start: 2250 })
-      //       },
-      //       {
-      //          value: .4,
-      //          delay: anime.stagger(50, { start: 100 })
-      //       }
-      //    ],
-      //    duration: 2500,
-      //    loop: true,
-      //    direction: 'reverse'
-      // });
-      //
-      // anime({
-      //    targets: '#svg_background_left path',
-      //    opacity: [
-      //       {
-      //          value: .8,
-      //          delay: anime.stagger(100, { start: 2250 })
-      //       },
-      //       {
-      //          value: .4,
-      //          delay: anime.stagger(50, { start: 100 })
-      //       }
-      //    ],
-      //    duration: 2500,
-      //    loop: true,
-      //    direction: 'reverse'
-      // });
+      anime({
+         targets: '#svg_background_right path',
+         opacity: [
+            { value: .85, delay: anime.stagger(100, { start: 2250 }) },
+            { value: .4, delay: anime.stagger(50, { start: 100 }) }
+         ],
+         duration: 2500,
+         loop: true,
+         direction: 'reverse'
+      });
    }, []);
 
    return (
       <section className={style.home_page} style={{ borderRadius: `${isOpenNav === 0 ? 0 : `40px 0 0 40px`}` }}>
-
          <div className={style.left}>
             <div className={style.text_zone}>
                <div ref={title} className={style.greeting_text}>
@@ -92,12 +70,13 @@ const Home: FC = () => {
                   <p>{t('home.greeting.two')}</p>
                   <p>{t('home.greeting.three')}</p>
                </div>
-               <TextSkills/>
+               {/*<TextSkills/>*/}
             </div>
 
             {/*<div className={style.path_to_chat}>*/}
             {/*   <Chat/>*/}
             {/*</div>*/}
+            <LinkPage links={[ 'works', 'about' ]}/>
          </div>
 
          <div className={style.right}>
@@ -765,7 +744,6 @@ const Home: FC = () => {
                </linearGradient>
             </defs>
          </svg>
-
       </section>
    );
 };

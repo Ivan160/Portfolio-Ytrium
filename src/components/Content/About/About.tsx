@@ -1,8 +1,9 @@
 import React, { useEffect, useRef } from "react";
-import style from "./About.module.scss";
-import anime from "animejs";
 import { useTranslation } from "react-i18next";
+import anime from "animejs";
+import style from "./About.module.scss";
 import myPhoto from "../../../assets/images/about/myPhoto.jpg";
+import LinkPage from "../../Common/LinkPage";
 
 const About = () => {
    const { t } = useTranslation();
@@ -14,6 +15,7 @@ const About = () => {
    const textTwo = useRef(null);
 
    useEffect(() => {
+      document.title = 'Ytrium | About';
       anime({
          targets: title.current,
          opacity: 1,
@@ -39,16 +41,16 @@ const About = () => {
 
       anime({
          targets: line.current,
-         width: [0, '33%'],
+         width: [ 0, '33%' ],
          delay: 500,
          duration: 500,
          easing: 'linear'
       });
 
       anime({
-         targets: [textOne.current, textTwo.current],
-         opacity: {value: 1, duration: 300},
-         translateY: ['10%', 0],
+         targets: [ textOne.current, textTwo.current ],
+         opacity: { value: 1, duration: 300 },
+         translateY: [ '10%', 0 ],
          delay: 1000,
          duration: 400,
          easing: 'linear'
@@ -80,6 +82,8 @@ const About = () => {
          <div className={style.image}>
             <img ref={photo} src={myPhoto} alt=""/>
          </div>
+
+         <LinkPage links={[ 'works' ]}/>
       </section>
    );
 };

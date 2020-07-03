@@ -50,7 +50,9 @@ const Works: FC = () => {
       if ((event.deltaY > 0 || event.keyCode === 40) && position + 1 < workData.length) setPosition(position + 1);
       else if ((event.deltaY < 0 || event.keyCode === 38) && position - 1 >= 0) setPosition(position - 1);
    }, [ position ]);
+
    const touchStart = useCallback((event: any) => setMTouchStart(event.changedTouches[0].clientY), []);
+
    const touchEnd = useCallback((event: any) => {
       const mTouchEnd = event.changedTouches[0].clientY;
       const distY = mTouchEnd - mTouchStart;
@@ -99,15 +101,8 @@ const Works: FC = () => {
       else works.current.style.overflow = 'initial';
       return () => clearTimeout(timeout)
    }, [ activeProject ]);
-   
+
    useEffect(() => {
-      anime({
-         targets: section.current,
-         paddingTop: [ '100vh', '0vh' ],
-         duration: 1300,
-         easing: 'easeInOutQuart'
-      });
-      onResize();
       window.addEventListener('resize', onResize);
       document.addEventListener('keydown', esc);
       return () => {
@@ -115,6 +110,17 @@ const Works: FC = () => {
          document.removeEventListener('keydown', esc);
       }
    }, [ onResize, esc ]);
+
+   useEffect(() => {
+      document.title = 'Ytrium | Works';
+      anime({
+         targets: section.current,
+         paddingTop: [ '100vh', '0vh' ],
+         duration: 1300,
+         easing: 'easeInOutQuart'
+      });
+      onResize();
+   }, []);
 
    type workData = {
       title: string;

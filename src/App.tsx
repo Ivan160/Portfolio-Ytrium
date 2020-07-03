@@ -1,12 +1,19 @@
-import React, { FC, useCallback, useEffect, useRef, useState } from 'react';
+import React, { FC, useCallback, useEffect, useRef, useState, lazy, Suspense } from 'react';
 import { Switch, Route, Redirect } from "react-router-dom";
 import anime from 'animejs';
 import './App.scss';
 
 import Navbar from './components/Navbar/Navbar';
-import { Home, About, Works, Skills, Contact } from "./components/Content";
+//import { Home, About, Works, Skills, Contact } from "./components/Content";
 import Logo from "./components/Logo/Logo";
 import { NavContext } from './contexts/NavContext';
+import Preloader from "./components/Common/Preloader";
+
+const Home = lazy(() => import('./components/Content/Home/Home'));
+const About = lazy(() => import('./components/Content/About/About'));
+const Works = lazy(() => import('./components/Content/Works/Works'));
+const Skills = lazy(() => import('./components/Content/Skills/Skills'));
+const Contact = lazy(() => import('./components/Content/Contact/Contact'));
 
 const App: FC = () => {
    const navWidth: number = 62;
@@ -26,6 +33,7 @@ const App: FC = () => {
    const [ isHold, setHold ] = useState<boolean>(false);
    const [ spanPosition, setSpanPosition ] = useState<number>(navWidth);
    const [ presentPosition, setPresentPosition ] = useState<number>(0);
+   const [ isLoad, setLoad ] = useState<boolean>(true);
 
    const mouseMove = useCallback((event: MouseEvent) => {
       //const windowHeight: number = window.innerHeight;
@@ -100,19 +108,26 @@ const App: FC = () => {
       }
    }, []);
 
+   const load = useCallback(() => {
+      console.log(document.readyState);
+      //document.readyState === 'complete' && setLoad(false);
+   }, []);
+
    useEffect(() => {
-      resizeWindow();
-      window.addEventListener('resize', resizeWindow);
       document.body.addEventListener('mousedown', mouseDown);
       document.body.addEventListener('mouseup', mouseUp);
       return () => {
-         window.removeEventListener('resize', resizeWindow);
          document.body.removeEventListener('mousedown', mouseDown);
          document.body.removeEventListener('mouseup', mouseUp);
       }
-   }, [ mouseDown, mouseUp, resizeWindow ]);
+   }, [ mouseDown, mouseUp ]);
 
-   window.onselectstart = () => false;
+
+   useEffect(() => {
+      resizeWindow();
+      window.addEventListener('resize', resizeWindow);
+      return () => window.removeEventListener('resize', resizeWindow);
+   }, [ resizeWindow ]);
 
    useEffect(() => {
       anime({
@@ -129,38 +144,47 @@ const App: FC = () => {
       else if (window.innerWidth > minScreen) setMinScreen(false);
    }, []);
 
+   useEffect(() => {
+      document.addEventListener('readystatechange', load);
+      return () => document.removeEventListener('readystatechange', load);
+   }, [ load ]);
+
+   window.onselectstart = () => false;
+
    return (
-      <NavContext.Provider value={{
-         isMinScreen, isOpenMenu: translate, isOpenNav: margin
-      }}>
-         <Logo/>
-         <Navbar refLink={navbar}/>
-         {!isMinScreen && <div className="presentation" ref={presentation}/>}
-         {!isMinScreen &&
-         <span className={'resize'} ref={resize} style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
-         }
+      <NavContext.Provider value={{ isMinScreen, isOpenMenu: translate, isOpenNav: margin }}>
 
+         {!isLoad ? <Preloader/> : (
+            <>
+               <Logo/>
+               <Navbar refLink={navbar}/>
 
-            <div className={`content`} ref={content}
-                 style={{
-                    marginLeft: `${margin}px`,
-                    paddingRight: `${margin}px`,
-                    transform: `translateX(${translate}px)`,
-                    // width: `calc(100% - ${margin}px)`,
-                    // transform: `translateX(calc(${margin}px + ${translate}px))`,
-                    borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
-                 }}>
-               <Switch>
-                  <Route exact path="/" component={Home}/>
-                  <Route exact path="/about" component={About}/>
-                  <Route exact path="/works" component={Works}/>
-                  <Route exact path="/skills" component={Skills}/>
-                  <Route exact path="/contact" component={Contact}/>
-                  <Route path="*" render={() => (<Redirect to="/"/>)}/>
-               </Switch>
-            </div>
+               {!isMinScreen && (<>
+                     <div className="presentation" ref={presentation}/>
+                     <span className={'resize'} ref={resize}
+                           style={{ transform: `translate(${spanPosition}px, -50%)` }}/></>
+               )}
 
-
+               <div className={`content`} ref={content}
+                    style={{
+                       marginLeft: `${margin}px`,
+                       paddingRight: `${margin}px`,
+                       transform: `translateX(${translate}px)`,
+                       borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
+                    }}>
+                  <Suspense fallback={<Preloader/>}>
+                     <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/about" component={About}/>
+                        <Route exact path="/works" component={Works}/>
+                        <Route exact path="/skills" component={Skills}/>
+                        <Route exact path="/contact" component={Contact}/>
+                        <Route path="*" render={() => (<Redirect to="/"/>)}/>
+                     </Switch>
+                  </Suspense>
+               </div>
+            </>
+         )}
       </NavContext.Provider>
    );
 };
