@@ -3,14 +3,14 @@ import style from "./Work.module.scss";
 import { useTranslation } from "react-i18next";
 
 type Props = {
-   setActiveProject: (value: string) => void
-   activeProject: string
-   slidePosition: number
+   setActiveProject: (value: string) => void;
+   activeProject: string;
+   slidePosition: number;
    data: Array<{
-      title: string,
-      description: string,
-      image: string,
-      myWork: string
+      title: string;
+      description: string;
+      image: string;
+      myWork: string;
    }>
 }
 
@@ -36,7 +36,7 @@ const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }
                         </div>
 
                         <div className={style.image}>
-                           <img src={image} alt="/" onLoad={() => console.log(id)}/>
+                           <img src={image} alt="/"/>
                         </div>
 
                         <div className={style.myWork}>

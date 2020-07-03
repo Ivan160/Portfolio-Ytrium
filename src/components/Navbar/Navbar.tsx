@@ -183,7 +183,7 @@ const Navbar: FC<Props> = ({ refLink }) => {
             {/*   </Network>*/}
 
                <div className={style.networks}>
-                  <Network link='' text='LinkedIn' widthText={50} color='40,103,178' background='77, 113, 152'>
+                  <Network link='' text='LinkedIn' widthText={45} color='40,103,178' background='77, 113, 152'>
                      <svg className={style.in} viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
                         <path d="M8.94531 12.5H0V40H8.94531V12.5Z"/>
                         <path d="M33.3125 12.8203C33.2187 12.7891 33.125 12.7578 33.0312 12.7266C32.9141 12.6953 32.7891 12.6797 32.6719 12.6563C32.1953 12.5625 31.6797 12.4922 31.0703 12.4922C25.8516 12.4922 22.5469 16.2812 21.4609 17.75V12.5H12.5V40H21.4453V25C21.4453 25 28.2031 15.5859 31.0547 22.5C31.0547 28.6719 31.0547 40 31.0547 40H40V21.4453C40 17.2891 37.1562 13.8281 33.3125 12.8203Z"/>

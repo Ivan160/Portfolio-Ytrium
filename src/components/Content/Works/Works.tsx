@@ -69,6 +69,7 @@ const Works: FC = () => {
       else if (screenWidth <= 992) setHeightImage(360);
       else setHeightImage(450);
    }, []);
+
    const esc = useCallback((e: KeyboardEvent) => e.keyCode === 27 && setActiveProject(''), []);
 
    useEffect(() => {

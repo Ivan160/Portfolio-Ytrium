@@ -109,8 +109,8 @@ const App: FC = () => {
    }, []);
 
    const load = useCallback(() => {
-      console.log(document.readyState);
-      //document.readyState === 'complete' && setLoad(false);
+      const timeout = setTimeout(() => document.readyState === 'complete' && setLoad(false), 1000);
+      return () => clearTimeout(timeout);
    }, []);
 
    useEffect(() => {
@@ -121,7 +121,6 @@ const App: FC = () => {
          document.body.removeEventListener('mouseup', mouseUp);
       }
    }, [ mouseDown, mouseUp ]);
-
 
    useEffect(() => {
       resizeWindow();
@@ -152,9 +151,9 @@ const App: FC = () => {
    window.onselectstart = () => false;
 
    return (
-      <NavContext.Provider value={{ isMinScreen, isOpenMenu: translate, isOpenNav: margin }}>
+      <NavContext.Provider value={{ isMinScreen, isOpenMenu: translate, isOpenNav: margin, setLoad: setLoad }}>
 
-         {!isLoad ? <Preloader/> : (
+         {isLoad ? (<><Preloader/><div id='ff'><h1>1</h1><h2>2</h2><h3>3</h3><h4>4</h4></div></>) : (
             <>
                <Logo/>
                <Navbar refLink={navbar}/>
