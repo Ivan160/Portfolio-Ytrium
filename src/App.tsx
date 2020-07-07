@@ -30,6 +30,7 @@ const App: FC = () => {
    const [ translate, setTranslate ] = useState<number>(0);
    const [ spanPosition, setSpanPosition ] = useState<number>(navWidth);
    const [ presentPosition, setPresentPosition ] = useState<number>(0);
+   const [ isLoad, setLoad ] = useState<boolean>(true);
 
    const mouseMove = useCallback((event: MouseEvent) => {
       const mouseMoveX: number = event.pageX;
@@ -117,36 +118,47 @@ const App: FC = () => {
       window.innerWidth <= minScreen ? setMinScreen(true) : setMinScreen(false);
    }, []);
 
+   const load = useCallback(() => setTimeout(() => setLoad(false), 1000), []);
+   useEffect(() => {
+      window.addEventListener('load', load);
+      window.onselectstart = () => false;
+   }, [ load ]);
+
    return (
       <NavContext.Provider value={{ isMinScreen, isOpenMenu: translate, isOpenNav: margin }}>
-         <Logo/>
-         <Navbar refLink={navbar}/>
-
-         {!isMinScreen && (
+         {isLoad ? (<><Preloader/><div id='ff'><h1>1</h1><h2>2</h2><h3>3</h3><h4>4</h4></div></>) : (
             <>
-               <div className="presentation" ref={presentation}/>
-               <span className={'resize'} ref={resize} style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
+               <Logo/>
+               <Navbar refLink={navbar}/>
+
+               {!isMinScreen && (
+                  <>
+                     <div className="presentation" ref={presentation}/>
+                     <span className={'resize'} ref={resize}
+                           style={{ transform: `translate(${spanPosition}px, -50%)` }}/>
+                  </>
+               )}
+
+               <div className={`content`} ref={content}
+                    style={{
+                       marginLeft: `${margin}px`,
+                       paddingRight: `${margin}px`,
+                       transform: `translateX(${translate}px)`,
+                       borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
+                    }}>
+                  <Suspense fallback={<Preloader/>}>
+                     <Switch>
+                        <Route exact path="/" component={Home}/>
+                        <Route exact path="/about" component={About}/>
+                        <Route exact path="/works" component={Works}/>
+                        <Route exact path="/skills" component={Skills}/>
+                        <Route exact path="/contact" component={Contact}/>
+                        <Route path="*" render={() => (<Redirect to="/"/>)}/>
+                     </Switch>
+                  </Suspense>
+               </div>
             </>
          )}
-
-         <div className={`content`} ref={content}
-              style={{
-                 marginLeft: `${margin}px`,
-                 paddingRight: `${margin}px`,
-                 transform: `translateX(${translate}px)`,
-                 borderRadius: `${margin === 0 ? 0 : `${contentRadius}px 0 0 ${contentRadius}px`}`
-              }}>
-            <Suspense fallback={<Preloader/>}>
-               <Switch>
-                  <Route exact path="/" component={Home}/>
-                  <Route exact path="/about" component={About}/>
-                  <Route exact path="/works" component={Works}/>
-                  <Route exact path="/skills" component={Skills}/>
-                  <Route exact path="/contact" component={Contact}/>
-                  <Route path="*" render={() => (<Redirect to="/"/>)}/>
-               </Switch>
-            </Suspense>
-         </div>
       </NavContext.Provider>
    );
 };
