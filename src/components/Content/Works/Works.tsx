@@ -24,20 +24,19 @@ import * as bus from '../../../assets/images/works/busservice';
 const Works: FC = () => {
    const { t } = useTranslation();
    const { isOpenNav } = useContext(NavContext);
-   const section = useRef<any>(null);
-   const works = useRef<any>(null);
+   const section = useRef<HTMLTableSectionElement>(null);
+   const works = useRef<HTMLDivElement>(null);
 
    const [ heightImage, setHeightImage ] = useState<number>(450);
    const [ activeProject, setActiveProject ] = useState<string>('');
    const [ position, setPosition ] = useState<number>(0);
    const [ isScroll, setScroll ] = useState<boolean>(false);
-   const [ mTouchStart, setMTouchStart ] = useState(0);
+   const [ mTouchStart, setMTouchStart ] = useState<number>(0);
 
    useMemo(() => {
       if (!works.current) return;
       setScroll(true);
       const positionY = position * 100;
-
       anime({
          targets: works.current,
          translateY: `-${positionY}%`,
@@ -46,14 +45,14 @@ const Works: FC = () => {
       });
    }, [ position ])
 
-   const mouseWheelAndKey = useCallback((event: any) => {
+   const mouseWheelAndKey = useCallback((event: WheelEvent | KeyboardEvent | any) => {
       if ((event.deltaY > 0 || event.keyCode === 40) && position + 1 < workData.length) setPosition(position + 1);
       else if ((event.deltaY < 0 || event.keyCode === 38) && position - 1 >= 0) setPosition(position - 1);
    }, [ position ]);
 
-   const touchStart = useCallback((event: any) => setMTouchStart(event.changedTouches[0].clientY), []);
+   const touchStart = useCallback((event: TouchEvent) => setMTouchStart(event.changedTouches[0].clientY), []);
 
-   const touchEnd = useCallback((event: any) => {
+   const touchEnd = useCallback((event: TouchEvent) => {
       const mTouchEnd = event.changedTouches[0].clientY;
       const distY = mTouchEnd - mTouchStart;
       if (Math.abs(distY) >= 50) {
@@ -98,8 +97,9 @@ const Works: FC = () => {
    useEffect(() => {
       let timeout: NodeJS.Timeout;
       section.current && (section.current.scrollTop = 0)
-      if (activeProject && works.current) timeout = setTimeout(() => works.current.style.overflow = 'hidden', 500);
-      else works.current.style.overflow = 'initial';
+      const worksElem = works.current as HTMLDivElement;
+      if (activeProject && worksElem) timeout = setTimeout(() => worksElem.style.overflow = 'hidden', 500);
+      else worksElem.style.overflow = 'initial';
       return () => clearTimeout(timeout)
    }, [ activeProject ]);
 
@@ -113,7 +113,7 @@ const Works: FC = () => {
    }, [ onResize, esc ]);
 
    useEffect(() => {
-      document.title = 'Ytrium | Works';
+      document.title = 'Works | Ytrium';
       anime({
          targets: section.current,
          paddingTop: [ '100vh', '0vh' ],
@@ -128,7 +128,7 @@ const Works: FC = () => {
       description: string;
       image: string;
       myWork: string
-   }[]
+   }[];
    const workData: workData = [
       {
          title: 'Intelecom',
@@ -137,16 +137,16 @@ const Works: FC = () => {
          myWork: t('works.intelecom.subtitle'),
       },
       {
-         title: 'Relax Live',
-         description: t('works.relax.company'),
-         image: relaxBg,
-         myWork: t('works.relax.subtitle'),
-      },
-      {
          title: 'Tire fitting',
          description: t('works.bus.company'),
          image: busBg,
          myWork: t('works.bus.subtitle')
+      },
+      {
+         title: 'Relax Live',
+         description: t('works.relax.company'),
+         image: relaxBg,
+         myWork: t('works.relax.subtitle'),
       },
       {
          title: 'Fitness',
@@ -188,6 +188,16 @@ const Works: FC = () => {
       },
       {
          text: {
+            title: 'Tire fitting',
+            company: t('works.bus.company'),
+            subtitle: t('works.bus.subtitle'),
+            addText: t('works.bus.addText')
+         },
+         mainImg: busBg,
+         album: bus
+      },
+      {
+         text: {
             title: 'Relax Live',
             company: t('works.relax.company'),
             subtitle: t('works.relax.subtitle'),
@@ -196,16 +206,6 @@ const Works: FC = () => {
          mainImg: relaxBg,
          translateX: 45,
          album: rel
-      },
-      {
-         text: {
-            title: 'Tire fitting',
-            company: t('works.bus.company'),
-            subtitle: t('works.bus.subtitle'),
-            addText: t('works.bus.addText')
-         },
-         mainImg: busBg,
-         album: bus
       },
       {
          text: {

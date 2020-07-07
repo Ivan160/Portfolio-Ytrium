@@ -7,23 +7,29 @@ type Props = {
    widthText: number;
    text: string;
    link: string;
-   copy?: string
-   children: React.ReactNode
+   copy?: HTMLDivElement | null;
+   children: React.ReactNode;
 }
 
 const Network: FC<Props> = ({ link, copy, text, children, widthText, color, background }) => {
    const [ isHover, setHover ] = useState<boolean>(false);
-   const onClick = (e: any) => {
-      if (copy && e.target) {
+   const onClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+      const target = e.target as HTMLAnchorElement | any;
+      if (copy && target) {
          e.preventDefault();
-         navigator.clipboard.writeText(copy);
-         const elem = e.target.closest('a').lastElementChild;
+         const range = document.createRange();
+         range.selectNode(copy);
+         // @ts-ignore
+         window.getSelection().addRange(range);
+         document.execCommand('copy');
+         // @ts-ignore
+         window.getSelection().removeAllRanges();
+         const elem: HTMLAnchorElement = target.closest('a').lastElementChild;
          anime({
             targets: elem,
-            opacity: [
-               {value: .85, easing: 'linear', duration: 400},
-               {value: 0, easing: 'linear', delay: 250, duration: 400}
-            ]
+            opacity: [ { value: .85, }, { value: 0, delay: 250 } ],
+            duration: 400,
+            easing: 'linear'
          });
       }
    };
@@ -35,7 +41,7 @@ const Network: FC<Props> = ({ link, copy, text, children, widthText, color, back
          style={isHover ? { backgroundColor: `rgba(${background}, .25)`, color: `rgba(${color}, 1)` } : {}}>
          {children}
          <p style={isHover ? { width: widthText, marginLeft: '.6em', opacity: 1 } : {}}>{text}</p>
-         {copy && <span id={copy}>Copy</span>}
+         {copy && <span>Copy</span>}
       </a>
    );
 };

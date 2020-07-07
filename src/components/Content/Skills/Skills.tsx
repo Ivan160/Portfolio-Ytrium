@@ -8,23 +8,25 @@ import SkillsList from "./SkillsList";
 const Skills = () => {
    const { isMinScreen } = useContext(NavContext);
    const { t } = useTranslation();
-   const section = useRef<any>(null);
-   const box = useRef<any>(null);
-   const title = useRef<any>(null);
-   const text = useRef<any>(null);
-   const fakeBlock = useRef<any>(null);
-   const leftBlock = useRef<any>(null);
+   const section = useRef<HTMLTableSectionElement>(null);
+   const box = useRef<HTMLDivElement>(null);
+   const title = useRef<HTMLHeadingElement>(null);
+   const text = useRef<HTMLDivElement>(null);
+   const fakeBlock = useRef<HTMLDivElement>(null);
+   const leftBlock = useRef<HTMLDivElement>(null);
 
    useEffect(() => {
-      document.title = 'Ytrium | Skills';
+      document.title = 'Skills | Ytrium';
+      const textElem = text.current as HTMLDivElement;
+      const titleElem = title.current as HTMLHeadingElement | any;
 
       anime({
-         targets: title.current,
+         targets: titleElem,
          opacity: 1,
          easing: 'linear',
          duration: 1
       });
-      title.current.innerHTML = title.current.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+      titleElem.innerHTML = titleElem.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
          targets: '.letter',
          rotateY: [ -90, 0 ],
@@ -33,9 +35,9 @@ const Skills = () => {
          easing: 'linear'
       });
       anime({
-         targets: text.current,
+         targets: textElem,
          height: [
-            { value: [ 0, text.current.clientHeight ], duration: 1500, delay: 900, easing: 'easeInOutExpo' },
+            { value: [ 0, textElem.clientHeight ], duration: 1500, delay: 900, easing: 'easeInOutExpo' },
             { value: '100%', duration: 0, delay: 2500, easing: 'linear' },
          ],
          opacity: { value: '1', duration: 0, easing: 'linear' }
@@ -71,25 +73,28 @@ const Skills = () => {
    }, []);
 
    useEffect(() => {
+      const leftBlockElem = leftBlock.current as HTMLDivElement;
       if (isMinScreen) {
          anime({
-            targets: leftBlock.current,
+            targets: leftBlockElem,
             height: [ '100vh', '50vh' ],
             duration: 2000,
             delay: 1350,
             easing: 'easeInOutQuart'
          });
-      } else leftBlock.current.style.height = '100%';
+      } else leftBlockElem.style.height = '100%';
    }, [ isMinScreen ]);
 
-   const onScroll = useCallback((e: any) => {
-      if (!e.target && !box.current) return;
-      box.current.style.top = `${e.target.scrollTop}px`;
+   const onScroll = useCallback((e: Event) => {
+      const boxElem = box.current as HTMLDivElement;
+      const target = e.target as HTMLTableSectionElement;
+      if (target && box.current) boxElem.style.top = `${target.scrollTop}px`;
    }, []);
 
    useEffect(() => {
-      section.current.addEventListener('scroll', onScroll);
-      return () => section.current.removeEventListener('scroll', onScroll);
+      const sectionElem = section.current as HTMLTableSectionElement;
+      sectionElem.addEventListener('scroll', onScroll);
+      return () => sectionElem.removeEventListener('scroll', onScroll);
    }, [ onScroll ]);
 
    return (
@@ -129,11 +134,11 @@ const Skills = () => {
                   { text: 'HTML', load: 1 },
                   { text: 'CSS/SCSS', load: 1 },
                   { text: 'JavaScript', load: 1 },
-                  { text: 'TypeScript', load: .9 },
-                  { text: 'NodeJS', load: .6 },
+                  { text: 'TypeScript', load: .8 },
+                  { text: 'Node.js', load: .6 },
                   { text: 'ReactJS', load: .95 },
                   { text: 'JSX/TSX', load: 1 },
-                  { text: 'Jquery', load: .9 },
+                  { text: 'jQuery', load: .9 },
                   { text: 'ExpressJS', load: .8 },
                   { text: 'PHP', load: .4 },
                   { text: 'SQL', load: .9 },
@@ -147,9 +152,9 @@ const Skills = () => {
                   <p>{t('skills.listSoftwareDescript')}</p>
                </div>
                <SkillsList data={[
-                  { text: 'Figma', load: .7 },
-                  { text: 'Adobe photoshop', load: .7 },
-                  { text: 'Adobe illustrator', load: .8 },
+                  { text: 'Figma', load: .8 },
+                  { text: 'Adobe Photoshop', load: .7 },
+                  { text: 'Adobe Illustrator', load: .8 },
                   { text: '1С:Enterprise', load: .8 },
                   { text: 'MS Office', load: 1 }
                ]}/>

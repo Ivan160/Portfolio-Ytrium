@@ -17,7 +17,7 @@ const Input: FC<Props> = ({ name, label, component = 'input', methods }) => {
                 onBlur={handleBlur}
                 value={values[name]}>
          </Field>
-         <span id='span_border' style={{backgroundColor: `${touched[name] && errors[name] ? '#F80759' : '#36BA7C'}`}}/>
+         <span id='span_border' style={{ backgroundColor: `${touched[name] && errors[name] ? '#F80759' : '#36BA7C'}` }}/>
          <label id='label_field'>{touched[name] && errors[name] ? errors[name] : label}</label>
       </div>
    );

@@ -2,27 +2,29 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import anime from "animejs";
 import style from "./About.module.scss";
-import myPhoto from "../../../assets/images/about/myPhoto.jpg";
 import LinkPage from "../../Common/LinkPage";
+import myPhoto from "../../../assets/images/about/myPhoto.jpg";
 
 const About = () => {
    const { t } = useTranslation();
-   const photo = useRef<any>(null);
-   const title = useRef<any>(null);
-   const nameIs = useRef<any>(null);
-   const line = useRef<any>(null);
-   const textOne = useRef(null);
-   const textTwo = useRef(null);
+   const photo = useRef<HTMLImageElement>(null);
+   const title = useRef<HTMLHeadingElement>(null);
+   const nameIs = useRef<HTMLParagraphElement>(null);
+   const line = useRef<HTMLSpanElement>(null);
+   const textOne = useRef<HTMLHeadingElement>(null);
+   const textTwo = useRef<HTMLParagraphElement>(null);
 
    useEffect(() => {
-      document.title = 'Ytrium | About';
+      document.title = 'About | Ytrium';
+      const titleElem = title.current as HTMLHeadingElement | any;
+
       anime({
-         targets: title.current,
+         targets: titleElem,
          opacity: 1,
          easing: 'linear',
          duration: 1
       });
-      title.current.innerHTML = title.current.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
+      titleElem.innerHTML = titleElem.textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
          targets: '.letter',
          rotateY: [ -90, 0 ],
@@ -78,11 +80,9 @@ const About = () => {
                <p ref={textTwo}>&mdash;   {t('about.text.text')}</p>
             </div>
          </div>
-
          <div className={style.image}>
             <img ref={photo} src={myPhoto} alt=""/>
          </div>
-
          <LinkPage links={[ 'works' ]}/>
       </section>
    );

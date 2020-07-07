@@ -12,10 +12,11 @@ const Home: FC = () => {
    const { isOpenNav } = useContext(NavContext);
    const { t } = useTranslation();
 
-   const title = useRef<any>(null);
+   const title = useRef<HTMLHeadingElement>(null);
 
    useEffect(() => {
-      document.title = 'Ytrium | Home';
+      document.title = 'Home | Ytrium';
+      const titleElem = title.current as HTMLHeadingElement | any;
 
       anime({
          targets: title.current,
@@ -23,7 +24,7 @@ const Home: FC = () => {
          easing: 'linear',
          duration: 1
       });
-      const letters: Array<any> = title.current.children;
+      const letters: Array<any> = titleElem.children;
       for (let i = 0; i < letters.length; i++) letters[i].innerHTML = letters[i].textContent.replace(/\S/g, "<span class='letter'>$&</span>");
       anime({
          targets: '.letter',

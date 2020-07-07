@@ -2,10 +2,10 @@ import React, { FC, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 import anime from "animejs";
 
-type Props = { links: string[] }
+type Props = { links: string[] };
 
 const LinkPage: FC<Props> = ({ links }) => {
-   const linkBlock = useRef(null);
+   const linkBlock = useRef<HTMLDivElement>(null);
    useEffect(() => {
       anime({
          targets: linkBlock.current,

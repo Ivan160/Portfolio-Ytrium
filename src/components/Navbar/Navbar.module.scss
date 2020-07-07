@@ -21,7 +21,7 @@
     justify-content: center;
     width: 100vw;
     height: auto;
-    padding: 10px 5px;
+    padding: 14px 5px;
     border-radius: 20px 20px 0 0;
     box-shadow: 0 0 2.5px 0 rgba(0, 0, 0, 0.7);
     z-index: 20;
@@ -93,7 +93,7 @@
             fill: transparent;
             @media screen and (max-width: 780px) {
               margin: 0;
-              width: 20px;
+              width: 22px;
             }
           }
 
@@ -329,7 +329,7 @@
           left: 50%;
           transform: translate(-50%, -100%);
           color: $backgSilver;
-          font-size: .55rem;
+          font-size: .6rem;
           opacity: 0;
         }
       }

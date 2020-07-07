@@ -12,7 +12,7 @@ type Props = {
       image: string;
       myWork: string;
    }>
-}
+};
 
 const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }) => {
    const { t } = useTranslation();
@@ -23,25 +23,15 @@ const Work: FC<Props> = ({ setActiveProject, activeProject,slidePosition, data }
             data.map(({ title, description, image, myWork }, id) => {
                return (
                   <div key={`${title}_${id}`} className={style.work}>
-                     <div className={`${style.wrap} ${!activeProject ? style.open : style.close}`} onClick={() => setActiveProject(title)}>
+                     <div className={`${style.wrap} ${!activeProject ? style.open : style.close}`}
+                          onClick={() => setActiveProject(title)}>
                         <div className={style.more}>{t('works.more')}</div>
-
                         <div className={`${style.title_block} ${slidePosition === id ? style.active_block : ''}`}>
-                           <div className={style.title}>
-                              <h1>{title}</h1>
-                           </div>
-                           <div className={style.description}>
-                              <p>- {description}</p>
-                           </div>
+                           <div className={style.title}><h1>{title}</h1></div>
+                           <div className={style.description}><p>- {description}</p></div>
                         </div>
-
-                        <div className={style.image}>
-                           <img src={image} alt="/"/>
-                        </div>
-
-                        <div className={style.myWork}>
-                           <p>{myWork}</p>
-                        </div>
+                        <div className={style.image}><img src={image} alt="/"/></div>
+                        <div className={style.myWork}><p>{myWork}</p></div>
                      </div>
                   </div>
                );

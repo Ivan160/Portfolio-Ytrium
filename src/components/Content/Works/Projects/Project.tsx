@@ -9,7 +9,7 @@ type Props = {
       mainImg: string;
       translateX?: number;
       album: { [key: string]: string[] };
-   }[]
+   }[];
 };
 
 const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
@@ -37,10 +37,10 @@ const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
                         <p className={style.company}>- {text.company}</p>
                         <h1 className={style.title}>{text.title}</h1>
                         <h3 className={style.subtitle}>{text.subtitle}</h3>
-                        <div className={style.addText} dangerouslySetInnerHTML={{__html: text.addText}}/>
+                        <div className={style.addText} dangerouslySetInnerHTML={{ __html: text.addText }}/>
                      </div>
                      <div className={style.main_image}>
-                        <img src={mainImg} alt='/' style={{transform: `translateX(${translateX}%)`}}/>
+                        <img src={mainImg} alt='/' style={{ transform: `translateX(${translateX}%)` }}/>
                      </div>
                   </div>
                   {
@@ -60,7 +60,8 @@ const Project: FC<Props> = ({ activeProject, heightImage, data }) => {
                                        <img src={img} alt="/"/>
                                     </div>
                                  ))}
-                                 {images.length > 1 && <span className={style.extender} onClick={(e) => onClick(e, albumId)}/>}
+                                 {images.length > 1 && <span className={style.extender}
+                                       onClick={(e) => onClick(e, albumId)}/>}
                               </div>
                            </div>
                         )

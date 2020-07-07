@@ -16,7 +16,6 @@
     box-sizing: border-box;
     @media screen and (max-width: 780px) {
       min-height: initial;
-      //font-size: .85rem;
     }
 
     .text_zone {
@@ -38,6 +37,7 @@
         position: relative;
         min-height: initial;
         height: auto;
+        padding-top: $indentTop;
         //@include containerMin;
         width: 100%;
       }

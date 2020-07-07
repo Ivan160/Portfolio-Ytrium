@@ -59,7 +59,7 @@
     max-width: 100vh;
     overflow: hidden;
     @media screen and (max-width: 780px) {
-      margin-top: 3rem;
+      padding-top: 3rem;
     }
 
     .before_block {
@@ -99,7 +99,11 @@
         color: rgba(0, 0, 0, .8);
         font-size: .75rem;
         opacity: 0;
-        @media screen and (max-width: 780px) {color: $backgSilver}
+        z-index: 10;
+        @media screen and (max-width: 780px) {
+          color: $backgSilver;
+          font-size: 12px;
+        }
       }
     }
 

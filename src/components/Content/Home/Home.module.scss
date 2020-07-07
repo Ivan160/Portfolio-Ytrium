@@ -8,6 +8,7 @@
   @media screen and (max-width: 780px) {
     display: block;
     grid-template-columns: initial;
+    overflow: hidden !important;
   }
 
   .left {
@@ -95,5 +96,9 @@
     //transition-duration: .8s;
     g {opacity: 0;}
     path {opacity: 0.4;}
+    @media screen and (max-width: 780px) {
+      bottom: -3%;
+      top: auto;
+    }
   }
 }
